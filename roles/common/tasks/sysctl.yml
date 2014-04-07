@@ -1,0 +1,12 @@
+---
+- name: Install sysctl
+  apt: name=sysctl state=present
+  tags: sysctl
+
+- name: Configure sysctl
+  template: src=sysctl.conf.j2 dest=/etc/sysctl.conf
+  tags: sysctl
+
+- name: Start the sysctl
+  command: /usr/sbin/sysctl -p
+  tags: sysctl

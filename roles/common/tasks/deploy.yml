@@ -1,0 +1,26 @@
+---
+- name: add deploy user
+  user: name={{ deploy_user }} password={{ deploy_password }}
+  tags: deploy
+
+- name: Add authorized deploy key
+  authorized_key: user={{ deploy_user }} key="{{ lookup('file', deploy_public_key) }}"
+  tags: deploy
+ 
+- name: Remove sudo group rights
+  lineinfile: dest=/etc/sudoers regexp="^%sudo" state=absent
+  tags: deploy
+ 
+- name: Add deploy user to sudoers
+  # ALL = NOPASSWD: ALL
+  lineinfile: "dest=/etc/sudoers regexp={{deploy_user}} line='{{deploy_user}} ALL=(ALL) NOPASSWD: ALL' state=present"
+  tags: deploy
+
+- name: Create a .pip directory 
+  command: mkdir -p /home/{{deploy_user}}/.pip
+  tags: deploy
+
+- name: Copy a default pip configuration file
+  template: src=pip.conf.j2 dest=/home/{{deploy_user}}/.pip/pip.conf
+  tags: deploy
+

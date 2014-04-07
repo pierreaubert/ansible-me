@@ -1,0 +1,4 @@
+---
+locale: fr_FR.UTF-8
+timezone: Europe/Paris
+collectd_server: admin.7pi.local

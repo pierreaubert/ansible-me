@@ -1,0 +1,73 @@
+# logstash configuration
+
+# Define inputs
+input {
+
+  lumberjack {
+    port => 5043
+    ssl_certificate => "/etc/pki/tls/certs/logstash-forwarder.crt"
+    ssl_key => "/etc/pki/tls/private/logstash-forwarder.key"
+    type => "Lumberjack"
+  }
+
+  #collectd {
+  #}
+
+  syslog {
+    type => syslog
+    port => 5544
+  } 
+}
+
+filter {
+
+    if [type] == "linux-syslog" {
+      grok {
+          message => "%{SYSLOGLINE}"
+      }
+    }
+
+    if [type] == "fail2ban" {
+      grok {
+        message => "^%{TIMESTAMP_ISO8601:timestamp} fail2ban\.actions: %{WORD:level} \[%{WORD:program}\] %{WORD:action} %{IP:ip}"
+      }
+    }
+
+    if [type] == "nginx-error" {
+      grok {
+          message => "%{DATA} %{WORD:webserver} %{HOST:myhost}\-%{WORD:class}\: (?<timestamp>%{YEAR}[./-]%{MONTHNUM}[./-]%{MONTHDAY}[- ]%{TIME}) \[%{LOGLEVEL:severity}\] %{POSINT:pid}#%{NUMBER}: %{GREEDYDATA:errormessage}(?:, client: (?<client>%{IP}|%{HOSTNAME}))(?:, server: %{IPORHOST:server})(?:, request: %{QS:request})?(?:, host: %{QS:host})?(?:, referrer: \"%{URI:referrer})"
+      }
+    }
+
+    if [type] == "nginx-access" {
+      grok {
+        message => "%{IPORHOST:clientip} - %{IPORHOST:virtualhost} \[%{HTTPDATE:timestamp}\] \"%{WORD:verb} %{URIPATHPARAM:request} HTTP/%{NUMBER:httpversion}\" %{NUMBER:response} (?:%{NUMBER:bytes}|-) (?:\"(?:%{URI:referrer}|-)\";|%{QS:referrer}) %{QS:agent}"
+        # Below is the default log pattern, but we want a special one that catches the VHOST
+        #message => "%{COMBINEDAPACHELOG}"
+      }
+      # Add this back in someday... its not
+      # quite stable enough from what I see.
+      #geoip {
+      #  source => "clientip"
+      #}
+    }
+
+    if [type] == "rails" {
+      json {
+        source => "message"
+      }
+    }
+
+    if [type] == "postgresql" {
+      grok {
+        message => "%{DATESTAMP:timestamp} %{TZ} %{DATA:user_id} %{GREEDYDATA:connection_id} %{POSINT:pid}"  
+      }
+    }
+}
+
+# Define outputs
+output {
+    elasticsearch_http { 
+        host => "127.0.0.1" 
+    }
+}

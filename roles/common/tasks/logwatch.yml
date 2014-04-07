@@ -1,0 +1,12 @@
+---
+- name: install logwatch
+  apt: name=logwatch state=present
+
+- name: Configure logwatch file
+  template: src=logwatch.conf.j2 dest=/etc/logwatch/logwatch.conf
+  tags: logwatch
+
+- name: install logwatch
+  apt: name=logwatch state=present
+  tags: logwatch
+

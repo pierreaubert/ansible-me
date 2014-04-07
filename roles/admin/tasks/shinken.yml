@@ -1,0 +1,90 @@
+---
+- name: Install shinken
+  apt: name={{item}} state=installed
+  with_items:
+   - shinken
+  tags: shinken
+
+- name: Install shinken modules
+  apt: name={{item}} state=installed
+  with_items:
+   - shinken-common
+   - shinken
+   - shinken-module-arbiter-collectd
+   - shinken-module-arbiter-ws
+   - shinken-module-broker-graphite
+   - shinken-module-broker-livestatus
+   - shinken-module-broker-livestatus-sqlite
+   - shinken-module-broker-webui
+   - shinken-module-broker-webui-graphite
+   - shinken-module-broker-webui-sqlitedb
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == "trusty"
+  tags: shinken
+
+- name: Create directories for shinken
+  command: mkdir -p /var/run/shinken 
+  tags: shinken
+
+- name: Ensure SSL certificates have the correct directories
+  file: path=/etc/pki/tls/{{item}} owner=root group=root mode=0755 state=directory
+  with_items:
+    - certs
+    - private
+  tags: shinken
+
+- name: Ensure shinken has its SSL certificate
+  copy: src=shinken.crt dest=/etc/pki/tls/certs/shinken.crt owner=root group=root mode=0755
+  notify:
+    - restart shinken
+  tags: shinken
+
+- name: Ensure shinken has its SSL private key
+  copy: src=shinken.key dest=/etc/pki/tls/private/shinken.key owner=root group=root mode=0755
+  notify:
+    - restart shinken
+  tags: shinken
+
+- name: Ensure shinken boots on startup
+  shell: update-rc.d shinken defaults
+  notify:
+    - restart shinken  
+  tags: shinken
+
+- name: Configure shinken ini file for precise
+  template: src=shinken/{{item}} dest=/etc/shinken/
+  with_items:
+  - brokerd.ini      
+  - pollerd.ini      
+  - reactionnerd.ini 
+  - receiverd.ini    
+  - schedulerd.ini
+  tags: shinken
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == "precise"
+  notify: 
+    - restart shinken
+
+- name: Configure shinken cfg file for precise
+  template: src=shinken/{{item}} dest=/etc/shinken/
+  with_items:
+  - commands.cfg         
+  - discovery_rules.cfg  
+  - resource.cfg         
+  - timeperiods.cfg
+  - contactgroups.cfg    
+  - discovery_runs.cfg   
+  - servicegroups.cfg
+  - dependencies.cfg     
+  - escalations.cfg      
+  - shinken-specific.cfg
+  - discovery.cfg        
+  - nagios.cfg           
+  - templates.cfg
+  tags: shinken
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == "precise"
+  notify: 
+    - restart shinken
+
+- name: Start the shinken service
+  service: name=shinken state=started enabled=true
+  tags: shinken
+

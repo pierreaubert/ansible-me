@@ -1,0 +1,25 @@
+- name: VM specific | remove apt cache 
+  shell: "[ ! -h /var/cache/apt/archives ] && rm -fr /var/cache/apt/archives || true"
+  tags: apt
+
+- name: VM specific | create the directory associated with this distribution
+  shell: "[ ! -d /vagrant_data/cache/apt/archives-`lsb_release -s -c` ] && mkdir /vagrant_data/cache/apt/archives-`lsb_release -s -c` || true"
+  tags: apt
+
+- name: VM specific | link apt cache to vagrant shared dir
+  shell: "[ ! -h /var/cache/apt/archives ] && ln -s /vagrant_data/cache/apt/archives-`lsb_release -s -c` /var/cache/apt/archives || true"
+  tags: apt
+
+- name: Add user in group vboxsf if you use virtualbox
+  lineinfile: "dest=/etc/group regexp='^vboxsf' line='vboxsf:x:1000:{{deploy_user}}' state=present"
+  tags: deploy
+
+- name: Check if /vagrant is mounted
+  shell: "[ -s /vagrant ] && mount -t vboxsf /vagrant /vagrant || true"
+  tags: deploy
+
+- name: Check if /vagrant_data is mounted
+  shell: "[ -s /vagrant_data ] && mount -t vboxsf /vagrant_data /vagrant_data || true"
+  tags: deploy
+ 
+

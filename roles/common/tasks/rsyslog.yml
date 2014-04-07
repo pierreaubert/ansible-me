@@ -1,0 +1,10 @@
+---
+- name: Configure rsyslog
+  template: src=rsyslog.conf.j2 dest=/etc/rsyslog.conf
+  template: src=rsyslog.d/20-ufw.conf.j2 dest=/etc/rsyslog.d/20-ufw.conf
+  template: src=rsyslog.d/21-cloudinit.conf.j2 dest=/etc/rsyslog.d/21-cloudinit.conf
+  template: src=rsyslog.d/50-default.conf.j2 dest=/etc/rsyslog.d/50-default.conf
+  template: src=rsyslog.d/99-client.conf.j2 dest=/etc/rsyslog.d/99-client.conf
+  tags: rsyslog
+  notify: restart rsyslog
+

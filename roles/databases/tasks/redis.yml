@@ -1,0 +1,7 @@
+---
+- name: Install Redis and related packages
+  apt: pkg={{ item }} state=installed
+  with_items:
+    - redis-server
+  tags: redis
+

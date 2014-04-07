@@ -1,0 +1,48 @@
+---
+- name: install collectd
+  apt: pkg={{item}} state=installed
+  with_items:
+  - collectd
+  tags: collectd
+
+- name: Configure main collectd
+  template: src=collectd/collectd.conf.j2 dest=/etc/collectd/collectd.conf
+  tags: collectd
+  notify: restart collectd
+
+- name: Configure collection for collectd
+  template: src=collectd/collection.conf.j2 dest=/etc/collectd/collection.conf
+  tags: collectd
+  notify: restart collectd
+
+- name: Configure individual collectd plugin
+  template: src=collectd/collectd.conf.d/{{item}}.conf.j2 dest=/etc/collectd/collectd.conf.d/
+  with_items:
+  - aggregation
+  - ampq
+  - apache
+  - curl
+  - dbi
+  - df
+  - disk
+  - dns
+  - ethstat
+  - filters
+  - hddtemp
+  - interface
+  - md
+  - network
+  - ntpd
+  - posgresql
+  - riemman
+  - rrdtool
+  - statd
+  - swap
+  - thresholds
+  tags: collectd
+  notify: restart collectd
+
+- name: Configure rsyslog for collectd
+  template: src=rsyslog.d/22-collectd.conf.j2 dest=/etc/rsyslog.d/22-collectd.conf
+  tags: collectd, rsyslogd
+  notify: restart rsyslogd

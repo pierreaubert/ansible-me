@@ -1,0 +1,4 @@
+---
+- name: Check ownership of /usr/bin/at
+  command: chown root:root /usr/bin/at
+  tags: security

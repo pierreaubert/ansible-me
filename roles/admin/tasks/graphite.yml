@@ -1,0 +1,10 @@
+---
+- name: Install graphite
+  apt: name={{item}} state=latest
+  with_items:
+   - python-rrdtool
+   - python-whisper
+   - graphite-carbon
+   - graphite-web
+  tags: graphite
+

@@ -1,0 +1,8 @@
+---
+user: pierre
+es_address: http://192.168.0.18/es
+logstash_domain: 192.168.0.18:5043
+kibana_url: https://github.com/elasticsearch/kibana/archive/master.zip
+kibana_user: kibana
+kibana_domain: 192.168.0.18
+kibana_pwd: banana2013

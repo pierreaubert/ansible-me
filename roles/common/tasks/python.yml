@@ -1,0 +1,25 @@
+---
+# Installs and configures python
+- name: Create .pip if it doesn't exist
+  command: mkdir -p /root/.pip state=present
+  tags: python
+
+- name: Setup Cache for pip
+  template: src=pip.conf.j2 dest=/root/.pip/pip.conf
+  tags: python
+
+- name: Install pip
+  apt: pkg={{item}}
+  with_items:
+    - python-pip
+    - python-virtualenv
+    - virtualenvwrapper
+    - supervisor
+  tags: python
+
+- name: Start supervisor
+  service: name=supervisor state=started
+
+
+
+

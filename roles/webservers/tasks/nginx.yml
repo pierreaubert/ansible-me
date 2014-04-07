@@ -1,0 +1,7 @@
+---
+- name: Install nginx and related packages
+  apt: pkg={{ item }} state=installed
+  with_items:
+    - nginx
+  tags: nginx
+

@@ -1,0 +1,59 @@
+# from https://github.com/johnhamelink/ansible-kibana
+---
+- name: Ensure app apt dependencies are installed
+  apt: pkg={{item}} state=installed
+  with_items:
+    - nginx
+    - unzip
+  tags: kibana
+
+- name: Ensure /var/www/kibana is deleted
+  file: path=/var/www/kibana state=absent
+  tags: kibana
+
+- name: Ensure /var/www/kibana is an empty directory
+  file: path=/var/www/kibana state=directory
+  tags: kibana
+
+- name: Ensure we have the latest release
+  get_url: url={{kibana_url}} dest=/tmp/kibana.zip
+  tags: kibana
+
+- name: Unzip kibana to /var/www
+  shell: unzip /tmp/kibana.zip kibana-master/src/* -d /var/www/
+  tags: kibana
+
+- name: Rename the directory to /var/www/kibana
+  shell: mv /var/www/kibana-master/src/* /var/www/kibana
+  tags: kibana
+
+- name: Clean up old kibana directory
+  shell: rm -rf /var/www/kibana-master
+  tags: kibana
+
+- name: Ensure kibana's nginx site is in place
+  template: src=nginx_kibana.conf.j2 dest=/etc/nginx/sites-available/kibana mode=0755
+  tags: kibana
+
+- name: Ensure kibana's htpasswd file is in place
+  copy: src=htpassword dest=/var/www/htpasswd mode=0644 owner=root group=root
+  tags: kibana
+
+- name: Ensure default nginx site is not enabled
+  file: state=absent path=/etc/nginx/sites-enabled/default
+  tags: kibana
+
+- name: Ensure kibana nginx site is enabled
+  file: state=link src=/etc/nginx/sites-available/kibana path=/etc/nginx/sites-enabled/kibana
+  tags: kibana
+
+- name: Ensure kibana config is in place
+  template: src=kibana.js.j2 dest=/var/www/kibana/config.js mode=0644 owner=root group=root
+  notify:
+    - restart nginx  
+  tags: kibana
+
+- name: Open port 80 on firewall for kibana
+  command: "ufw allow from 192.168.0.0/24 to any port 80"
+  tags: logstash
+

@@ -1,0 +1,3 @@
+htpassword
+logstash-forwarder.*
+shinken.*

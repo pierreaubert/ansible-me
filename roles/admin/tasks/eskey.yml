@@ -1,0 +1,9 @@
+---
+- name: Ensure python-pycurl is installed
+  apt: pkg=python-pycurl state=installed
+  tags: elasticsearch
+
+- name: Ensure Elasticsearch apt signing key is installed
+  apt_key: url=http://packages.elasticsearch.org/GPG-KEY-elasticsearch state=present
+  tags: elasticsearch
+

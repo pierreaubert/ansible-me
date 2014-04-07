@@ -1,0 +1,16 @@
+---
+- name: install fail2ban
+  apt: name={{ item }} state=present
+  with_items:
+    - fail2ban
+    - rkhunter
+    - lynis
+  tags: fail2ban
+
+- name: Configure fail2ban file
+  template: src=fail2ban.conf.j2 dest=/etc/fail2ban/fail2ban.conf
+  template: src=jail.conf.j2 dest=/etc/fail2ban/jail.conf
+  tags: fail2ban
+  notify: restart fail2ban
+
+

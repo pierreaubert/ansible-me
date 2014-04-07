@@ -1,0 +1,17 @@
+---
+- name: Install monit
+  apt: name={{item}} state=installed
+  with_items:
+   - monit
+  tags: monit
+
+- name: Configure monit file
+  template: src=monit.conf.j2 dest=/etc/monit/monitrc
+  tags: monit
+  notify: 
+    - restart monit
+
+- name: Start the monit service
+  service: name=monit state=started enabled=true
+  tags: monit
+
