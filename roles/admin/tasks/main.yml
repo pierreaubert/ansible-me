@@ -8,3 +8,4 @@
 - include: logstash.yml tags=admin
 - include: kibana.yml tags=admin
 # - include: riemann.yml tags=admin
+- include: storebackup.yml tags=admin

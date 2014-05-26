@@ -1,0 +1,11 @@
+---
+- name: StoreBackup | Install package
+  apt: pkg={{item}} state=installed
+  with_items:
+    - storebackup
+  tags: storebackup
+
+- name: StoreBackup | Copy config file
+  template: src=storebackup.conf.j2 dest=/etc/storebackup.d mode=0600 owner=root group=root
+  tags: storebackup
+

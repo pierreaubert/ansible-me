@@ -10,7 +10,7 @@
 - name: MariaDB | Open port 3306 but only from deploy server(s)
   ufw: rule=allow port=3306 proto=tcp src={{item}} state=reloaded
   with_items: deploy_servers
-  tags: postgresql
+  tags: mariadb
 
 - name: MariaDB | Start the service
   service: name=mysql state=started enabled=true

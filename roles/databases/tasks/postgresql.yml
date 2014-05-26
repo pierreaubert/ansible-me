@@ -35,6 +35,14 @@
   command: 'sudo -u postgres psql {{ pg_admin_username }} -c "CREATE EXTENSION IF NOT EXISTS adminpack;"'
   tags: postgresql
 
+- name: Postgresql | copy SSL certificate
+  copy: src=postgresql.crt dest=/etc/pki/tls/certs/postgresql.crt owner=root group=root mode=0755
+  tags: postgresql
+
+- name: Postgresql | copy private key
+  copy: src=postgresql.key dest=/etc/pki/tls/private/postgresql.key owner=root group=root mode=0755
+  tags: postgresql
+
 - name: Postgresql | Copy config files hba
   template: src={{item}} dest=/etc/postgresql/9.3/main owner=postgres group=postgres backup=yes
   with_items:
