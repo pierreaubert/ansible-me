@@ -1,7 +1,8 @@
 ---
-- name: Install docker
+- name: Docker.io | install packages
   apt: name={{item}} state=latest
   with_items:
    - docker.io
+   - rinse
   tags: docker
 

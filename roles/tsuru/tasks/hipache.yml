@@ -1,0 +1,33 @@
+---
+- name: Hipache | install nodejs
+  apt: name={{item}} state=installed
+  with_items:
+   - nodejs
+   - npm
+  tags: hipache
+
+- name: Hipache | install hipache
+  command: "npm install hipache -g"
+  tags: hipache
+
+- name: Hipache | create directory for log
+  command: mkdir -p /var/local/hipache
+  tags: hipache
+
+- name: Hipache | create directory for etc files
+  command: mkdir -p /etc/hipache
+  tags: hipache
+
+- name: Hipache | install config file
+  template: src=hipache.conf.j2 dest=/etc/hipache/hipache.conf
+  tags: hipache
+
+- name: Hipache | install init file
+  template: src=hipache.init.j2 dest=/etc/supervisor/conf.d/hipache
+  tags: hipache
+
+- name: Hipache | Start the service
+  service: name=hipache state=started enabled=true
+  tags: hipache
+
+

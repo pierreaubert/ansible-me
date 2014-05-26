@@ -1,16 +1,24 @@
 ---
+### for all servers
 - include: tz.yml tags=common
 - include: locale.yml tags=common
 - include: deploy.yml tags=common
 - include: apt.yml tags=common
+- include: ntp.yml tags=common
+- include: mosh.yml tags=common
+- include: python.yml tags=common
+### security
 - include: ssh.yml tags=common
 - include: ufw.yml tags=common
-- include: ntp.yml tags=common
 - include: fail2ban.yml tags=common
 - include: logwatch.yml tags=common
 - include: security.yml tags=common
-- include: mosh.yml tags=common
-- include: python.yml tags=common
+### admin client
 - include: hddtemp.yml tags=common
-- include: collectd.yml tags=common
 - include: rsyslog.yml tags=common
+- include: collectd.yml tags=common
+### virtualisation
+# -include: vagrant.yml tags=common
+### backup solution 
+#- include: bacula.yml tags=common
+#- include: storebackup.yml tags=common

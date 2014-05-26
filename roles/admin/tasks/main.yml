@@ -1,9 +1,10 @@
 ---
-- include: collectd.yml
-- include: docker.yml
-# - include: shinken.yml
-# - include: graphite.yml
-- include: eskey.yml
-- include: elasticsearch.yml
-- include: logstash.yml
-- include: kibana.yml
+- include: collectd.yml tags=admin
+- include: docker.yml tags=admin
+# - include: shinken.yml tags=admin
+- include: graphite.yml tags=admin
+- include: eskey.yml tags=admin
+- include: elasticsearch.yml tags=admin
+- include: logstash.yml tags=admin
+- include: kibana.yml tags=admin
+# - include: riemann.yml tags=admin

@@ -1,0 +1,45 @@
+---
+- name: Tsuru | install package
+  apt: name={{item}} state=installed
+  with_items:
+   - tsuru-server
+  tags: tsuru
+
+- name: Tsuru | edit default
+  replace: dest=/etc/default/tsuru-server regexp="=no$" replace="=yes" backup=yes
+  tags: tsuru
+
+- name: Tsuru | deploy configuration file
+  template: src=tsuru.conf.j2 dest=/etc/tsuru.conf
+  notify:
+    - restart tsuru-ssh-agent
+    - restart tsuru-server-api
+    - restart tsuru-server-collector
+  tags: tsuru 
+
+- name: Tsuru | Start ssh service
+  service: name=tsuru-ssh-agent state=started enabled=true
+  tags: tsuru
+
+- name: Tsuru | Start server api service
+  service: name=tsuru-server-api state=started enabled=true
+  tags: tsuru
+
+- name: Tsuru | Start server collector service
+  service: name=tsuru-server-collector state=started enabled=true
+  tags: tsuru
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+

@@ -1,3 +1,21 @@
+2014-05-26  Pierre Aubert  <pierre@imac-pierre.home>
+
+	* roles/tsuru/tasks/gandalf.yml: add service
+
+	* roles/common/files/hddtemp.conf (DISKS): add 4 disks
+
+	* roles/admin/tasks/elasticsearch.yml: adapt to 14.04
+
+2014-05-25  Pierre Aubert  <pierre@imac-pierre.home>
+
+	* roles/common/tasks/deploy.yml: chmod .pip to user:group
+
+	* roles/common/tasks/python.yml: python-dev
+
+2014-05-24  Pierre Aubert  <pierre@imac-pierre.home>
+
+	* add a juju role
+
 2014-03-14  Pierre Aubert  <pierre@imac-pierre.home>
 
 	* start a clean ansible script to start a new server

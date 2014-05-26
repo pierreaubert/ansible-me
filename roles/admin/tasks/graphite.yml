@@ -1,5 +1,5 @@
 ---
-- name: Install graphite
+- name: Graphite | install packages
   apt: name={{item}} state=latest
   with_items:
    - python-rrdtool

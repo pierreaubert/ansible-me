@@ -1,17 +1,18 @@
 # from https://github.com/johnhamelink/ansible-elasticsearch
 ---
-- name: Ensure Elasticsearch 1.0.x repository is installed
+- name: Elasticsearch | ensure 1.0.x repository is installed
   apt_repository: repo="deb http://packages.elasticsearch.org/elasticsearch/1.0/debian stable main" state=present update_cache=yes
+  when: "ansible_lsb['codename'] == 'precise'"
   tags: elasticsearch
 
-- name: Ensure elasticsearch is installed
+- name: Elasticsearch | install package
   apt: pkg={{item}} state=installed
   with_items:
     - openjdk-7-jre
     - elasticsearch
   tags: elasticsearch
 
-- name: Ensure elasticsearch config is in place
+- name: Elasticsearch | install config is in place
   template: src=elasticsearch.conf.j2 dest=/etc/elasticsearch/elasticsearch.conf
   notify:
     - restart elasticsearch

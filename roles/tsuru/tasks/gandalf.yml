@@ -1,0 +1,38 @@
+---
+- name: Gandalf | install package
+  apt: name={{item}} state=installed
+  with_items:
+   - curl
+   - gandalf-server
+  tags: gandalf
+
+- name: Gandalf | Create bare-temaplte directory
+  command: mkdir -p /home/git/bare-template/hooks
+  tags: gandalf
+
+- name: Gandalf | update post receive
+  command: "sudo curl https://raw.githubusercontent.com/gandalf/gandalf/master/misc/git-hooks/post-receive -o /home/git/bare-template/hooks/post-receive"
+  tags: gandalf
+
+- name: Gandalf | set execution bit for conf
+  command: chmod +x /home/git/bare-template/hooks/post-receive
+  tags: gandalf
+
+- name: Gandalf | set owner for conf
+  command: chown -R git:git /home/git/bare-template
+  tags: gandalf
+
+- name: Gandalf | deploy configuration file
+  template: src=gandalf.conf.j2 dest=/etc/gandalf.conf
+  tags: gandalf 
+
+- name: Gandalf | Start the service
+  service: name=gandalf-server state=started enabled=true
+  tags: gandalf
+
+
+
+
+
+
+

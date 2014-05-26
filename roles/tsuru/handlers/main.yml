@@ -1,0 +1,25 @@
+---
+- name: restart tsuru-ssh-agent
+  service: name=tsuru-ssh-agent state=restarted
+
+- name: restart tsuru-server-api
+  service: name=tsuru-server-api state=restarted
+
+- name: restart tsuru-server-collector
+  service: name=tsuru-server-collector state=restarted
+
+- name: restart beanstalkd
+  service: name=beanstalkd state=restarted
+
+- name: restart hipache
+  service: name=hipache state=restarted
+
+- name: restart mongodb
+  service: name=mongodb state=restarted
+
+- name: restart redis
+  service: name=redis-server state=restarted
+
+- name: restart supervisord
+  service: name=supervisord state=restarted
+

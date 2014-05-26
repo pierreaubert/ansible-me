@@ -1,0 +1,7 @@
+---
+- include: apt.yml tags=tsuru
+- include: gandalf.yml tags=tsuru
+- include: mongodb.yml tags=tsuru
+- include: tsuru.yml tags=tsuru
+- include: docker.yml tags=tsuru
+- include: hipache.yml tags=tsuru

@@ -1,0 +1,6 @@
+---
+- name: Bacula | install client
+  apt: name={{item}} state=installed
+  with_items:
+   - bacula-client
+  tags: bacula

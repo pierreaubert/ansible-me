@@ -1,0 +1,31 @@
+---
+- name: Tsuru | Install basic packages
+  apt: name={{item}} state=installed
+  with_items:
+   - curl
+   - python-software-properties
+   - python-apt
+  tags: tsuru
+
+- name: Tsuru | add docker apt keys if needed
+  shell: "sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 36A1D7869245C8950F966E92D8576A8BA88D21E9"
+  when: "ansible_lsb['codename'] == 'precise'"
+  tags: tsuru
+
+- name: Tsuru | add lvm2 ppa
+  apt_repository: repo='ppa:tsuru/lvm2'
+  tags: tsuru
+
+- name: Tsuru | adpp other ppa
+  apt_repository: repo='ppa:tsuru/ppa'
+  tags: tsuru
+
+- name: Tsuru | add other packages
+  apt: name={{item}} state=installed
+  with_items:
+   - beanstalkd
+   - redis-server
+  tags: tsuru
+
+
+
