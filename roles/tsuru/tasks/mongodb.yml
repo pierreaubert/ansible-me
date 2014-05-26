@@ -1,13 +1,6 @@
 ---
-- name: Tsuru | add mongodb
-  apt: name={{item}} state=installed
-  with_items:
-   - mongodb
-   - python-pymongo
-  tags: tsuru
-
 - name: Tsuru | Get last platform-setup 
-  get_url: url=https://raw.githubusercontent.com/tsuru/tsuru/master/misc/platforms-setup.js dest=/tmp/platforms-setup.js mode=0440     
+  get_url: url=https://raw.githubusercontent.com/tsuru/tsuru/master/misc/platforms-setup.js dest=/tmp/platforms-setup.js mode=0444     
   tags: tsuru
 
 - name: Tsuru | Create user tsuru in mongodb
@@ -15,12 +8,8 @@
   tags: tsuru
 
 - name: Tsuru | import platform-setup.js into mongod
-  command: cat /tmp/platforms-setup.js | mongo tsuru
+  shell: "cat /tmp/platforms-setup.js | /usr/bin/mongo tsuru"
   tags: tsuru
-
-- name: Mongodb | Start the service
-  service: name=mongodb state=started enabled=true
-  tags: mongodb
 
 
 

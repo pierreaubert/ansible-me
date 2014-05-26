@@ -11,9 +11,10 @@
         "httpKeepAlive": false,
         "https": {
             "port": 443,
-            "key": "/etc/hipache/ssl.key",
-            "cert": "/etc/hipache/ssl.crt"
+            "key": "/etc/pki/tls/private/hipache.key",
+            "cert": "/etc/pki/tls/certs/hipache.crt"
         }
     },
     "driver": ["redis://127.0.0.1:6379"]
 }
+

@@ -1,0 +1,14 @@
+---
+- name: Mongodb | install package
+  apt: name={{item}} state=installed
+  with_items:
+   - mongodb
+   - python-pymongo
+  tags: mongodb
+
+- name: Mongodb | Start the service
+  service: name=mongodb state=started enabled=true
+  tags: mongodb
+
+
+

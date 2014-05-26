@@ -1,5 +1,7 @@
 2014-05-26  Pierre Aubert  <pierre@imac-pierre.home>
 
+	* roles/admin/templates/nginx_kibana.conf.j2: put kibana on port 7080
+
 	* roles/tsuru/tasks/gandalf.yml: add service
 
 	* roles/common/files/hddtemp.conf (DISKS): add 4 disks

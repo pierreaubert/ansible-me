@@ -3,7 +3,6 @@
   apt: name={{item}} state=installed
   with_items:
    - nodejs
-   - npm
   tags: hipache
 
 - name: Hipache | install hipache
@@ -11,7 +10,7 @@
   tags: hipache
 
 - name: Hipache | create directory for log
-  command: mkdir -p /var/local/hipache
+  command: mkdir -p /var/log/hipache
   tags: hipache
 
 - name: Hipache | create directory for etc files
@@ -23,11 +22,27 @@
   tags: hipache
 
 - name: Hipache | install init file
-  template: src=hipache.init.j2 dest=/etc/supervisor/conf.d/hipache
+  template: src=hipache.init.j2 dest=/etc/supervisor/conf.d/hipache.conf
   tags: hipache
 
-- name: Hipache | Start the service
-  service: name=hipache state=started enabled=true
+- name: Hipache | copy SSL certificate
+  copy: src=hipache.crt dest=/etc/pki/tls/certs/hipache.crt owner=root group=root mode=0755
+  tags: hipache
+
+- name: Hipache | copy private key
+  copy: src=hipache.key dest=/etc/pki/tls/private/hipache.key owner=root group=root mode=0755
+  tags: hipache
+
+- name: Hipache | Open port 80
+  ufw: rule=allow port=80 proto=tcp src=192.168.0.0/24 state=reloaded
+  tags: hipache
+
+- name: Hipache | Open port 443
+  ufw: rule=allow port=443 proto=tcp src=192.168.0.0/24 state=reloaded
+  tags: hipache
+
+- name: Hipache | Start the service via supervisor
+  supervisorctl: name=hipache state=restarted
   tags: hipache
 
 

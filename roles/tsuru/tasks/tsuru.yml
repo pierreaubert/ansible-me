@@ -5,8 +5,20 @@
    - tsuru-server
   tags: tsuru
 
+- name: Tsuru | check required directory
+  file: path=/home/application/current owner=tsuru group=tsuru mode=0755 state=directory
+  tags: tsuru
+
 - name: Tsuru | edit default
   replace: dest=/etc/default/tsuru-server regexp="=no$" replace="=yes" backup=yes
+  tags: tsuru
+
+- name: Tsuru | copy SSL certificate
+  copy: src=tsuru.crt dest=/etc/pki/tls/certs/tsuru.crt owner=root group=root mode=0755
+  tags: tsuru
+
+- name: Tsuru | copy private key
+  copy: src=tsuru.key dest=/etc/pki/tls/private/tsuru.key owner=root group=root mode=0755
   tags: tsuru
 
 - name: Tsuru | deploy configuration file
@@ -16,6 +28,18 @@
     - restart tsuru-server-api
     - restart tsuru-server-collector
   tags: tsuru 
+
+- name: Tsuru | Open port 8080
+  ufw: rule=allow port=8080 proto=tcp src=192.168.0.0/24 state=reloaded
+  tags: tsuru
+
+- name: Tsuru | Open port 8000
+  ufw: rule=allow port=8000 proto=tcp src=192.168.0.0/24 state=reloaded
+  tags: tsuru
+
+- name: Tsuru | Open port 4545 for ssh
+  ufw: rule=allow port=4545 proto=tcp src=192.168.0.0/24 state=reloaded
+  tags: tsuru
 
 - name: Tsuru | Start ssh service
   service: name=tsuru-ssh-agent state=started enabled=true

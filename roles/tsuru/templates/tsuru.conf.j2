@@ -1,15 +1,15 @@
 listen: "0.0.0.0:8080"
 
-debug: false
+debug: true
 
 host: http://192.168.0.18
 
 # Uncomment the following lines to enable HTTPS on Tsuru. You will need the
 # paths to the certificate and key files.
 #
-# use-tls: true
-# tls-cert-file: /path/to/cert.pem
-# tls-key-file: /path/to/key.pem
+use-tls: true
+ tls-cert-file: /etc/pki/tls/certs/tsuru.crt
+ tls-key-file: /etc/pki/tls/private/tsuru.key
 
 # Database configuration. Tsuru API needs a MongoDB server. By default, it will
 # connect on localhost, in the default port, and use the database "tsuru".
@@ -37,8 +37,8 @@ database:
 git:
   unit-repo: /home/application/current
   api-server: http://127.0.0.1:8000
-  rw-host: 192.168.0.18
-  ro-host: 192.168.0.9
+  rw-host: tsuru.7pi.eu
+  ro-host: 192.168.0.18
 
 # S3 Bucket support. When this flag is defined as true, Tsuru will create a S3
 # bucket per application. Bucket creation depends on AWS settings (next

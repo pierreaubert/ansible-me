@@ -53,7 +53,7 @@
     - restart nginx  
   tags: kibana
 
-- name: Kibana | Open port 80 on firewall for kibana
-  command: "ufw allow from 192.168.0.0/24 to any port 80"
+- name: Kibana | Open port 7080 on firewall for kibana
+  command: "ufw allow from 192.168.0.0/24 to any port 7080"
   tags: logstash
 

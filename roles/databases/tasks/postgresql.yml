@@ -1,5 +1,5 @@
 ---
-- name: Install Postgresql and related packages if on Ubuntu 12.04
+- name: Postgresql | install server and related packages if on Ubuntu 12.04
   apt: pkg={{ item }} state=installed
   with_items:
     - postgrey
@@ -13,7 +13,7 @@
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == "precise"
   tags: postgresql
 
-- name: Install Postgresql and related packages if on Ubuntu 14.04
+- name: Postgresql | install server and related packages if on Ubuntu 14.04
   apt: pkg={{ item }} state=installed
   with_items:
     - postgrey
@@ -27,11 +27,28 @@
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == "trusty"
   tags: postgresql
 
-- name: Set postgres password
-  command: sudo -u postgres psql {{ db_admin_username }} -c "ALTER USER postgres with password '{{ db_admin_password }};'"
+- name: Postgressql | Set admin password
+  command: sudo -u postgres psql {{ pg_admin_username }} -c "ALTER USER postgres with password '{{ pg_admin_password }};'"
   tags: postgresql
 
-- name: Add adminpack extension to postgres
-  command: 'sudo -u postgres psql {{ db_admin_username }} -c "CREATE EXTENSION IF NOT EXISTS adminpack;"'
+- name: Postgresql | Add adminpack extension
+  command: 'sudo -u postgres psql {{ pg_admin_username }} -c "CREATE EXTENSION IF NOT EXISTS adminpack;"'
   tags: postgresql
+
+- name: Postgresql | Copy config files hba
+  template: src={{item}} dest=/etc/postgresql/9.3/main owner=postgres group=postgres backup=yes
+  with_items:
+    - pg_hba.conf.j2
+    - postgresql.conf.j2
+  tags: postgresql
+
+- name: Postgresql | Open port 4321 but only from deploy server(s)
+  ufw: rule=allow port=4321 proto=tcp src={{item}} state=reloaded
+  with_items: deploy_servers
+  tags: postgresql
+
+- name: Postgresql | Start the service
+  service: name=postgresql state=started enabled=true
+  tags: postgresql
+
 

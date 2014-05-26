@@ -7,7 +7,7 @@
   tags: gandalf
 
 - name: Gandalf | Create bare-temaplte directory
-  command: mkdir -p /home/git/bare-template/hooks
+  file: path=/home/git/bare-template/hooks state=directory mode=0755 owner=git group=git
   tags: gandalf
 
 - name: Gandalf | update post receive
@@ -15,7 +15,7 @@
   tags: gandalf
 
 - name: Gandalf | set execution bit for conf
-  command: chmod +x /home/git/bare-template/hooks/post-receive
+  file: path=/home/git/bare-template/hooks/post-receive mode=0755 owner=git group=git
   tags: gandalf
 
 - name: Gandalf | set owner for conf
@@ -28,6 +28,14 @@
 
 - name: Gandalf | Start the service
   service: name=gandalf-server state=started enabled=true
+  tags: gandalf
+
+- name: Gandalf | Open port 8000
+  ufw: rule=allow port=8000 proto=tcp src=192.168.0.0/24 state=reloaded
+  tags: gandalf
+
+- name: Gandalf | Start the associated git service 
+  service: name=git-daemon state=started enabled=true
   tags: gandalf
 
 

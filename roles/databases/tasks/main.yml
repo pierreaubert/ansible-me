@@ -1,3 +1,5 @@
 ---
-- include: postgresql.yml tags=sql
-- include: redis.yml tags=cache
+- include: postgresql.yml tags=databases
+- include: mariadb.yml tags=databases
+- include: redis.yml tags=databases
+- include: mongodb.yml tags=databases

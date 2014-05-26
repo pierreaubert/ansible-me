@@ -5,3 +5,8 @@
     - redis-server
   tags: redis
 
+- name: Redis | Start the service
+  service: name=redis-server state=started enabled=true
+  tags: redis
+
+

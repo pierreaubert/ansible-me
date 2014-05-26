@@ -4,3 +4,12 @@
 - name: restart postgres
   service: name=postgresql state=restarted
 
+- name: restart mariadb
+  service: name=mariadb state=restarted
+
+- name: restart mongodb
+  service: name=mongodb state=restarted
+
+- name: restart redis
+  service: name=redis-server state=restarted
+

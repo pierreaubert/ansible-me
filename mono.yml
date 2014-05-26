@@ -9,5 +9,6 @@
 
   roles:
   - common
+  - databases
   - admin
   - tsuru
