@@ -7,7 +7,7 @@
   tags: collectd
 
 - name: Collectd | Set firewall rules 
-  command: "ufw allow from 192.168.0.0/24 to any port 25826"
+  ufw: rule=allow src=192.168.0.0/24 dest=any port=25826
   tags: collectd
 
 - name: Collectd | Install ruby package
@@ -29,7 +29,7 @@
   tags: visage-app
 
 - name: Visage | Open port 9292 on firewall for visage
-  command: "ufw allow from 192.168.0.0/24 to any port 9292"
+  ufw: rule=allow src=192.168.0.0/24 dest=any port=9292
   tags: visage-app
 
 - name: Vidage | Start server

@@ -27,7 +27,7 @@
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == "trusty"
   tags: postgresql
 
-- name: Postgressql | Set admin password
+- name: Postgresql | Set admin password
   command: sudo -u postgres psql {{ pg_admin_username }} -c "ALTER USER postgres with password '{{ pg_admin_password }};'"
   tags: postgresql
 
@@ -44,10 +44,11 @@
   tags: postgresql
 
 - name: Postgresql | Copy config files hba
-  template: src={{item}} dest=/etc/postgresql/9.3/main owner=postgres group=postgres backup=yes
-  with_items:
-    - pg_hba.conf.j2
-    - postgresql.conf.j2
+  template: src=pg_hba.conf.j2 dest=/etc/postgresql/9.3/main/pg_hba.conf owner=postgres group=postgres backup=yes
+  tags: postgresql
+
+- name: Postgresql | Copy config files master
+  template: src=postgresql.conf.j2 dest=/etc/postgresql/9.3/main/postgresql.conf owner=postgres group=postgres backup=yes
   tags: postgresql
 
 - name: Postgresql | Open port 4321 but only from deploy server(s)
