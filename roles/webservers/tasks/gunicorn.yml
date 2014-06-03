@@ -1,4 +1,4 @@
 ---
 - name: Install gunicorn
   pip: name=gunicorn
-  tags: uwsgi
+  tags: wsgi

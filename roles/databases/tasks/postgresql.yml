@@ -16,7 +16,6 @@
 - name: Postgresql | install server and related packages if on Ubuntu 14.04
   apt: pkg={{ item }} state=installed
   with_items:
-    - postgrey
     - postgresql-9.3
     - postgresql-common
     - postgresql-client
@@ -24,35 +23,48 @@
     - postgresql-plpython-9.3
     - python-psycopg2
     - libpq-dev
+    # - postgrey
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == "trusty"
   tags: postgresql
 
-- name: Postgresql | Set admin password
-  command: sudo -u postgres psql {{ pg_admin_username }} -c "ALTER USER postgres with password '{{ pg_admin_password }};'"
-  tags: postgresql
-
-- name: Postgresql | Add adminpack extension
-  command: 'sudo -u postgres psql {{ pg_admin_username }} -c "CREATE EXTENSION IF NOT EXISTS adminpack;"'
-  tags: postgresql
-
 - name: Postgresql | copy SSL certificate
-  copy: src=postgresql.crt dest=/etc/pki/tls/certs/postgresql.crt owner=root group=root mode=0755
+  copy: src=postgresql.crt dest=/etc/pki/tls/certs/postgresql.crt owner=postgres group=postgres mode=0500
+  notify:
+    - restart postgresql
   tags: postgresql
 
 - name: Postgresql | copy private key
-  copy: src=postgresql.key dest=/etc/pki/tls/private/postgresql.key owner=root group=root mode=0755
+  copy: src=postgresql.key dest=/etc/pki/tls/private/postgresql.key owner=postgres group=postgres mode=0500
+  notify:
+    - restart postgresql
   tags: postgresql
 
 - name: Postgresql | Copy config files hba
   template: src=pg_hba.conf.j2 dest=/etc/postgresql/9.3/main/pg_hba.conf owner=postgres group=postgres backup=yes
+  notify:
+    - restart postgresql
   tags: postgresql
 
 - name: Postgresql | Copy config files master
   template: src=postgresql.conf.j2 dest=/etc/postgresql/9.3/main/postgresql.conf owner=postgres group=postgres backup=yes
+  notify:
+    - restart postgresql
   tags: postgresql
 
-- name: Postgresql | Open port 4321 but only from deploy server(s)
-  ufw: rule=allow port=4321 proto=tcp src={{item}} state=reloaded
+- name: Postgresql | Set admin password
+  command: sudo -u postgres psql {{ pg_admin_username }} -c "ALTER USER postgres with password '{{ pg_admin_password }}';"
+  tags: postgresql
+
+- name: Postgresql | Add adminpack extension
+  command: sudo -u postgres psql {{ pg_admin_username }} -c "CREATE EXTENSION IF NOT EXISTS adminpack;"
+  tags: postgresql
+
+- name: Postgresql | Create role {{deploy_user}}
+  shell: "sudo -u postgres createuser -d -r {{deploy_user}} || true"
+  tags: postgresql
+
+- name: Postgresql | Open port 5432 but only from deploy server(s)
+  ufw: rule=allow port=5432 proto=tcp src={{item}} state=reloaded
   with_items: deploy_servers
   tags: postgresql
 

@@ -14,11 +14,11 @@
   tags: tsuru
 
 - name: Tsuru | copy SSL certificate
-  copy: src=tsuru.crt dest=/etc/pki/tls/certs/tsuru.crt owner=root group=root mode=0755
+  copy: src=tsuru.crt dest=/etc/pki/tls/certs/tsuru.crt owner=root group=root mode=0500
   tags: tsuru
 
 - name: Tsuru | copy private key
-  copy: src=tsuru.key dest=/etc/pki/tls/private/tsuru.key owner=root group=root mode=0755
+  copy: src=tsuru.key dest=/etc/pki/tls/private/tsuru.key owner=root group=root mode=0500
   tags: tsuru
 
 - name: Tsuru | deploy configuration file

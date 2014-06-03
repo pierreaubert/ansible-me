@@ -1,3 +1,8 @@
+2014-06-02  Pierre Aubert  <pierre@imac-pierre.home>
+
+	* roles/databases/templates/postgresql.conf.j2 (ssl): put ssl off,
+	i do not understand how pg_hba work
+
 2014-05-26  Pierre Aubert  <pierre@imac-pierre.home>
 
 	* roles/databases/templates/postgresql.conf.j2 (wal_level):

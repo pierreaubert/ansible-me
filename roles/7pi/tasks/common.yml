@@ -1,0 +1,33 @@
+---
+- name: common | create log directory
+  file: path=/var/log/7pi owner={{deploy_user}} group={{deploy_user}} mode=0700 state=directory
+  tags: 7pi
+
+- name: common | create etc directory
+  file: path=/etc/7pi owner={{deploy_user}} group={{deploy_user}} mode=0700 state=directory
+  tags: 7pi
+
+- name: common | Create a virtualenv
+  command: virtualenv --system-site-packages /home/{{deploy_user}}/.virtualenv/7pi
+  tags: 7pi
+
+- name: common | Install python packages
+  apt: pkg={{item}}
+  with_items:
+    - gunicorn
+    - python-requests
+    - python-sqlalchemy
+    - python-flask
+    - python-pycryptopp
+    - python-ply
+    - python-pytest
+    - python-numpy
+    - python-scipy
+  tags: 7pi
+
+- name: common | Disable gunicorn service
+  command: service gunicorn stop
+  tags: 7pi
+  
+
+

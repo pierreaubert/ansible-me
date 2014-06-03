@@ -1,0 +1,22 @@
+---
+- name: sso | Copy source
+  git: repo=https://bitbucket.org/pierreaubert/sso.git
+       dest=/home/{{deploy_user}}/src/7pi/sso
+       version=release/1.1
+  tags: 7pi
+
+- name: sso | Copy config file
+  template: src=7pi-sso.conf.j2 dest=/etc/7pi/7pi-sso.conf backup=yes owner={{deploy_user}} mode=0600
+  tags: 7pi
+
+- name: sso | Copy config file for supervisord
+  template: src=supervisor/7pi-sso.conf.j2 dest=/etc/supervisor/conf.d/7pi-sso.conf
+  tags: 7pi
+
+- name: sso | Expose sso via nginx
+  template: src=nginx/7pi-sso.conf.j2 dest=/etc/nginx/conf.d/7pi-sso.conf
+  tags: 7pi
+
+- name: sso | Setup supervisord conf
+  supervisorctl: name=sso state=started
+  tags: 7pi

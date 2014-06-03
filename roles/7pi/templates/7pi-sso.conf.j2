@@ -1,0 +1,43 @@
+#!/usr/bin/env python
+#                                                  -*- coding: utf-8 -*-
+# Author: Pierre F. Aubert                  pierreaubert at yahoo dot fr
+# ----------------------------------------------------------------------
+
+import logging
+from datetime import date
+
+# version
+VERSION = "0.17"
+
+# debug is false by default
+DEBUG = False
+
+# testing is false by default
+TESTING = False
+
+# your favorite database, sqlalchimy convention
+DATABASE_URI='postgresql+psycopg2://{user}:{pwd}@{host}:{port}/sso'.format(
+    user='{{spi_sso_pg_username}}',
+    pwd='{{spi_sso_pg_password}}',
+    port='{{spi_sso_pg_port}}',
+    host='{{spi_sso_pg_host}}')
+
+# main log file
+LOG_APP='sso'
+LOG_FILE='/var/log/7pi/sso_{0}.log'.format(date.today().isoformat())
+LOG_LEVEL=logging.INFO
+
+# host/port for sso
+SSO_PORT='{{spi_sso_port}}'
+SSO_HOST='{{spi_sso_host}}'
+
+# local sentry (let empty if you do not use sentry)
+SENTRY_DSN=''
+
+# SECRET KEY for debug and dev
+SECRET_KEY='4|546(5q4sd65)q4sd3/1a2zer:3456165476&'
+
+# admin user
+ADMIN_USERNAME='{{spi_sso_admin_username}}'
+ADMIN_PASSWORD='{{spi_sso_admin_password}}'
+ADMIN_EMAIL='{{spi_sso_admin_email}}'

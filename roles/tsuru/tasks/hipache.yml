@@ -26,11 +26,11 @@
   tags: hipache
 
 - name: Hipache | copy SSL certificate
-  copy: src=hipache.crt dest=/etc/pki/tls/certs/hipache.crt owner=root group=root mode=0755
+  copy: src=hipache.crt dest=/etc/pki/tls/certs/hipache.crt owner=root group=root mode=0500
   tags: hipache
 
 - name: Hipache | copy private key
-  copy: src=hipache.key dest=/etc/pki/tls/private/hipache.key owner=root group=root mode=0755
+  copy: src=hipache.key dest=/etc/pki/tls/private/hipache.key owner=root group=root mode=0500
   tags: hipache
 
 - name: Hipache | Open port 80

@@ -1,0 +1,50 @@
+---
+- name: postgresql | create users
+  shell: "sudo -u postgres createuser -U {{deploy_user}} -S -R -D -e {{item}} || true"
+  with_items:
+    - sso
+    - rssfeeds
+    - userfeeds
+  tags: 7pi
+
+- name: postgresql | create db 
+  shell: "sudo -u postgres createdb -O {{item}} {{item}} || true"
+  with_items:
+    - sso
+    - rssfeeds
+    - userfeeds
+  tags: 7pi
+
+- name: postgresql | set password for sso
+  command: sudo -u postgres psql {{ spi_sso_pg_username }} -c "ALTER USER {{spi_sso_pg_username}} with password '{{ spi_sso_pg_password }}';"
+  tags: 7pi
+
+- name: postgresql | give access to sso
+  lineinfile: dest=/etc/postgresql/9.3/main/pg_hba.conf
+              regexp='.*sso.*'  
+              state=present
+              line='::1         sso             sso          127.0.0.1/32            md5'
+  tags: 7pi
+
+- name: postgresql | set password for rssfeeds
+  command: sudo -u postgres psql {{ spi_rssfeeds_pg_username }} -c "ALTER USER {{spi_rssfeeds_pg_username}} with password '{{ spi_rssfeeds_pg_password }}';"
+  tags: 7pi
+
+- name: postgresql | give access to rssfeeds
+  lineinfile: dest=/etc/postgresql/9.3/main/pg_hba.conf
+              regexp='.*rssfeeds.*'  
+              state=present
+              line='::1         rssfeeds             rssfeeds          127.0.0.1/32            md5'
+  tags: 7pi
+
+- name: postgresql | set password for userfeeds
+  command: sudo -u postgres psql {{ spi_userfeeds_pg_username }} -c "ALTER USER {{spi_userfeeds_pg_username}} with password '{{ spi_userfeeds_pg_password }}';"
+  tags: 7pi
+
+- name: postgresql | give access to userfeeds
+  lineinfile: dest=/etc/postgresql/9.3/main/pg_hba.conf
+              regexp='.*userfeeds.*'  
+              state=present
+              line='::1         userfeeds             userfeeds          127.0.0.1/32            md5'
+  tags: 7pi
+

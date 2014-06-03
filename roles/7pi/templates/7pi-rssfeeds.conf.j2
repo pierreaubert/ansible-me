@@ -1,0 +1,48 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# Author: Pierre F. Aubert                  pierreaubert at yahoo dot fr
+# ----------------------------------------------------------------------
+
+import logging
+from datetime import date
+
+# version
+VERSION = "0.17"
+# secret key
+SECRET_KEY='4|546(5q4sd65)q4sd3/1a2zer:3456165476&'
+# debug is false by default
+DEBUG = True
+# testing is false by default
+TESTING = False
+# your favorite database, sqlalchimy convention
+#DATABASE_URI = 'sqlite://:memory'
+DATABASE_URI='postgresql+psycopg2://pierre@localhost/rssfeeds'
+# our user agent
+USER_AGENT = "techradar-v{0}".format(VERSION)
+# main log file
+LOG_APP= "techradar"
+LOG_FILE="/var/log/rssfeeds_{0}.log".format(date.today().isoformat())
+LOG_LEVEL= logging.INFO
+# host/port for techradar
+RSSFEEDS_PORT=9091
+RSSFEEDS_HOST="0.0.0.0"
+RSSFEEDS_URL='http://{}:{}'.format(RSSFEEDS_HOST, RSSFEEDS_PORT)
+# host/port for sso
+SSO_PORT=9090
+SSO_HOST="0.0.0.0"
+SSO_URL='http://{}:{}'.format(SSO_HOST, SSO_PORT)
+SSO_ADMIN_USERNAME='admin'
+SSO_ADMIN_PASSWORD='zebulon.admin2014'
+# do we use sentry
+USE_SENTRY=False
+SENTRY_DSN=''
+#SENTRY_DSN='http://4090c55ae7754c6ca0bc5aed20538c88:0a309b08f418447f9e1c275028c7f1e2@192.168.1.9:9000/2'
+# set up a few users:
+CRAWLER_USERNAME='crawler'
+CRAWLER_PASSWORD='zebulon.crawler2014'
+CRAWLER_EMAIL='crawler-admin@7pi.eu'
+
+
+
+
+

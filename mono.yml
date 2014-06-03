@@ -10,5 +10,7 @@
   roles:
   - common
   - databases
+  - webservers
   - admin
   - tsuru
+  - 7pi

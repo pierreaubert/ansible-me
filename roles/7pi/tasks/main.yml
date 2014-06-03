@@ -1,0 +1,5 @@
+---
+- include: common.yml tags=7pi
+- include: postgresql.yml tags=7pi
+- include: sso.yml tags=7pi
+- include: nginx.yml tags=7pi
