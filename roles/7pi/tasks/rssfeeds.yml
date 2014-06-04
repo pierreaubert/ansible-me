@@ -1,0 +1,19 @@
+---
+- name: rssfeeds | Copy source
+  git: repo=https://bitbucket.org/pierreaubert/rssfeeds.git
+       dest=/home/{{deploy_user}}/src/7pi/rssfeeds
+       version=develop
+  tags: 7pi
+
+- name: rssfeeds | Copy config file
+  template: src=7pi-rssfeeds.conf.j2 dest=/etc/7pi/7pi-rssfeeds.conf backup=yes owner={{deploy_user}} mode=0600
+  tags: 7pi
+
+- name: rssfeeds | Copy config file for supervisord
+  template: src=supervisor/7pi-rssfeeds.conf.j2 dest=/etc/supervisor/conf.d/7pi-rssfeeds.conf
+  tags: 7pi
+
+- name: rssfeeds | Restart via supervisord conf
+#  supervisorctl: name=rssfeeds state=restarted
+  command: service supervisor restart
+  tags: 7pi

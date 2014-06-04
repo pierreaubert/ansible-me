@@ -22,7 +22,7 @@ DATABASE_URI='postgresql+psycopg2://pierre@localhost/rssfeeds'
 USER_AGENT = "7pi.eu-v{0}".format(VERSION)
 # main log file
 LOG_APP= "rssfeeds"
-LOG_FILE="/var/log/rssfeeds_{0}.log".format(date.today().isoformat())
+LOG_FILE="/var/log/7pi/rssfeeds_{0}.log".format(date.today().isoformat())
 LOG_LEVEL= logging.INFO
 # host/port for techradar
 RSSFEEDS_HOST='{{spi_rssfeeds_host}}'
