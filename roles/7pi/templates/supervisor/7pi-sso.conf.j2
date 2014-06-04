@@ -1,9 +1,10 @@
 # {{ansible_managed}}
 [program:sso]
-command=/usr/bin/gunicorn --bind={{spi_sso_host}}:{{spi_sso_port}} --workers=2 wsgi:app
+directory=/home/{{deploy_user}}/src/7pi/sso
+command=/usr/bin/gunicorn --bind={{spi_sso_host}}:{{spi_sso_port}} wsgi:app
 numprocs=1
 user={{deploy_user}}
-environment=SSO_SETTINGS="/etc/7pi/7pi-sso.conf", PYTHONPATH="/home/{{deploy_user}}/src/7pi/sso"
+environment=SSO_SETTINGS="/etc/7pi/7pi-sso.conf", PYTHONPATH="/home/{{deploy_user}}/src/7pi/sso/src"
 autostart=false
 autorestart=false
 startretries=3

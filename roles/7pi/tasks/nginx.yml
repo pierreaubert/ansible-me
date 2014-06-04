@@ -33,18 +33,18 @@
     - cert.key
   tags: 7pi
 
-- name: nginx | make virtualhost available
-  template: src=/etc/nginx/sites-available/7pi.eu
-            dest=/etc/nginx/sites-enabled/7pi.eu
-            owner={{deploy_user}}
-            group={{deploy_user}}
-            state=link
-  tags: 7pi2
-
-- name: nginx | make virtualhost enabled
+- name: nginx | copy virtualhost in sites-available
   template: src=nginx/7pi.conf.j2
-            dest=/etc/nginx/sites-available/7pi.eu
+            dest=/etc/nginx/sites-available/7pi_eu.conf
             owner={{deploy_user}}
             group={{deploy_user}}
-  tags: 7pi2
+  tags: 7pi
+
+- name: nginx | link virtualhost in site-enable
+  file: src=/etc/nginx/sites-available/7pi_eu.conf
+        dest=/etc/nginx/sites-enabled/7pi_eu.conf
+        owner={{deploy_user}}
+        group={{deploy_user}}
+        state=link
+  tags: 7pi
 
