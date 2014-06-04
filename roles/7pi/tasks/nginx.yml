@@ -10,10 +10,41 @@
     - private
   tags: 7pi
 
-- name: nginx | copy keys
-  copy: src=7pi.eu/certificate-35278.crt 
-        dest=/etc/pki/tls/certs/7pi.eu/certificates.crt 
+- name: nginx | copy certificates
+  copy: src=7pi.eu/{{item}}
+        dest=/etc/pki/tls/certs/7pi.eu/{{item}}
         owner={{deploy_user}}
         group={{deploy_user}}
         mode=0500
+  with_items: 
+    - certificate-35278.crt
+    - GandiStandardSSLCA.pem
+    - cert-chain.pem
+    - cert.pem
   tags: 7pi
+
+- name: nginx | copy keys
+  copy: src=7pi.eu/{{item}}
+        dest=/etc/pki/tls/private/7pi.eu/{{item}}
+        owner={{deploy_user}}
+        group={{deploy_user}}
+        mode=0500
+  with_items: 
+    - cert.key
+  tags: 7pi
+
+- name: nginx | make virtualhost available
+  template: src=/etc/nginx/sites-available/7pi.eu
+            dest=/etc/nginx/sites-enabled/7pi.eu
+            owner={{deploy_user}}
+            group={{deploy_user}}
+            state=link
+  tags: 7pi2
+
+- name: nginx | make virtualhost enabled
+  template: src=nginx/7pi.conf.j2
+            dest=/etc/nginx/sites-available/7pi.eu
+            owner={{deploy_user}}
+            group={{deploy_user}}
+  tags: 7pi2
+

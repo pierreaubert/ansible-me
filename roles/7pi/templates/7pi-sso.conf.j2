@@ -28,9 +28,9 @@ LOG_APP='sso'
 LOG_FILE='/var/log/7pi/sso_{0}.log'.format(date.today().isoformat())
 LOG_LEVEL=logging.INFO
 
-# host/port for sso
-SSO_PORT='{{spi_sso_port}}'
+# host/port for sso, host is quoted but port is not
 SSO_HOST='{{spi_sso_host}}'
+SSO_PORT={{spi_sso_port}}
 
 # local sentry (let empty if you do not use sentry)
 SENTRY_DSN=''
