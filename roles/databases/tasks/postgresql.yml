@@ -27,6 +27,13 @@
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == "trusty"
   tags: postgresql
 
+- name: Postgresql | check directory /var/run/postgresql
+  file: path=/var/run/postgresql 
+        state=directory
+        owner=postgres
+        mode=0755
+  tags: postgresql
+
 - name: Postgresql | copy SSL certificate
   copy: src=postgresql.crt dest=/etc/pki/tls/certs/postgresql.crt owner=postgres group=postgres mode=0500
   notify:
