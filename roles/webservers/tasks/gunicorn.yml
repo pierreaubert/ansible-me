@@ -1,4 +1,12 @@
 ---
-- name: Install gunicorn
-  pip: name=gunicorn
-  tags: wsgi
+- name: gunicorn | Install packages
+  apt: pkg={{item}}
+  with_items:
+    - gunicorn
+  tags: gunicorn
+
+- name: gunicorn | Disable gunicorn service
+  command: service gunicorn stop
+  tags: gunicorn
+  
+
