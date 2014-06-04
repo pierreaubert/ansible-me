@@ -4,8 +4,8 @@ command=/usr/bin/gunicorn --bind={{spi_sso_host}}:{{spi_sso_port}} --workers=2 w
 numprocs=1
 user={{deploy_user}}
 environment=SSO_SETTINGS="/etc/7pi/7pi-sso.conf", PYTHONPATH="/home/{{deploy_user}}/src/7pi/sso"
-autostart=true
-autorestart=true
+autostart=false
+autorestart=false
 startretries=3
 
 

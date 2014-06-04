@@ -1,6 +1,10 @@
 ---
 - name: nginx | Ensure SSL certificates have the correct directories
-  file: path=/etc/pki/tls/{{item}}/7pi.eu owner=nginx group=nginx mode=0711 state=directory
+  file: path=/etc/pki/tls/{{item}}/7pi.eu 
+        owner={{deploy_user}} 
+        group={{deploy_user}} 
+        mode=0711 
+        state=directory
   with_items:
     - certs
     - private
@@ -9,7 +13,7 @@
 - name: nginx | copy keys
   copy: src=7pi.eu/certificate-35278.crt 
         dest=/etc/pki/tls/certs/7pi.eu/certificates.crt 
-        owner=nginx 
-        group=nginx 
+        owner={{deploy_user}}
+        group={{deploy_user}}
         mode=0500
   tags: 7pi

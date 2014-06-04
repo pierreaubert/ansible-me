@@ -1,6 +1,4 @@
 ---
-# Handlers for common notifications
-
 - name: restart postgresql
   service: name=postgresql state=restarted
 

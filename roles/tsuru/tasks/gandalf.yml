@@ -37,10 +37,3 @@
 - name: Gandalf | Start the associated git service 
   service: name=git-daemon state=started enabled=true
   tags: gandalf
-
-
-
-
-
-
-

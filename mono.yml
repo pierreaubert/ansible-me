@@ -8,9 +8,9 @@
   sudo: True
 
   roles:
-  - common
-  - databases
-  - webservers
-  - admin
-  - tsuru
-  - 7pi
+    - common
+    - databases
+    - webservers
+    - admin
+    - tsuru
+    - 7pi

@@ -13,10 +13,6 @@
   template: src=supervisor/7pi-sso.conf.j2 dest=/etc/supervisor/conf.d/7pi-sso.conf
   tags: 7pi
 
-- name: sso | Expose sso via nginx
-  template: src=nginx/7pi-sso.conf.j2 dest=/etc/nginx/conf.d/7pi-sso.conf
-  tags: 7pi
-
 - name: sso | Setup supervisord conf
   supervisorctl: name=sso state=started
   tags: 7pi
