@@ -23,6 +23,15 @@
     - python-pytest
     - python-numpy
     - python-scipy
+    - python-redis
+    - python-docopt
+    - python-feedparser
+    - python-setuptools
+    - python-setuptools-git
+    - python-celery
+    - python-beautifulsoup
+    - python-nltk
+    - python-pycountry
   tags: 7pi
 
 - name: common | Disable gunicorn service
