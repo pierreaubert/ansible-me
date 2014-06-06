@@ -14,7 +14,9 @@ mariadb_admin_password: gargamelle
 # ----------------------------------------------------------------------
 spi_sso_pg_username: 'sso'
 spi_sso_pg_password: 'FdXy6yt**56sd'
-spi_sso_pg_host: 'localhost'
+# localhost is not the same as 127.0.0.1, localhost resolv to ::1
+# which must be added to ufw and to pg_hba.conf
+spi_sso_pg_host: '127.0.0.1'
 spi_sso_pg_port: 5432
 spi_sso_host: '127.0.0.1'
 spi_sso_port: 9090
@@ -26,7 +28,7 @@ spi_sso_admin_email: 'sso-admin@7pi.eu'
 # ----------------------------------------------------------------------
 spi_rssfeeds_pg_username: 'rssfeeds'
 spi_rssfeeds_pg_password: 'QQsZy6yt$$56sd87'
-spi_rssfeeds_pg_host: 'localhost'
+spi_rssfeeds_pg_host: '127.0.0.1'
 spi_rssfeeds_pg_port: 5432
 spi_rssfeeds_host: '127.0.0.1'
 spi_rssfeeds_port: 9091
@@ -41,7 +43,7 @@ spi_crawler_email: 'crawler-admin@7pi.eu'
 # ----------------------------------------------------------------------
 spi_userfeeds_pg_username: 'userfeeds'
 spi_userfeeds_pg_password: 'bdSHy2yt5*$6sd87'
-spi_userfeeds_pg_host: 'localhost'
+spi_userfeeds_pg_host: '127.0.0.1'
 spi_userfeeds_pg_port: 5432
 spi_userfeeds_host: '127.0.0.1'
 spi_userfeeds_port: 9092

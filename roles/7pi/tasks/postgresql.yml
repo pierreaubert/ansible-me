@@ -23,7 +23,7 @@
   lineinfile: dest=/etc/postgresql/9.3/main/pg_hba.conf
               regexp='.*sso.*'  
               state=present
-              line='::1         sso             sso          127.0.0.1/32            md5'
+              line='host         sso             sso          127.0.0.1/32            md5'
   tags: 7pi
 
 - name: postgresql | set password for rssfeeds
@@ -34,7 +34,7 @@
   lineinfile: dest=/etc/postgresql/9.3/main/pg_hba.conf
               regexp='.*rssfeeds.*'  
               state=present
-              line='::1         rssfeeds             rssfeeds          127.0.0.1/32            md5'
+              line='host         rssfeeds             rssfeeds          127.0.0.1/32            md5'
   tags: 7pi
 
 - name: postgresql | set password for userfeeds
@@ -45,6 +45,6 @@
   lineinfile: dest=/etc/postgresql/9.3/main/pg_hba.conf
               regexp='.*userfeeds.*'  
               state=present
-              line='::1         userfeeds             userfeeds          127.0.0.1/32            md5'
+              line='host         userfeeds             userfeeds          127.0.0.1/32            md5'
   tags: 7pi
 

@@ -17,7 +17,11 @@ DEBUG = True
 TESTING = False
 # your favorite database, sqlalchimy convention
 #DATABASE_URI = 'sqlite://:memory'
-DATABASE_URI='postgresql+psycopg2://pierre@localhost/rssfeeds'
+DATABASE_URI='postgresql+psycopg2://{user}:{pwd}@{host}:{port}/rssfeeds'.format(
+    user='{{spi_rssfeeds_pg_username}}',
+    pwd='{{spi_rssfeeds_pg_password}}',
+    port='{{spi_rssfeeds_pg_port}}',
+    host='{{spi_rssfeeds_pg_host}}')
 # our user agent
 USER_AGENT = "7pi.eu-v{0}".format(VERSION)
 # main log file

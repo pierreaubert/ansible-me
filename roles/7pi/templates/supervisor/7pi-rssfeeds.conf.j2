@@ -4,7 +4,7 @@ directory=/home/{{deploy_user}}/src/7pi/rssfeeds
 command=/usr/bin/gunicorn --bind={{spi_rssfeeds_host}}:{{spi_rssfeeds_port}} wsgi:app
 numprocs=1
 user={{deploy_user}}
-environment=RSSFEEDS_SETTINGS="/etc/7pi/7pi-rssfeeds.conf", PYTHONPATH="/home/{{deploy_user}}/src/7pi/rssfeeds/src:/home/{{deploy_user}}/src/7pi/sso/src:/home/{{deploy_user}}/src/7pi/aubergine/src"
+environment=RSSFEEDS_SETTINGS="/etc/7pi/7pi-rssfeeds.conf", PYTHONPATH="/home/{{deploy_user}}/src/7pi/rssfeeds/src:/home/{{deploy_user}}/src/7pi/sso/src:/home/{{deploy_user}}/src/7pi/aubergine/src:/home/{{deploy_user}}/src/7pi/rssfeeds"
 autostart=true
 autorestart=true
 startretries=3
