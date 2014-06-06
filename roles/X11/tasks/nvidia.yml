@@ -1,0 +1,17 @@
+---
+- name: Xorg | Ensure ppa is present
+  apt_repository: repo='ppa:xorg-edgers/ppa'
+  tags: Xorg
+
+- name: Xorg | add other packages
+  apt: name={{item}} state=installed
+  with_items:
+   - nvidia-331
+   - vdpau-va-driver
+   - vainfo
+  tags: Xorg
+
+
+
+
+

@@ -1,3 +1,7 @@
+2014-06-06  Pierre Aubert  <pierre@imac-pierre.home>
+
+	* roles/databases/tasks/postgresql.yml: swap orders in case of reboot
+
 2014-06-02  Pierre Aubert  <pierre@imac-pierre.home>
 
 	* roles/databases/templates/postgresql.conf.j2 (ssl): put ssl off,
