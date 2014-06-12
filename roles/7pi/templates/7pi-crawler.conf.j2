@@ -1,0 +1,28 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# Author: Pierre F. Aubert                  pierreaubert at yahoo dot fr
+# {{ansible_managed}}
+# ----------------------------------------------------------------------
+
+import logging
+from datetime import date
+
+env = {
+    # general
+    'VERSION': '0.3',
+    'DEBUG': True,
+    'TESTING': False,
+    # main log file
+    'LOGLEVEL': logging.INFO,
+    'LOGFILE': '/var/log/7pi/crawler_{0}.log'.format(date.today().isoformat()),
+    # where is the SSO
+    'SSO_URL': 'http://{{spi_sso_host}}:{{spi_sso_port}}',
+    # where is the feed server
+    'RSSFEEDS_URL': 'http://{{spi_rssfeeds_host}}:{{spi_rssfeeds_port}}',
+    # crawler user
+    'SSO_CRAWLER_LOGIN': '{{spi_crawler_username}}',
+    'SSO_CRAWLER_PASSWORD': '{{spi_crawler_password}}',
+    # do we use sentry?
+    'SENTRY_DSN': '',
+}
+

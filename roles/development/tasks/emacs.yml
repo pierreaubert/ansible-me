@@ -1,0 +1,7 @@
+---
+- name: Emacs | add usefull packages
+  apt: pkg={{ item }} state=installed
+  with_items:
+    - emacs
+  tags: dev
+

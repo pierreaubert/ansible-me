@@ -1,0 +1,8 @@
+---
+- name: Git | add usefull packages
+  apt: pkg={{ item }} state=installed
+  with_items:
+    - git
+    - git-flow
+  tags: dev
+
