@@ -1,0 +1,41 @@
+---
+- name: Riemann | install package
+  apt: pkg={{item}} state=installed
+  with_items:
+    - openjdk-7-jre
+    - clojure1.2
+    - leiningen
+  tags: riemann
+
+- name: Riemann | download package
+  get_url: url=http://aphyr.com/riemann/riemann_0.2.5_all.deb
+           dest=/home/{{deploy_user}}/tmp/riemann_0.2.5_all.deb
+           mode=0644
+  tags: riemann
+
+- name: Riemann | install via dpkg
+  command: dpkg -i /home/{{deploy_user}}/tmp/riemann_0.2.5_all.deb
+  tags: riemann
+
+- name: Riemann | install config is in place
+  template: src=riemann.conf.j2 
+            dest=/etc/riemann/riemann.conf
+            mode=0644
+  notify:
+    - restart riemann
+  tags: riemann
+
+- name: Riemann | activate in collectd
+  lineinfile: dest=/etc/collectd/collectd.conf
+              state=present
+              regexp="^#LoadPlugin write_riemann"
+              line="LoadPlugin write_riemann"
+  tags: riemann
+  notify:
+    - restart collectd
+
+- name: Riemann | restart
+  service: name=riemann
+           state=reloaded
+           enabled=yes
+  tags: riemann

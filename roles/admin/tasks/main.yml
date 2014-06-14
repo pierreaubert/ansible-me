@@ -12,5 +12,5 @@
 - include: logstash.yml tags=admin
 - include: kibana.yml tags=admin
 # choose rieman or shinken for supervision
-# - include: riemann.yml tags=admin
+- include: riemann.yml tags=admin
 # - include: shinken.yml tags=admin

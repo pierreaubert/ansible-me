@@ -13,3 +13,7 @@ kibana_pwd: banana2013
 backup_main_dir: /
 # where to backup
 backup_repository: /media/backup/ubuntu
+# carbon / influxdb
+carbon_host: localhost
+carbon_relay_port: 5553
+carbon_port: 2003
