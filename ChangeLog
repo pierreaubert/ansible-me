@@ -1,3 +1,33 @@
+2014-06-14  Pierre Aubert  <pierre@imac-pierre.home>
+
+	* roles/common/tasks/collectd.yml: remove postgresql conf from
+	common and move it to databases tasks
+
+	* roles/X11/tasks/xrandr.yml: idem
+
+	* roles/X11/tasks/synergy.yml: add config file
+
+	* roles/common/templates/collectd/collection.conf.j2 (datadir):
+	put everything in /var/lib/collectd and not in sub rrd
+
+2014-06-13  Pierre Aubert  <pierre@imac-pierre.home>
+
+	* roles/databases/templates/postgresql.conf.j2
+	(checkpoint_segments): setup to 16
+	(shared_buffers): run pgtunes and setup a few values higher
+	lot of ram on servers, thus increase to let 64GB for pg
+	4 SSD 0+1
+
+2014-06-11  Pierre Aubert  <pierre@imac-pierre.home>
+
+	* roles/7pi/tasks/postgresql.yml: add grant
+
+	* roles/7pi/tasks/common.yml: add httpretty
+
+2014-06-08  Pierre Aubert  <pierre@imac-pierre.home>
+
+	* roles/7pi/tasks/common.yml: install bs4 and not bs3
+
 2014-06-06  Pierre Aubert  <pierre@imac-pierre.home>
 
 	* roles/databases/tasks/postgresql.yml: swap orders in case of reboot

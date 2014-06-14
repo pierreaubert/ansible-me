@@ -5,3 +5,7 @@
        version=master
   tags: 7pi
 
+- name: aubergine | Check permission
+  command: chown -R {{deploy_user}}:{{deploy_user}} /home/{{deploy_user}}/src/7pi/aubergine 
+
+

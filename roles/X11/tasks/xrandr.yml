@@ -1,0 +1,6 @@
+---
+- name: Xrandr | turn screen
+  lineinfile: dest=/home/{{deploy_user}}/.xprofile 
+              line="xrandr -o left"
+  tags: xrandr
+

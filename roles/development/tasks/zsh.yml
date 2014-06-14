@@ -1,0 +1,7 @@
+---
+- name: Zsh | add usefull packages
+  apt: pkg={{ item }} state=installed
+  with_items:
+    - zsh
+  tags: dev
+

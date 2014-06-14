@@ -1,0 +1,30 @@
+<Plugin postgresql>
+	<Query rssfeeds_feeds>
+		Statement "SELECT COUNT(*) FROM rssfeeds;"
+		Param hostname
+
+		<Result>
+			Type counter
+			InstancePrefix "7pi_rssfeeds"
+			ValuesFrom "7pi_rssfeeds"
+		</Result>
+	</Query>
+
+	<Database rssfeeds>
+		Host "{{spi_rssfeeds_pg_host}}"
+		Port {{spi_rssfeeds_pg_port}}
+		User "{{spi_rssfeeds_pg_username}}"
+		Password "{{spi_rssfeeds_pg_password}}"
+
+		Interval 60
+		Service "7pi_rssfeeds"
+
+		SSLMode "prefer"
+		KRBSrvName "kerberos_service_name"
+
+		Query backend
+		Query rssfeeds_feeds
+	</Database>
+
+</Plugin>
+

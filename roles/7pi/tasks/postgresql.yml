@@ -19,7 +19,7 @@
   command: sudo -u postgres psql {{ spi_sso_pg_username }} -c "ALTER USER {{spi_sso_pg_username}} with password '{{ spi_sso_pg_password }}';"
   tags: 7pi
 
-- name: postgresql | give access to sso
+- name: postgresql | give network access to sso
   lineinfile: dest=/etc/postgresql/9.3/main/pg_hba.conf
               regexp='.*sso.*'  
               state=present
@@ -30,7 +30,24 @@
   command: sudo -u postgres psql {{ spi_rssfeeds_pg_username }} -c "ALTER USER {{spi_rssfeeds_pg_username}} with password '{{ spi_rssfeeds_pg_password }}';"
   tags: 7pi
 
-- name: postgresql | give access to rssfeeds
+
+- name: postgresql | grant all on table rssfeeds to {{spi_rssfeeds_pg_username}}
+  command: sudo -u postgres psql {{deploy_user}} -d rssfeeds -c 'GRANT ALL ON TABLE {{item}} TO {{spi_rssfeeds_pg_username}};'
+  with_items:
+    - rssfeeds
+    - rssitems
+    - stats
+    - httpredirects
+  tags: 7pi
+
+- name: postgresql | grant all on table rssfeeds to {{spi_rssfeeds_pg_username}}
+  command: sudo -u postgres psql {{deploy_user}} -d rssfeeds -c 'GRANT ALL ON SEQUENCE {{item}}_seq TO {{spi_rssfeeds_pg_username}};'
+  with_items:
+    - rssfeeds
+    - rssitems
+  tags: 7pi
+
+- name: postgresql | give network access to rssfeeds
   lineinfile: dest=/etc/postgresql/9.3/main/pg_hba.conf
               regexp='.*rssfeeds.*'  
               state=present
@@ -41,7 +58,7 @@
   command: sudo -u postgres psql {{ spi_userfeeds_pg_username }} -c "ALTER USER {{spi_userfeeds_pg_username}} with password '{{ spi_userfeeds_pg_password }}';"
   tags: 7pi
 
-- name: postgresql | give access to userfeeds
+- name: postgresql | give network access to userfeeds
   lineinfile: dest=/etc/postgresql/9.3/main/pg_hba.conf
               regexp='.*userfeeds.*'  
               state=present

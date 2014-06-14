@@ -5,3 +5,15 @@
   - synergy
   tags: synergy
 
+- name: Synergy | add config file
+  acl: dest=/home/{{deploy_user}}/.xprofile 
+       state=present 
+       owner={{deploy_user}} 
+       group={{deploy_user}}
+  tags: synergy
+
+- name: Synergy | insert config
+  lineinfile: dest=/home/{{deploy_user}}/.xprofile 
+              line="synergyc --daemon 192.168.0.9"
+  tags: synergy
+

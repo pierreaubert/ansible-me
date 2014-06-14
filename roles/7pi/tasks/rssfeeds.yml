@@ -5,6 +5,9 @@
        version=develop
   tags: 7pi
 
+- name: rssfeeds | Check permission
+  command: chown -R {{deploy_user}}:{{deploy_user}} /home/{{deploy_user}}/src/7pi/rssfeeds 
+
 - name: rssfeeds | Copy config file
   template: src=7pi-rssfeeds.conf.j2 dest=/etc/7pi/7pi-rssfeeds.conf backup=yes owner={{deploy_user}} mode=0600
   tags: 7pi

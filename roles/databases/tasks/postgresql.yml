@@ -74,3 +74,12 @@
   shell: "sudo -u postgres createuser -d -r {{deploy_user}} || true"
   tags: postgresql
 
+- name: Configure individual collectd plugin
+  template: src=collectd/collectd.conf.d/{{item}}.conf.j2 dest=/etc/collectd/collectd.conf.d/
+  with_items:
+  - posgresql
+  tags: postgresql collectd
+  notify: restart collectd
+
+
+

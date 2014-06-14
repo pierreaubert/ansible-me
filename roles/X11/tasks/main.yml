@@ -2,3 +2,4 @@
 - include: unity.yml tags=X11
 - include: synergy.yml tags=X11
 - include: nvidia.yml tags=X11
+- include: xrandr.yml tags=X11

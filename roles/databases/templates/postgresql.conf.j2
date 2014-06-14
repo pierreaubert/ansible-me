@@ -112,7 +112,7 @@ ssl_key_file = '/etc/pki/tls/private/postgresql.key'		# (change requires restart
 
 # - Memory -
 
-shared_buffers = 128MB			# min 128kB
+shared_buffers = 8GB			# min 128kB
 					# (change requires restart)
 #temp_buffers = 8MB			# min 800kB
 #max_prepared_transactions = 0		# zero disables the feature
@@ -122,7 +122,7 @@ shared_buffers = 128MB			# min 128kB
 # It is not advisable to set max_prepared_transactions nonzero unless you
 # actively intend to use prepared transactions.
 work_mem = 1MB				# min 64kB
-maintenance_work_mem = 16MB		# min 1MB
+maintenance_work_mem = 1GB		# min 1MB
 max_stack_depth = 2MB			# min 100kB
 
 # - Disk -
@@ -174,7 +174,7 @@ wal_level = hot_standby			# minimal, archive, or hot_standby
 					#   fsync_writethrough
 					#   open_sync
 full_page_writes = on			# recover from partial page writes
-#wal_buffers = -1			# min 32kB, -1 sets based on shared_buffers
+wal_buffers = 8MB			# min 32kB, -1 sets based on shared_buffers
 					# (change requires restart)
 #wal_writer_delay = 200ms		# 1-10000 milliseconds
 
@@ -183,9 +183,9 @@ full_page_writes = on			# recover from partial page writes
 
 # - Checkpoints -
 
-#checkpoint_segments = 3		# in logfile segments, min 1, 16MB each
+checkpoint_segments = 16		# in logfile segments, min 1, 16MB each
 #checkpoint_timeout = 5min		# range 30s-1h
-#checkpoint_completion_target = 0.5	# checkpoint target duration, 0.0 - 1.0
+checkpoint_completion_target = 0.8	# checkpoint target duration, 0.0 - 1.0
 #checkpoint_warning = 30s		# 0 disables
 
 # - Archiving -
@@ -268,7 +268,7 @@ full_page_writes = on			# recover from partial page writes
 #cpu_tuple_cost = 0.01			# same scale as above
 #cpu_index_tuple_cost = 0.005		# same scale as above
 #cpu_operator_cost = 0.0025		# same scale as above
-#effective_cache_size = 128MB
+effective_cache_size = 24GB
 
 # - Genetic Query Optimizer -
 
@@ -282,8 +282,8 @@ full_page_writes = on			# recover from partial page writes
 
 # - Other Planner Options -
 
-#default_statistics_target = 100	# range 1-10000
-#constraint_exclusion = partition	# on, off, or partition
+default_statistics_target = 50  	# range 1-10000
+constraint_exclusion = on               # on, off, or partition
 #cursor_tuple_fraction = 0.1		# range 0.0-1.0
 #from_collapse_limit = 8
 #join_collapse_limit = 8		# 1 disables collapsing of explicit
