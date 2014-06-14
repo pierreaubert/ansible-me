@@ -20,7 +20,6 @@
   with_items:
   - aggregation
   - ampq
-  - apache
   - curl
   - dbi
   - df

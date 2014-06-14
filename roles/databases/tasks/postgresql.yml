@@ -75,10 +75,12 @@
   tags: postgresql
 
 - name: Configure individual collectd plugin
-  template: src=collectd/collectd.conf.d/{{item}}.conf.j2 dest=/etc/collectd/collectd.conf.d/
+  template: src=collectd/collectd.conf.d/{{item}}.conf.j2 dest=/etc/collectd/collectd.conf.d/{{item}}.conf
   with_items:
-  - posgresql
-  tags: postgresql collectd
+    - posgresql
+  tags: 
+    - postgresql 
+    - collectd
   notify: restart collectd
 
 

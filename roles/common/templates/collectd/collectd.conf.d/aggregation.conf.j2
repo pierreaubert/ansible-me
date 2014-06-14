@@ -4,12 +4,12 @@
 		Type "cpu"
 
 		SetPlugin "cpu"
-		SetPluginInstance "even-%{aggregation}"
+		SetPluginInstance "%{aggregation}"
 
 		GroupBy "Host"
 		GroupBy "TypeInstance"
 
-		CalculateNum true
+		CalculateNum false
 		CalculateSum true
 		CalculateAverage true
 		CalculateMinimum false
