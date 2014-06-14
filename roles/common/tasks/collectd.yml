@@ -33,7 +33,6 @@
   - md
   - network
   - ntpd
-  - riemman
   - rrdtool
   - statd
   - swap

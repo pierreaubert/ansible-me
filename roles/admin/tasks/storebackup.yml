@@ -6,6 +6,20 @@
   tags: storebackup
 
 - name: StoreBackup | Copy config file
-  template: src=storebackup.conf.j2 dest=/etc/storebackup.d mode=0600 owner=root group=root
+  template: src=storebackup.conf.j2 
+            dest=/etc/storebackup.d/all.conf 
+            mode=0600 
+            owner=root 
+            group=root
   tags: storebackup
+
+- name: StoreBackup | Mount backup partition if needed
+  command: mount /dev/sdd /mount/backup
+  when: "maintenance == 'true'"
+  tags: do-backup
+
+- name: StoreBackup | Do a backup
+  when: "maintenance == 'true'"
+  command: storeBackup -f /etc/storebackup.d/all.conf
+  tags: do-backup
 
