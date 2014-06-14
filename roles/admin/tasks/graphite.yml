@@ -8,3 +8,14 @@
    - graphite-web
   tags: graphite
 
+- name: Graphite | activate graphite in collectd
+  lineinfile: dest=/etc/collectd/collectd.conf
+              state=present
+              regexp="^#LoadPlugin write_graphite"
+              line="LoadPlugin write_graphite"
+  tags: 
+   - graphite
+   - collectd
+  notify:
+    - restart collectd
+

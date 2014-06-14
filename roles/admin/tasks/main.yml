@@ -1,11 +1,16 @@
 ---
+# choose bacula or storagebackup
+- include: storebackup.yml tags=admin
+# - include: bacula.yml tags=admin
+# choose graphite or influxdb for storage
+# - include: graphite.yml tags=admin
+- include: influxdb.yml tags=admin
 - include: collectd.yml tags=admin
-- include: docker.yml tags=admin
-# - include: shinken.yml tags=admin
-- include: graphite.yml tags=admin
+# - include: docker.yml tags=admin
 - include: eskey.yml tags=admin
 - include: elasticsearch.yml tags=admin
 - include: logstash.yml tags=admin
 - include: kibana.yml tags=admin
+# choose rieman or shinken for supervision
 # - include: riemann.yml tags=admin
-- include: storebackup.yml tags=admin
+# - include: shinken.yml tags=admin
