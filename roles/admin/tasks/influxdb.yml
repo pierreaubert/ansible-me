@@ -1,0 +1,34 @@
+---
+- name: Influxdb | download package
+  get_url: url=http://s3.amazonaws.com/influxdb/influxdb_latest_amd64.deb
+           dest=/home/{{deploy_user}}/tmp/influxdb_latest_amd64.deb
+           mode=0644
+  tags: influxdb
+
+
+- name: Influxdb | Configure collectd plugin
+  template: src=collectd/collectd.conf.d/influxdb.conf.j2 dest=/etc/collectd/collectd.conf.d/influxdb.conf
+  tags: 
+    - collectd
+    - influxdb
+  notify: 
+    - restart collectd
+
+- name: Influxdb | Copy configuration (to non standar place)
+  template: src=influxdb.toml.j2 dest=/opt/influxdb/shared/config.toml
+  tags: 
+    - influxdb
+  notify: 
+    - restart influxdb
+
+- name: Influxdb | activate graphite in collectd
+  lineinfile: dest=/etc/collectd/collectd.conf
+              state=present
+              regexp="^#LoadPlugin write_graphite"
+              line="LoadPlugin write_graphite"
+  tags: 
+   - influxdb
+   - collectd
+  notify:
+    - restart collectd
+

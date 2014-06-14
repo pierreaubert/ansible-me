@@ -1,0 +1,8 @@
+---
+- name: Configure individual collectd plugin
+  template: src=collectd/collectd.conf.d/{{item}}.conf.j2 dest=/etc/collectd/collectd.conf.d/{{item}}.conf
+  with_items:
+  - apache
+  tags: collectd
+  notify: restart collectd
+

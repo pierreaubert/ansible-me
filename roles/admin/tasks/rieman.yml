@@ -1,0 +1,6 @@
+- name: Graphite | activate riemann in collectd
+  lineinfile: dest=/etc/collectd/collectd.conf
+              state=present
+              regexp="^#LoadPlugin write_riemann"
+              line="LoadPlugin write_riemann"
+  tags: graphite
