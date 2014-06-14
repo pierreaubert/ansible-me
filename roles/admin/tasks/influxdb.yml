@@ -7,7 +7,10 @@
 
 
 - name: Influxdb | Configure collectd plugin
-  template: src=collectd/collectd.conf.d/influxdb.conf.j2 dest=/etc/collectd/collectd.conf.d/influxdb.conf
+  template: src=collectd/collectd.conf.d/influxdb.conf.j2 
+            dest=/etc/collectd/collectd.conf.d/influxdb.conf
+            owner=influxdb
+            group=influxdb
   tags: 
     - collectd
     - influxdb
@@ -15,7 +18,10 @@
     - restart collectd
 
 - name: Influxdb | Copy configuration (to non standar place)
-  template: src=influxdb.toml.j2 dest=/opt/influxdb/shared/config.toml
+  template: src=influxdb.toml.j2 
+            dest=/opt/influxdb/shared/config.toml
+            owner=influxdb
+            group=influxdb
   tags: 
     - influxdb
   notify: 
