@@ -1,0 +1,33 @@
+---
+- name: Tasseo | Install bundler
+  apt: pkg=bundler state=installed
+  tags: tasseo
+
+- name: Tasseo | Checkout software
+  git: repo=https://github.com/obfuscurity/tasseo.git
+       dest=/home/{{deploy_user}}/src/tasseo
+       version=master
+  tags: tasseo
+
+- name: Tasseo | Bundled
+  shell: "cd /home/{{deploy_user}}/src/tasseo && /usr/bin/bundle install"
+  tags: tasseo
+
+- name: Tasseo | Copy procfile
+  template: src=tasseo.conf.j2 
+            dest=/etc/tasseo.conf 
+            owner={{deploy_user}} 
+            group={{deploy_user}} 
+            mode=0600
+  tags: tasseo
+
+- name: Tasseo | Copy supervisor config
+  template: src=supervisor/tasseo.conf.j2 
+            dest=/etc/supervisor/conf.d/tasseo.conf
+            owner=root
+            group=root
+            mode=0600
+  tags: tasseo
+  notify:
+    - reload supervisor
+

@@ -15,5 +15,5 @@
   service: name=collectd state=reload
 
 - name: restart influxdb
-  service: name=influxdb state=reload
+  service: name=influxdb state=reloaded
 

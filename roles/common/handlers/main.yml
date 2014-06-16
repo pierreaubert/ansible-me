@@ -13,6 +13,9 @@
 - name: restart supervisor
   service: name=supervisor state=restarted
 
+- name: reload supervisor
+  service: name=supervisor state=force-reload
+
 - name: restart monit
   service: name=monit state=restarted
 

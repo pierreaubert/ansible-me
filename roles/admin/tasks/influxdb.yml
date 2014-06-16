@@ -5,6 +5,17 @@
            mode=0644
   tags: influxdb
 
+- name: Influxdb | Create log file if needed
+  command: touch /var/log/influxdb.log
+  tags: influxdb
+
+- name: Influxdb | Check log file
+  file: path=/var/log/influxdb.log 
+        state=file
+        owner=influxdb
+        group=influxdb
+        mode=0644
+  tags: influxdb
 
 - name: Influxdb | Configure collectd plugin
   template: src=collectd/collectd.conf.d/influxdb.conf.j2 
@@ -37,4 +48,31 @@
    - collectd
   notify:
     - restart collectd
+
+- name: Influxdb | Open admin port 8083 on local lan
+  ufw: rule=allow src=192.168.0.0/24 dest=any port=8083
+  tags: influxdb
+
+- name: Influxdb | Open api port 8086 on local lan
+  ufw: rule=allow src=192.168.0.0/24 dest=any port=8086
+  tags: influxdb
+
+- name: Influxdb | Open graphite compatible api on tcp port 2003 on local lan
+  ufw: rule=allow src=192.168.0.0/24 dest=any proto=tcp port=2003
+  tags: influxdb
+
+- name: Influxdb | Open graphite compatible api on udp port 2003 on local lan
+  ufw: rule=allow src=192.168.0.0/24 dest=any proto=udp port=2003
+  tags: influxdb
+
+- name: Influxdb | Close raft port 8090 outside of local lan
+  ufw: rule=allow src=192.168.0.0/24 dest=any proto=udp port=8090
+  tags: influxdb
+
+#- name: Influxdb | Open replication port if needed with slaves
+#  ufw: rule=allow src={item} dest=any proto=udp port=8099
+#  with_items:
+#    - 192.168.0.17
+#    - 192.168.0.19
+#  tags: influxdb
 

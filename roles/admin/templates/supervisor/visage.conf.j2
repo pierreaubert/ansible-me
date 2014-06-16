@@ -1,0 +1,13 @@
+# {{ansible_managed}}
+[program:visage]
+directory={{visage_dir}}
+command={{visage_dir}}/bin/visage-app start
+numprocs=1
+user={{deploy_user}}
+autostart=true
+autorestart=true
+startretries=3
+environment=RRDDIR=/var/lib/collectd, CONFIG_PATH=/etc/visage
+
+
+

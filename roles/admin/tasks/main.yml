@@ -5,7 +5,9 @@
 # choose graphite or influxdb for storage
 # - include: graphite.yml tags=admin
 - include: influxdb.yml tags=admin
+# collector
 - include: collectd.yml tags=admin
+- include: visage.yml tags=admin
 # - include: docker.yml tags=admin
 - include: eskey.yml tags=admin
 - include: elasticsearch.yml tags=admin
@@ -14,3 +16,4 @@
 # choose rieman or shinken for supervision
 - include: riemann.yml tags=admin
 # - include: shinken.yml tags=admin
+- include: tasseo.yml tags=admin

@@ -18,20 +18,3 @@
    - ruby-dev
   tags: visage-app
 
-- name: Visage | Install gem visage
-  gem: name={{item}} state=present
-  with_items:
-   - sinatra
-   - optiflag
-   - rack
-   - tilt
-   - visage-app
-  tags: visage-app
-
-- name: Visage | Open port 9292 on firewall for visage
-  ufw: rule=allow src=192.168.0.0/24 dest=any port=9292
-  tags: visage-app
-
-- name: Vidage | Start server
-  command: "visage-app start&"
-  tags: visage-app

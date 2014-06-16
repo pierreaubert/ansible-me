@@ -39,3 +39,11 @@
            state=reloaded
            enabled=yes
   tags: riemann
+
+- name: Riemann | Install gem dash
+  gem: name={{item}} state=present
+  with_items:
+   - thin
+   - riemann-dash
+  tags: riemann
+

@@ -1,0 +1,44 @@
+---
+- name: Visage | Install bundler
+  apt: pkg=bundler state=installed
+  with_items:
+    - bundler
+    - phantomjs
+  tags: visage
+
+- name: Visage | Checkout software
+  git: repo=https://github.com/auxesis/visage.git
+       dest=/home/{{deploy_user}}/src/visage
+       version=master
+  tags: visage
+
+- name: Visage | Create conf dir
+  file: dest=/etc/visage 
+        state=directory
+        owner={{deploy_user}} 
+        group={{deploy_user}} 
+        mode=0711
+  tags: visage
+
+- name: Visage | Bundled
+  shell: "cd /home/{{deploy_user}}/src/visage && /usr/bin/bundle install"
+  tags: visage
+
+- name: Visage | Copy procfile
+  template: src=visage.conf.j2 
+            dest=/etc/visage/Procfile
+            owner={{deploy_user}} 
+            group={{deploy_user}} 
+            mode=0600
+  tags: visage
+
+- name: Visage | Copy supervisor config
+  template: src=supervisor/visage.conf.j2 
+            dest=/etc/supervisor/conf.d/visage.conf
+            owner=root
+            group=root
+            mode=0600
+  tags: visage
+  notify:
+    - restart supervisor
+

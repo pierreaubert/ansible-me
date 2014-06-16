@@ -1,0 +1,13 @@
+# {{ansible_managed}}
+[program:tasseo]
+directory={{tasseo_dir}}
+command=/usr/bin/bundle exec rackup -I lib -o {{tasseo_host}} -p {{tasseo_port}} -s thin
+numprocs=1
+user={{deploy_user}}
+autostart=true
+autorestart=true
+startretries=3
+environment=INFLUXDB_AUTH="{{influxdb_tasseo_username}}:{{influxdb_tasseo_password}}", INFLUXDB_URL="{{influxdb_tasseo_url}}"
+
+
+
