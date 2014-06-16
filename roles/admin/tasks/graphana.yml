@@ -1,0 +1,27 @@
+---
+#- name: Grafana | install package
+#  apt: pkg={{item}} state=installed
+#  with_items:
+#    - openjdk-7-jre
+#    - clojure1.2
+#    - leiningen
+#  tags: grafana
+
+#- name: Grafana | download package
+#  get_url: url=http://grafanarel.s3.amazonaws.com/grafana-1.5.4.tar.gz
+#           dest=/home/{{deploy_user}}/src
+#           owner={{deploy_user}}
+#           group={{deploy_user}}
+#           mode=0644
+#  tags: grafana
+
+- name: Grafana | unpack
+  shell: "cd /var/www && test ! -d grafana-1.5.4 && tar zxvf /home/{{deploy_user}}/src/grafana-1.5.4.tar.gz || true"
+  tags: grafana
+
+- name: Grafana | install config is in place
+  template: src=grafana.conf.j2 
+            dest=/var/www/grafana-1.5.4/config.js
+            mode=0644
+  tags: grafana
+
