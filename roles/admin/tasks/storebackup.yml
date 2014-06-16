@@ -14,12 +14,19 @@
   tags: storebackup
 
 - name: StoreBackup | Mount backup partition if needed
-  command: mount /dev/sdd /mount/backup
-  when: "maintenance == 'true'"
+  mount: src=/dev/sdd2 
+         name=/media/backup
+         fstype=ext4
+         state=present
+         opts=rw
+  when: 
+    - maintenance is defined
   tags: do-backup
 
 - name: StoreBackup | Do a backup
-  when: "maintenance == 'true'"
+  sudo: True
   command: storeBackup -f /etc/storebackup.d/all.conf
+  when: 
+    - maintenance is defined
   tags: do-backup
 

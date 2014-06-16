@@ -17,3 +17,4 @@
 - include: riemann.yml tags=admin
 # - include: shinken.yml tags=admin
 - include: tasseo.yml tags=admin
+- include: graphana.yml tags=admin

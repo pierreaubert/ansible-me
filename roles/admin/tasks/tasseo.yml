@@ -3,11 +3,11 @@
   apt: pkg=bundler state=installed
   tags: tasseo
 
-- name: Tasseo | Checkout software
-  git: repo=https://github.com/obfuscurity/tasseo.git
-       dest=/home/{{deploy_user}}/src/tasseo
-       version=master
-  tags: tasseo
+#- name: Tasseo | Checkout software
+#  git: repo=https://github.com/obfuscurity/tasseo.git
+#       dest=/home/{{deploy_user}}/src/tasseo
+#       version=master
+#  tags: tasseo
 
 - name: Tasseo | Bundled
   shell: "cd /home/{{deploy_user}}/src/tasseo && /usr/bin/bundle install"
