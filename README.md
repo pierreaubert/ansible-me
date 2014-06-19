@@ -63,4 +63,16 @@ default | success >> {
 ```
 ansible-playbook -i hosts mono.yml
 ```
+
+10. maintenance operation
+* do a full backup
+```
+ansible-playbook -i hosts mono.yml -t do-backup -e maintenance=true
+```
+* upgrade kibana
+```
+ansible-playbook -i hosts mono.yml -t kibana -e upgrade=true
+```
+
+
 You are now ready!

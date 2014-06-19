@@ -6,10 +6,11 @@
   tags: synergy
 
 - name: Synergy | add config file
-  acl: dest=/home/{{deploy_user}}/.xprofile 
+  acl: name=/home/{{deploy_user}}/.xprofile 
+       entity={{deploy_user}} 
+       etype=user
+       permissions=rw
        state=present 
-       owner={{deploy_user}} 
-       group={{deploy_user}}
   tags: synergy
 
 - name: Synergy | insert config

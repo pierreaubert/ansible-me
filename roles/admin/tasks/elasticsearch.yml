@@ -12,6 +12,18 @@
     - elasticsearch
   tags: elasticsearch
 
+- name: Elasticsearch | Create data(s) dir(s)
+  file: dest=/media/{{item}}/var/data/elasticsearch
+        state=directory
+        owner={{deploy_user}} 
+        group={{deploy_user}} 
+        mode=0711
+  with_items:
+    - data1
+    - data2
+  tags: elasticsearch
+
+
 - name: Elasticsearch | install config is in place
   template: src=elasticsearch.conf.j2 dest=/etc/elasticsearch/elasticsearch.conf
   notify:

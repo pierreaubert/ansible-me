@@ -3,20 +3,30 @@
   git: repo=https://bitbucket.org/pierreaubert/sso.git
        dest=/home/{{deploy_user}}/src/7pi/sso
        version=release/1.3
-  tags: 7pi
+  tags: 
+    - 7pi
+    - sso
 
 - name: sso | Check permission
   command: chown -R {{deploy_user}}:{{deploy_user}} /home/{{deploy_user}}/src/7pi/sso 
+  tags: 
+    - 7pi
+    - sso
 
 - name: sso | Copy config file
   template: src=7pi-sso.conf.j2 dest=/etc/7pi/7pi-sso.conf backup=yes owner={{deploy_user}} mode=0600
-  tags: 7pi
+  tags: 
+    - 7pi
+    - sso
 
 - name: sso | Copy config file for supervisord
   template: src=supervisor/7pi-sso.conf.j2 dest=/etc/supervisor/conf.d/7pi-sso.conf
-  tags: 7pi
+  tags: 
+    - 7pi
+    - sso
 
 - name: sso | Restart via supervisord conf
-#  supervisorctl: name=sso state=restarted
-  command: service supervisor restart
-  tags: 7pi
+  supervisorctl: name=sso state=restarted
+  tags: 
+    - 7pi
+    - sso

@@ -3,9 +3,14 @@
   git: repo=https://bitbucket.org/pierreaubert/aubergine.git
        dest=/home/{{deploy_user}}/src/7pi/aubergine
        version=master
-  tags: 7pi
+  tags: 
+    - 7pi
+    - aubergine
 
 - name: aubergine | Check permission
   command: chown -R {{deploy_user}}:{{deploy_user}} /home/{{deploy_user}}/src/7pi/aubergine 
+  tags: 
+    - 7pi
+    - aubergine
 
 

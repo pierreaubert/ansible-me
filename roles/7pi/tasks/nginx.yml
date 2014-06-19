@@ -8,7 +8,9 @@
   with_items:
     - certs
     - private
-  tags: 7pi
+  tags: 
+    - 7pi
+    - nginx
 
 - name: nginx | copy certificates
   copy: src=7pi.eu/{{item}}
@@ -21,7 +23,9 @@
     - GandiStandardSSLCA.pem
     - cert-chain.pem
     - cert.pem
-  tags: 7pi
+  tags: 
+    - 7pi
+    - nginx
 
 - name: nginx | copy keys
   copy: src=7pi.eu/{{item}}
@@ -31,14 +35,18 @@
         mode=0500
   with_items: 
     - cert.key
-  tags: 7pi
+  tags: 
+    - 7pi
+    - nginx
 
 - name: nginx | copy virtualhost in sites-available
   template: src=nginx/7pi.conf.j2
             dest=/etc/nginx/sites-available/7pi_eu.conf
             owner={{deploy_user}}
             group={{deploy_user}}
-  tags: 7pi
+  tags: 
+    - 7pi
+    - nginx
 
 - name: nginx | link virtualhost in site-enable
   file: src=/etc/nginx/sites-available/7pi_eu.conf
@@ -46,5 +54,7 @@
         owner={{deploy_user}}
         group={{deploy_user}}
         state=link
-  tags: 7pi
+  tags: 
+    - 7pi
+    - nginx
 
