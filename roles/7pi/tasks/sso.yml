@@ -21,6 +21,8 @@
 
 - name: sso | Copy config file for supervisord
   template: src=supervisor/7pi-sso.conf.j2 dest=/etc/supervisor/conf.d/7pi-sso.conf
+  notify:
+    - restart supervisord
   tags: 
     - 7pi
     - sso
