@@ -15,6 +15,6 @@
 
 - name: Synergy | insert config
   lineinfile: dest=/home/{{deploy_user}}/.xprofile 
-              line="synergyc --daemon 192.168.0.9"
+              line="synergyc --daemon {{synergy_server}}"
   tags: synergy
 

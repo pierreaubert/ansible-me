@@ -1,4 +1,12 @@
 ---
+- name: Collectd | Install ruby package
+  apt: name={{item}} state=present
+  with_items:
+   - librrd-ruby
+   - ruby
+   - ruby-dev
+  tags: visage-app
+
 - name: Visage | Install bundler
   apt: pkg=bundler state=installed
   with_items:

@@ -3,3 +3,6 @@ keys
 .#*
 *~*.pyc
 __pycache__
+TAGS
+ETAGS
+

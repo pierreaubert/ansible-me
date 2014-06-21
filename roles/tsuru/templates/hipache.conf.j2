@@ -1,7 +1,7 @@
 {
     "server": {
         "accessLog": "/var/log/hipache/access.log",
-        "port": 10080,
+        "port": {{hipache_port}},
         "workers": 10,
         "maxSockets": 100,
         "deadBackendTTL": 30,
@@ -10,7 +10,7 @@
         "deadBackendOn500": true,
         "httpKeepAlive": false,
         "https": {
-            "port": 10443,
+            "port": {{hipache_sport}},
             "key": "/etc/pki/tls/private/hipache.key",
             "cert": "/etc/pki/tls/certs/hipache.crt"
         }

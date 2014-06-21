@@ -52,6 +52,6 @@
   tags: logstash
 
 - name: Open port 5544 on firewall for rsyslog logs
-  ufw: rule=allow src=192.168.0.0/24 dest=any port=5544
+  ufw: rule=allow src={{fw_subnet}} dest=any port=5544
   tags: logstash
 

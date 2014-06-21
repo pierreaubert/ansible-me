@@ -23,10 +23,10 @@ authorized-keys-path: /home/git/.ssh/authorized_keys
 
 # Host is the host used to build repositories URL. If you want Gandalf to be
 # accessible from other hosts, you need to change this option.
-host: 192.168.0.18
+host: {{tsuru_host}}
 
 # Address that the Gandalf API server will bind.
-bind: localhost:8000
+bind: localhost:{{tsuru_port}}
 
 # User that manages repositories in the file system.
 uid: git

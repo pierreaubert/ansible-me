@@ -1,8 +1,8 @@
-listen: "0.0.0.0:8080"
+listen: "0.0.0.0:{{tsuru_port}}"
 
 debug: true
 
-host: http://192.168.0.18
+host: http://{{tsuru_host}}
 
 # Uncomment the following lines to enable HTTPS on Tsuru. You will need the
 # paths to the certificate and key files.
@@ -36,9 +36,9 @@ database:
 #              units. You may use the private IP of the Gandalf host.
 git:
   unit-repo: /home/application/current
-  api-server: http://127.0.0.1:8000
+  api-server: http://127.0.0.1:{{gandalf_port}}
   rw-host: tsuru.7pi.eu
-  ro-host: 192.168.0.18
+  ro-host: {{tsuru_host}}
 
 # S3 Bucket support. When this flag is defined as true, Tsuru will create a S3
 # bucket per application. Bucket creation depends on AWS settings (next
@@ -186,7 +186,7 @@ docker:
 # 127.0.0.1:11300. Uncomment and change for connecting in a different
 # Beanstalkd instance.
 #
-queue-server: "127.0.0.1:11300"
+queue-server: "127.0.0.1:{{beanstalkd_port}}"
 
 # The name of the admin team. When ommited, no team will be able to administrate Tsuru.
 #

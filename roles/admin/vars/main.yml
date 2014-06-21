@@ -1,5 +1,8 @@
 ---
 user: pierre
+fw_subnet: 192.168.1.0/24
+# collectd
+collectd_port: 25826
 # elasticsearch domain
 es_address: http://192.168.0.18/es
 # logstash

@@ -29,16 +29,16 @@
     - restart tsuru-server-collector
   tags: tsuru 
 
-- name: Tsuru | Open port 8080
-  ufw: rule=allow port=8080 proto=tcp src=192.168.0.0/24 state=reloaded
+- name: Tsuru | Open port {{gandalf_port}}
+  ufw: rule=allow port={{gandalf_port}} proto=tcp src={{fw_subnet}} state=reloaded
   tags: tsuru
 
-- name: Tsuru | Open port 8000
-  ufw: rule=allow port=8000 proto=tcp src=192.168.0.0/24 state=reloaded
+- name: Tsuru | Open port {{tsuru_port}}
+  ufw: rule=allow port={{tsuru_port}} proto=tcp src={{fw_subnet}} state=reloaded
   tags: tsuru
 
-- name: Tsuru | Open port 4545 for ssh
-  ufw: rule=allow port=4545 proto=tcp src=192.168.0.0/24 state=reloaded
+- name: Tsuru | Open port {{tsuru_ssh_port}} for ssh
+  ufw: rule=allow port={{tsuru_ssh_port}} proto=tcp src={{fw_subnet}} state=reloaded
   tags: tsuru
 
 - name: Tsuru | Start ssh service

@@ -30,8 +30,8 @@
   service: name=gandalf-server state=started enabled=true
   tags: gandalf
 
-- name: Gandalf | Open port 8000
-  ufw: rule=allow port=8000 proto=tcp src=192.168.0.0/24 state=reloaded
+- name: Gandalf | Open port {{gandalf_port}}
+  ufw: rule=allow port={{gandalf_port}} proto=tcp src={{fw_subnet}} state=reloaded
   tags: gandalf
 
 - name: Gandalf | Start the associated git service 

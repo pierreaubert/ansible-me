@@ -1,3 +1,13 @@
+2014-06-21  Pierre Aubert  <pierre@imac-pierre.home>
+
+	* roles/7pi/templates/nginx/7pi.conf.j2: ocsp disable BUG BUG BUG
+
+	* roles/7pi/templates/7pi-sso.conf.j2: idem
+
+	* roles/7pi/templates/7pi-rssfeeds.conf.j2: put key in vars
+
+	* roles/X11/tasks/synergy.yml: add ip for server
+
 2014-06-14  Pierre Aubert  <pierre@imac-pierre.home>
 
 	* roles/common/tasks/collectd.yml: remove postgresql conf from

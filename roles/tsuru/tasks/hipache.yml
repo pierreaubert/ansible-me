@@ -33,12 +33,12 @@
   copy: src=hipache.key dest=/etc/pki/tls/private/hipache.key owner=root group=root mode=0500
   tags: hipache
 
-- name: Hipache | Open port 10080
-  ufw: rule=allow port=10080 proto=tcp src=192.168.0.0/24 state=reloaded
+- name: Hipache | Open port {{hipache_port}}
+  ufw: rule=allow port={{hipache_port}} proto=tcp src={{fw_subnet}} state=reloaded
   tags: hipache
 
-- name: Hipache | Open port 10443
-  ufw: rule=allow port=10443 proto=tcp src=192.168.0.0/24 state=reloaded
+- name: Hipache | Open port {{hipache_sport}}
+  ufw: rule=allow port={{hipache_sport}} proto=tcp src={{fw_subnet}} state=reloaded
   tags: hipache
 
 - name: Hipache | Start the service via supervisor

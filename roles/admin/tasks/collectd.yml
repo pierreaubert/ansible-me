@@ -7,14 +7,7 @@
   tags: collectd
 
 - name: Collectd | Set firewall rules 
-  ufw: rule=allow src=192.168.0.0/24 dest=any port=25826
+  ufw: rule=allow src={{fw_subnet}} dest=any port={{collectd_port}}
   tags: collectd
 
-- name: Collectd | Install ruby package
-  apt: name={{item}} state=present
-  with_items:
-   - librrd-ruby
-   - ruby
-   - ruby-dev
-  tags: visage-app
 
