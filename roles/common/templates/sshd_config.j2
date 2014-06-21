@@ -87,6 +87,9 @@ Subsystem sftp /usr/lib/openssh/sftp-server
 # and ChallengeResponseAuthentication to 'no'.
 UsePAM yes
 
+AllowUsers pierre@192.168.0.9
+AllowUsers pierre@192.168.1.9
+
 # {% for ip in deploy_servers %}
 # AllowUsers {{deploy_user}}@{{ip}}
 # AllowUsers vagrant@{{ip}}
