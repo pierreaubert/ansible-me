@@ -10,7 +10,8 @@
   with_items:
     - openjdk-7-jre
     - elasticsearch
-  tags: elasticsearch
+  tags: 
+    - elasticsearch
 
 - name: Elasticsearch | Create data(s) dir(s)
   file: dest=/media/{{item}}/var/data/elasticsearch
@@ -21,11 +22,23 @@
   with_items:
     - data1
     - data2
-  tags: elasticsearch
+  tags:
+    - elasticsearch
 
+
+- name: Elasticsearch | Set firewall rules open port 9200
+  ufw: rule=allow src={{fw_subnet}} dest=any port=9200
+  tags: 
+    - elasticsearch
+
+- name: Elasticsearch | Set firewall rules open port 9300
+  ufw: rule=allow src={{fw_subnet}} dest=any port=9300
+  tags:  
+    - elasticsearch
 
 - name: Elasticsearch | install config is in place
   template: src=elasticsearch.conf.j2 dest=/etc/elasticsearch/elasticsearch.conf
   notify:
     - restart elasticsearch
-  tags: elasticsearch
+  tags: 
+    - elasticsearch

@@ -5,7 +5,6 @@
     - nginx-naxsi
   tags: 
     - nginx
-    - debug
 
 - name: copy nginx config files
   template: src=nginx/{{item}}.j2 
@@ -16,24 +15,20 @@
     - naxsi_core.rules
   tags: 
     - nginx
-    - debug
 
 - name: Expose nginx on internet on port 80
   ufw: rule=allow proto=tcp port=80  
   tags: 
     - nginx
     - ufw
-    - debug
 
 - name: Expose nginx on internet on port 443
   ufw: rule=allow proto=tcp port=443
   tags: 
     - nginx
     - ufw
-    - debug
 
 - name: Reload nginw
   command: nginx -s reload
   tags: 
     - nginx
-    - debug

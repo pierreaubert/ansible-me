@@ -3,8 +3,8 @@ user: pierre
 fw_subnet: 192.168.1.0/24
 # collectd
 collectd_port: 25826
-# elasticsearch domain
-es_address: http://192.168.0.18/es
+# elasticsearch domain exposed by nginx and not on localhost:9200
+es_address: http://192.168.0.18:7080/es
 # logstash
 logstash_domain: 192.168.0.18:5043
 # kibana config
