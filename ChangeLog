@@ -1,5 +1,7 @@
 2014-06-22  Pierre Aubert  <pierre@imac-pierre.home>
 
+	* roles/admin/vars/main.yml (kibana_domain): small mistake
+
 	* roles/webservers/tasks/nginx.yml: mv to nginx full and activate ngxsi
 
 2014-06-21  Pierre Aubert  <pierre@imac-pierre.home>
