@@ -1,5 +1,5 @@
 ---
-- include: nginx.yml
-- include: gunicorn.yml
-- include: collectd.yml
+- include: nginx.yml tags=webservers
+- include: gunicorn.yml tags=webservers
+- include: collectd.yml tags=webservers
 

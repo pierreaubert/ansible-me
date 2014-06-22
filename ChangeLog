@@ -1,6 +1,11 @@
+2014-06-22  Pierre Aubert  <pierre@imac-pierre.home>
+
+	* roles/webservers/tasks/nginx.yml: mv to nginx full and activate ngxsi
+
 2014-06-21  Pierre Aubert  <pierre@imac-pierre.home>
 
 	* roles/7pi/templates/nginx/7pi.conf.j2: ocsp disable BUG BUG BUG
+	certificate must be on chained
 
 	* roles/7pi/templates/7pi-sso.conf.j2: idem
 

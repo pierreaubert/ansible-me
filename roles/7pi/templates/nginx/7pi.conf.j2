@@ -7,7 +7,8 @@ server {
     server_name  7pi.eu;
 
     ssl                  on;
-    ssl_certificate      /etc/pki/tls/certs/7pi.eu/cert.pem;
+    # ssl_certificate      /etc/pki/tls/certs/7pi.eu/cert.pem;
+    ssl_certificate      /etc/pki/tls/certs/7pi.eu/cert-chain.pem;
     ssl_certificate_key  /etc/pki/tls/private/7pi.eu/cert.key;
 
     ssl_prefer_server_ciphers on;
@@ -19,10 +20,10 @@ server {
 
     # enable ocsp stapling (mechanism by which a site can convey certificate revocation information to visitors in a privacy-preserving, scalable manner)
     # http://blog.mozilla.org/security/2013/07/29/ocsp-stapling-in-firefox/
-    # ssl_stapling on;
-    # ssl_trusted_certificate /etc/pki/tls/certs/7pi.eu/cert-chain.pem;
+    ssl_stapling on;
+    ssl_trusted_certificate /etc/pki/tls/certs/7pi.eu/cert-chain.pem;
     # google resolver?
-    # resolver 8.8.8.8;
+    # resolver 192.168.1.1
 
     access_log /var/log/nginx/access-7pi.log;
     error_log /var/log/nginx/error-7pi.log;

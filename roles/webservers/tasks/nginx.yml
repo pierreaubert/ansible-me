@@ -2,6 +2,38 @@
 - name: Install nginx and related packages
   apt: pkg={{ item }} state=installed
   with_items:
+    - nginx-naxsi
+  tags: 
     - nginx
-  tags: nginx
+    - debug
 
+- name: copy nginx config files
+  template: src=nginx/{{item}}.j2 
+            dest=/etc/nginx/{{item}}
+  with_items:
+    - nginx.conf
+    - naxsi.rules
+    - naxsi_core.rules
+  tags: 
+    - nginx
+    - debug
+
+- name: Expose nginx on internet on port 80
+  ufw: rule=allow proto=tcp port=80  
+  tags: 
+    - nginx
+    - ufw
+    - debug
+
+- name: Expose nginx on internet on port 443
+  ufw: rule=allow proto=tcp port=443
+  tags: 
+    - nginx
+    - ufw
+    - debug
+
+- name: Reload nginw
+  command: nginx -s reload
+  tags: 
+    - nginx
+    - debug

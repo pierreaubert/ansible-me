@@ -3,10 +3,12 @@
   apt: pkg={{item}}
   with_items:
     - gunicorn
-  tags: gunicorn
+  tags: 
+    - gunicorn
 
 - name: gunicorn | Disable gunicorn service
   command: service gunicorn stop
-  tags: gunicorn
+  tags: 
+    - gunicorn
   
 
