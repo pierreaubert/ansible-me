@@ -45,7 +45,8 @@
     - ufw
 
 - name: Copy ufw conf for rsyslog
-  template: src=rsyslog.d/20-ufw.conf.j2 dest=/etc/rsyslog.d/20-ufw.conf
+  template: src=rsyslog.d/20-ufw.conf.j2 
+            dest=/etc/rsyslog.d/20-ufw.conf
   tags:
     - ufw
     - rsyslog

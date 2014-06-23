@@ -1,0 +1,32 @@
+---
+- name: Install hddtemp
+  apt: pkg=hddtemp state=present
+  tags: hddtemp
+
+- name: Copy config file
+  template: src=hddtemp.conf 
+            dest=/etc/default/hddtemp
+  tags: hddtemp
+
+- name: Collectd | Configure individual plugin
+  template: src=collectd/collectd.conf.d/{{item}}.conf.j2 
+            dest=/etc/collectd/collectd.conf.d/{{item}}.conf
+  with_items:
+    - hddtemp
+  tags: 
+    - collectd
+    - hddtemp
+  notify: 
+    - restart collectd
+
+- name: Collectd | activate hddtemp
+  lineinfile: dest=/etc/collectd/collectd.conf
+              state=present
+              regexp="^#LoadPlugin hddtemp"
+              line="LoadPlugin hddtemp"
+  tags: 
+    - collectd
+    - hddtemp
+  notify:
+    - restart collectd
+

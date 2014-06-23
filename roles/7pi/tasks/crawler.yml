@@ -25,7 +25,7 @@
   template: src=supervisor/7pi-crawler.conf.j2 dest=/etc/supervisor/conf.d/7pi-crawler.conf
   tags: 
     - 7pi
-    - crawler2
+    - crawler
 
 - name: crawler | Restart via supervisord conf
   supervisorctl: name=crawler state=restarted

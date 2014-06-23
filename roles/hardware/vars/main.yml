@@ -1,0 +1,25 @@
+---
+hddtemp_port: 7634
+# list all disks on this server
+disks: 
+  - /dev/sda
+  - /dev/sdb
+  - /dev/sdc
+  - /dev/sdd  
+  - /dev/sde
+  - /dev/sdf  
+  - /dev/md0
+# list all disks on this server for which we can read the temperature
+# sda is ssd and do not work; sata disks are all working
+disks_temperature: 
+  - /dev/sdb
+  - /dev/sdc
+  - /dev/sdd  
+# a list of partitions
+partitions:
+  - /media/backup
+  - /media/data1
+  - /media/data2
+  - /media/data3
+  - /media/data4
+  - /media/data5

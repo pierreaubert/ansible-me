@@ -1,0 +1,3 @@
+---
+- include: hddtemp.yml tags=hardware
+- include: nvidia.yml tags=hardware

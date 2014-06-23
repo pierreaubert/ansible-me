@@ -47,7 +47,6 @@
   tags: 
     - 7pi
     - nginx
-    - debug
 
 - name: nginx | link virtualhost in site-enable
   file: src=/etc/nginx/sites-available/7pi_eu.conf

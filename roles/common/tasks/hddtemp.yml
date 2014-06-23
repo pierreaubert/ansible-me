@@ -1,8 +1,0 @@
----
-- name: Install hddtemp
-  apt: pkg=hddtemp state=present
-  tags: hddtemp
-
-- name: Copy config file
-  copy: src=hddtemp.conf dest=/etc/default/hddtemp
-  tags: hddtemp

@@ -9,6 +9,7 @@
 
   roles:
     - common
+    - hardware
     - databases
     - webservers
     - admin
