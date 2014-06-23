@@ -26,13 +26,13 @@
     - elasticsearch
 
 
-- name: Elasticsearch | Set firewall rules open port 9200
-  ufw: rule=allow src={{fw_subnet}} dest=any port=9200
+- name: Elasticsearch | Set firewall rules open port {{es_port}}
+  ufw: rule=allow src={{fw_subnet}} dest=any port={{es_port}}
   tags: 
     - elasticsearch
 
-- name: Elasticsearch | Set firewall rules open port 9300
-  ufw: rule=allow src={{fw_subnet}} dest=any port=9300
+- name: Elasticsearch | Set firewall rules open port {{es_transport_port}}
+  ufw: rule=allow src={{fw_subnet}} dest=any port={{es_transport_port}}
   tags:  
     - elasticsearch
 

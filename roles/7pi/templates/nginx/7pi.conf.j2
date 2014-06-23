@@ -23,7 +23,7 @@ server {
     ssl_stapling on;
     ssl_trusted_certificate /etc/pki/tls/certs/7pi.eu/cert-chain.pem;
     # google resolver?
-    # resolver 192.168.1.1
+    # resolver {{dns}}
 
     access_log /var/log/nginx/access-7pi.log;
     error_log /var/log/nginx/error-7pi.log;
