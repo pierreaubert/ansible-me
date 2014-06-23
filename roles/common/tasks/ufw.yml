@@ -4,6 +4,8 @@
 # ufw includes sensible icmp defaults
 - name: Install ufw
   apt: pkg=ufw state=present
+  tags:
+    - ufw
 
 - name: Set firewall rules
   command: ufw allow {{ item }}
@@ -13,21 +15,37 @@
     - domain
     - ssh/tcp
     - 60000:61000/udp  # mosh udp packets
+  tags:
+    - ufw
 
 - name: Check status of ufw
   command: ufw status
   register: ufw_status
   changed_when: False  # never report as "changed"
+  tags:
+    - ufw
 
 - name: Check config of ufw
   command: cat /etc/ufw/ufw.conf
   register: ufw_config
   changed_when: False  # never report as "changed"
+  tags:
+    - ufw
 
 - name: Disable logging (workaround for known bug in Debian 7)
   command: ufw logging off
   when: "ansible_lsb['codename'] == 'wheezy' and 'LOGLEVEL=off' not in ufw_config.stdout"
+  tags:
+    - ufw
 
 - name: Enable ufw
   command: ufw --force enable
   when: "ufw_status.stdout.startswith('Status: inactive') or 'ENABLED=yes' not in ufw_config.stdout"
+  tags:
+    - ufw
+
+- name: Copy ufw conf for rsyslog
+  template: src=rsyslog.d/20-ufw.conf.j2 dest=/etc/rsyslog.d/20-ufw.conf
+  tags:
+    - ufw
+    - rsyslog

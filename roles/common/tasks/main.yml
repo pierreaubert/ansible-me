@@ -17,8 +17,3 @@
 - include: hddtemp.yml tags=common
 - include: rsyslog.yml tags=common
 - include: collectd.yml tags=common
-### virtualisation
-# -include: vagrant.yml tags=common
-### backup solution 
-#- include: bacula.yml tags=common
-#- include: storebackup.yml tags=common

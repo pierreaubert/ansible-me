@@ -1,20 +1,40 @@
 ---
-# choose bacula or storagebackup
+# - include: docker.yml tags=admin
+# ---------------------------------
+# backup: choose bacula or storagebackup
+# ---------------------------------
 - include: storebackup.yml tags=admin
 # - include: bacula.yml tags=admin
-# choose graphite or influxdb for storage
+# ---------------------------------
+# events storage: choose graphite or influxdb
+# ---------------------------------
 # - include: graphite.yml tags=admin
 - include: influxdb.yml tags=admin
+# ---------------------------------
 # collector
+# ---------------------------------
 - include: collectd.yml tags=admin
-- include: visage.yml tags=admin
-# - include: docker.yml tags=admin
+# ---------------------------------
+# elasticsearch+kibana
+# ---------------------------------
 - include: eskey.yml tags=admin
 - include: elasticsearch.yml tags=admin
-- include: logstash.yml tags=admin
 - include: kibana.yml tags=admin
-# choose rieman or shinken for supervision
-- include: riemann.yml tags=admin
-# - include: shinken.yml tags=admin
+# ---------------------------------
+# logging: choose logstash or rsyslog
+# ---------------------------------
+#- include: logstash.yml tags=admin
+# already included from common
+#- include: rsyslog.yml tags=admin
+# ---------------------------------
+# supervision
+# ---------------------------------
+#- include: riemann.yml tags=admin
+#- include: shinken.yml tags=admin
+#- include: smonit.yml tags=admin
+# ---------------------------------
+# graph
+# ---------------------------------
+- include: visage.yml tags=admin
 - include: tasseo.yml tags=admin
 - include: grafana.yml tags=admin

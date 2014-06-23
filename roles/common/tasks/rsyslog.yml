@@ -1,10 +1,29 @@
 ---
+- name: Rsyslog | Add ppa
+  apt_repository: repo='ppa:adiscon/v8-stable'
+  tags: 
+    - rsyslog
+
+- name: Rsyslog | Install basic packages
+  apt: name={{item}} state=installed
+  with_items:
+   - rsyslog
+  tags: 
+    - rsyslog
+
 - name: Configure rsyslog
   template: src=rsyslog.conf.j2 dest=/etc/rsyslog.conf
-  template: src=rsyslog.d/20-ufw.conf.j2 dest=/etc/rsyslog.d/20-ufw.conf
-  template: src=rsyslog.d/21-cloudinit.conf.j2 dest=/etc/rsyslog.d/21-cloudinit.conf
-  template: src=rsyslog.d/50-default.conf.j2 dest=/etc/rsyslog.d/50-default.conf
-  template: src=rsyslog.d/99-client.conf.j2 dest=/etc/rsyslog.d/99-client.conf
-  tags: rsyslog
-  notify: restart rsyslog
+  tags: 
+    - rsyslog
+  notify: 
+    - restart rsyslog
+
+- name: Configure rsyslog per channel
+  template: src=rsyslog.d/{{item}}.j2 dest=/etc/rsyslog.d/{{item}}
+  with_items:
+    - 50-default.conf
+  tags: 
+    - rsyslog
+  notify: 
+    - restart rsyslog
 

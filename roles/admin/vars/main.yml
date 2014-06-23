@@ -3,6 +3,9 @@ user: pierre
 fw_subnet: 192.168.1.0/24
 # collectd
 collectd_port: 25826
+# which host for es
+es_host: 192.168.0.18
+es_port: 9200
 # elasticsearch domain exposed by nginx and not on localhost:9200
 es_address: http://192.168.0.18:7080/es
 # logstash

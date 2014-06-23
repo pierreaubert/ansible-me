@@ -21,7 +21,14 @@
     - crawler
 
 
-#- name: crawler | Restart via supervisord conf
-##  supervisorctl: name=crawler state=restarted
-#  command: service supervisor restart
-#  tags: 7pi
+- name: crawler | Copy config file for supervisord
+  template: src=supervisor/7pi-crawler.conf.j2 dest=/etc/supervisor/conf.d/7pi-crawler.conf
+  tags: 
+    - 7pi
+    - crawler2
+
+- name: crawler | Restart via supervisord conf
+  supervisorctl: name=crawler state=restarted
+  tags: 
+    - 7pi
+    - crawler

@@ -1,10 +1,10 @@
 # {{ansible_managed}}
 [program:crawler]
 directory=/home/{{deploy_user}}/src/7pi/crawler
-command=/usr/bin/python scripts/crawler_celery.py worker -c24 -E -l INFO --logfile=/var/log/7pi/celery.log
+command=/usr/bin/python /home/{{deploy_user}}/src/7pi/crawler/src/scripts/crawler_celery.py worker -c24 -E -l INFO --logfile=/var/log/7pi/celery.log
 numprocs=1
 user={{deploy_user}}
-environment=CRAWLER_SETTINGS="/etc/7pi/7pi-crawler.conf", PYTHONPATH="/home/{{deploy_user}}/src/7pi/crawler/src:/home/{{deploy_user}}/src/7pi/sso/src:/home/{{deploy_user}}/src/7pi/aubergine/src"
+environment=CRAWLER_SETTINGS="/etc/7pi/7pi-crawler.conf", PYTHONPATH="/home/{{deploy_user}}/src/7pi/crawler/src:/home/{{deploy_user}}/src/7pi/rssfeeds/src:/home/{{deploy_user}}/src/7pi/sso/src:/home/{{deploy_user}}/src/7pi/aubergine/src"
 autostart=true
 autorestart=true
 startretries=3

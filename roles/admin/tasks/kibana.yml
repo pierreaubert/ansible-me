@@ -3,48 +3,49 @@
 - name: Ensure app apt dependencies are installed
   apt: pkg={{item}} state=installed
   with_items:
-    - nginx
     - unzip
   tags: kibana
 
 - name: Ensure /var/www/kibana is deleted
   file: path=/var/www/kibana state=absent
   when:
-    - update is defined
+    - do_update is defined
   tags: kibana
 
 - name: Ensure /var/www/kibana is an empty directory
   file: path=/var/www/kibana state=directory
   when:
-    - update is defined
+    - do_update is defined
   tags: kibana
 
 - name: Ensure we have the latest release
   get_url: url={{kibana_url}} dest=/tmp/kibana.zip
   when:
-    - update is defined
+    - do_update is defined
   tags: kibana
 
 - name: Unzip kibana to /var/www
   shell: unzip /tmp/kibana.zip kibana-master/src/* -d /var/www/
   when:
-    - update is defined
+    - do_update is defined
   tags: kibana
 
 - name: Rename the directory to /var/www/kibana
   shell: mv /var/www/kibana-master/src/* /var/www/kibana
   when:
-    - update is defined
+    - do_update is defined
   tags: kibana
 
 - name: Clean up old kibana directory
   shell: rm -rf /var/www/kibana-master
   when:
-    - update is defined
+    - do_update is defined
   tags: kibana
 
 - name: Ensure kibana's nginx site is in place
-  template: src=nginx_kibana.conf.j2 dest=/etc/nginx/sites-available/kibana mode=0755
+  template: src=nginx/kibana.conf.j2 
+            dest=/etc/nginx/sites-available/kibana 
+            mode=0755
   tags: kibana
 
 - name: Ensure kibana's htpasswd file is in place

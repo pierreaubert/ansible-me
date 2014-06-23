@@ -3,3 +3,5 @@
 - include: git.yml tags=dev
 - include: emacs.yml tags=dev
 - include: zsh.yml tags=dev
+### virtualisation
+# -include: vagrant.yml tags=common
