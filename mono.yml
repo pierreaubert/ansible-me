@@ -13,7 +13,7 @@
     - databases
     - webservers
     - admin
-    - tsuru
+#    - tsuru
     - 7pi
     - X11
     - development

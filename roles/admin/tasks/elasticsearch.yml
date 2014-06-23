@@ -36,6 +36,16 @@
   tags:  
     - elasticsearch
 
+- name: Elasticsearch | Configure push from rsyslog
+  template: src=rsyslog.d/{{item}}.j2 dest=/etc/rsyslog.d/{{item}}
+  with_items:
+    - 98-elasticsearch.conf
+  tags: 
+    - elasticsearch
+    - rsyslog
+  notify: 
+    - restart rsyslog
+
 - name: Elasticsearch | install config is in place
   template: src=elasticsearch.conf.j2 dest=/etc/elasticsearch/elasticsearch.conf
   notify:

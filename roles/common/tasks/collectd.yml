@@ -54,4 +54,4 @@
     - collectd
     - rsyslog
   notify: 
-    - restart rsyslogd
+    - restart rsyslog
