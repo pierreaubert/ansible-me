@@ -1,0 +1,40 @@
+$ModLoad imfile
+module(load="omelasticsearch")
+
+$InputFileName /var/log/7pi/crawler.log
+$InputFileTag spi-crawler
+$InputFileStateFile spi-crawler
+$InputFileSeverity info
+$InputFileFacility local7
+$InputRunFileMonitor
+$InputFilePollInterval 1
+
+template(name="spi-index" type="list") {
+    constant(value="spi-")
+    property(name="timereported" dateFormat="rfc3339" position.from="1" position.to="4")
+    constant(value=".")
+    property(name="timereported" dateFormat="rfc3339" position.from="6" position.to="7")
+    constant(value=".")
+    property(name="timereported" dateFormat="rfc3339" position.from="9" position.to="10")
+}
+
+# this is for formatting our syslog in JSON with @timestamp
+template(name="plain-syslog" type="list") {
+    constant(value="{")
+      constant(value="\"@timestamp\":\"")     property(name="timereported" dateFormat="rfc3339")
+      constant(value="\",\"host\":\"")        property(name="hostname")
+      constant(value="\",\"severity\":\"")    property(name="syslogseverity-text")
+      constant(value="\",\"facility\":\"")    property(name="syslogfacility-text")
+      constant(value="\",\"tag\":\"")   property(name="syslogtag" format="json")
+      constant(value="\",\"message\":\"")    property(name="msg" format="json")
+    constant(value="\"}")
+}
+
+
+*.* action(type="omelasticsearch"
+           template="plain-syslog"
+           searchIndex="spi-index"
+           dynSearchIndex="on"
+           server="{{es_host}}"
+           serverport="{{es_port}}")
+           module(load="omelasticsearch")

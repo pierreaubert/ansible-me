@@ -6,3 +6,8 @@
   tags: 
     - rsyslog
 
+- name: Rsyslog | Create index exist in elasticseach
+  shell: "curl -XPOST http://localhost:{{es_port}}/logstash-ind"
+  tags:
+    - rsyslog
+

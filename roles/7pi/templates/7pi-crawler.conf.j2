@@ -5,7 +5,6 @@
 # ----------------------------------------------------------------------
 
 import logging
-from datetime import date
 
 env = {
     # general
@@ -14,7 +13,7 @@ env = {
     'TESTING': False,
     # main log file
     'LOGLEVEL': logging.INFO,
-    'LOGFILE': '/var/log/7pi/crawler_{0}.log'.format(date.today().isoformat()),
+    'LOGFILE': '/var/log/7pi/crawler.log',
     # where is the SSO
     'SSO_URL': 'http://{{spi_sso_host}}:{{spi_sso_port}}',
     # where is the feed server

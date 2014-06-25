@@ -3,11 +3,14 @@
 - name: Collectd | install packages
   apt: pkg={{item}} state=installed
   with_items:
-  - collectd
-  tags: collectd
+    - collectd
+  tags: 
+    - collectd
 
-- name: Collectd | Set firewall rules 
+- name: Collectd | Open {{collectd_port}} on lan
   ufw: rule=allow src={{fw_subnet}} dest=any port={{collectd_port}}
-  tags: collectd
+  tags: 
+    - collectd
+    - ufw
 
 

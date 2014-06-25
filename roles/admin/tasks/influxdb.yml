@@ -20,8 +20,6 @@
 - name: Influxdb | Configure collectd plugin
   template: src=collectd/collectd.conf.d/influxdb.conf.j2 
             dest=/etc/collectd/collectd.conf.d/influxdb.conf
-            owner=influxdb
-            group=influxdb
   tags: 
     - collectd
     - influxdb
@@ -53,8 +51,8 @@
   ufw: rule=allow src={{fw_subnet}} dest=any port=8083
   tags: influxdb
 
-- name: Influxdb | Open api port 8086 on local lan
-  ufw: rule=allow src={{fw_subnet}} dest=any port=8086
+- name: Influxdb | Open api port {{influxdb_port_api}} on local lan
+  ufw: rule=allow src={{fw_subnet}} dest=any port={{influxdb_port_api}}
   tags: influxdb
 
 - name: Influxdb | Open graphite compatible api on tcp port {{carbon_port}} on local lan

@@ -32,3 +32,19 @@
   tags: 
     - 7pi
     - crawler
+
+- name: crawler | Copy config file for rsyslog
+  template: src=rsyslog.d/7pi-crawler.conf.j2 dest=/etc/rsyslog.d/30-7pi-crawler.conf
+  notify:
+    - restart rsyslog
+  tags: 
+    - 7pi
+    - crawler
+    - rsyslog
+
+- name: crawler | Restart via rsyslogd conf
+  service: name=rsyslog state=restarted
+  tags: 
+    - 7pi
+    - crawler
+    - rsyslog

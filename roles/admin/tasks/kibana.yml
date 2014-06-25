@@ -66,7 +66,7 @@
     - restart nginx  
   tags: kibana
 
-- name: Kibana | Open port 7080 on firewall for kibana
-  ufw: rule=allow src={{fw_subnet}} dest=any port=7080
+- name: Kibana | Open port {{kibana_port}} on firewall for kibana
+  ufw: rule=allow src={{fw_subnet}} dest=any port={{kibana_port}}
   tags: kibana
 

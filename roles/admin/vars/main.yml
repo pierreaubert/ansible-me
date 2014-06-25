@@ -1,9 +1,14 @@
 ---
 user: pierre
 fw_subnet: 192.168.1.0/24
+# --------------------------------------------------------------------
 # collectd
+# --------------------------------------------------------------------
+collectd_host: 192.168.1.18
 collectd_port: 25826
+# --------------------------------------------------------------------
 # which host for es
+# --------------------------------------------------------------------
 es_host: 192.168.1.18
 es_port: 9200
 es_transport_port: 9300
@@ -11,33 +16,54 @@ es_bind_host: 192.168.1.18
 es_publish_host: 192.168.1.18
 # elasticsearch domain exposed by nginx and not on localhost:9200
 es_address: http://192.168.1.18:7080/es
+# --------------------------------------------------------------------
 # logstash
+# --------------------------------------------------------------------
 logstash_domain: 192.168.1.18:5043
+# --------------------------------------------------------------------
 # kibana config
+# --------------------------------------------------------------------
 kibana_url: https://github.com/elasticsearch/kibana/archive/master.zip
 kibana_user: kibana
 kibana_domain: 192.168.1.18
 kibana_pwd: banana2013
+kibana_domain: 192.168.1.18
+kibana_port: 7080
+# --------------------------------------------------------------------
 # backup all by default
+# --------------------------------------------------------------------
 backup_main_dir: /
 # where to backup
 backup_repository: /media/backup/ubuntu
+# --------------------------------------------------------------------
 # carbon / influxdb
-carbon_host: localhost
+# --------------------------------------------------------------------
+carbon_host: 192.168.1.18
 carbon_relay_port: 5553
 carbon_port: 2003
+# --------------------------------------------------------------------
 # influxdb 
-influxdb_host: 127.0.0.1
+# --------------------------------------------------------------------
+influxdb_host: 192.168.1.18
 influxdb_port_api: 8086
 # influxdb for tasseo
 influxdb_tasseo_username: collectd
 influxdb_tasseo_password: browse
 influxdb_tasseo_url: htp://{{influxdb_host}}:{{influxdb_port_api}}/db/collectd
+# --------------------------------------------------------------------
 # tasseo dashboard
+# --------------------------------------------------------------------
 tasseo_dir: /home/{{deploy_user}}/src/tasseo
-tasseo_host: 127.0.0.1
+tasseo_host: 192.168.1.18
 tasseo_port: 5000
+# --------------------------------------------------------------------
 # visage dashboard
+# --------------------------------------------------------------------
 visage_dir: /home/{{deploy_user}}/src/visage
-visage_host: 127.0.0.1
+visage_host: 192.168.1.18
 visage_port: 5050
+# --------------------------------------------------------------------
+# grafana
+# --------------------------------------------------------------------
+grafana_previous: 1.5.4
+grafana_version: 1.6.0

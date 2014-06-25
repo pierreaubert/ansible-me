@@ -1,9 +1,22 @@
 # from https://github.com/johnhamelink/ansible-elasticsearch
 ---
 - name: Elasticsearch | ensure 1.0.x repository is installed
-  apt_repository: repo="deb http://packages.elasticsearch.org/elasticsearch/1.0/debian stable main" state=present update_cache=yes
-  when: "ansible_lsb['codename'] == 'precise'"
-  tags: elasticsearch
+  apt_repository: repo="deb http://packages.elasticsearch.org/elasticsearch/1.0/debian stable main" 
+                  state=present 
+                  update_cache=yes
+  when: 
+    - "ansible_lsb['codename'] == 'precise'"
+  tags: 
+    - elasticsearch
+
+- name: Elasticsearch | ensure 1.2.x repository is installed
+  apt_repository: repo="deb http://packages.elasticsearch.org/elasticsearch/1.2/debian stable main" 
+                  state=present 
+                  update_cache=yes
+  when: 
+    - "ansible_lsb['codename'] == 'trusty'"
+  tags: 
+    - elasticsearch
 
 - name: Elasticsearch | install package
   apt: pkg={{item}} state=installed
@@ -26,14 +39,23 @@
     - elasticsearch
 
 
-- name: Elasticsearch | Set firewall rules open port {{es_port}}
+- name: Elasticsearch | Open port {{es_port}} on lan
   ufw: rule=allow src={{fw_subnet}} dest=any port={{es_port}}
   tags: 
     - elasticsearch
+    - ufw
 
-- name: Elasticsearch | Set firewall rules open port {{es_transport_port}}
+- name: Elasticsearch | Open port {{es_transport_port}}
   ufw: rule=allow src={{fw_subnet}} dest=any port={{es_transport_port}}
   tags:  
+    - elasticsearch
+    - ufw
+
+- name: Elasticsearch | install config is in place
+  template: src=elasticsearch.conf.j2 dest=/etc/elasticsearch/elasticsearch.conf
+  notify:
+    - restart elasticsearch
+  tags: 
     - elasticsearch
 
 - name: Elasticsearch | Configure push from rsyslog
@@ -46,9 +68,3 @@
   notify: 
     - restart rsyslog
 
-- name: Elasticsearch | install config is in place
-  template: src=elasticsearch.conf.j2 dest=/etc/elasticsearch/elasticsearch.conf
-  notify:
-    - restart elasticsearch
-  tags: 
-    - elasticsearch

@@ -24,8 +24,8 @@
 # logging: choose logstash or rsyslog
 # ---------------------------------
 #- include: logstash.yml tags=admin
-# already included from common
-#- include: rsyslog.yml tags=admin
+# this is the server part of rsyslog
+- include: rsyslog.yml tags=admin
 # ---------------------------------
 # supervision
 # ---------------------------------

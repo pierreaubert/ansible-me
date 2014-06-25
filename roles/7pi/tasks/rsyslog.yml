@@ -1,0 +1,7 @@
+---
+- name: Rsyslog | Create index exist in elasticseach
+  shell: "curl -XPOST http://localhost:{{es_port}}/spi-ind"
+  tags:
+    - rsyslog
+    - 7pi
+

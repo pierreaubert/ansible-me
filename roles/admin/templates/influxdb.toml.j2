@@ -6,7 +6,7 @@
 # that can be resolved here.
 # hostname = ""
 
-bind-address = "0.0.0.0"
+bind-address = "192.168.1.18"
 
 # Once every 24 hours InfluxDB will report anonymous data to m.influxdb.com
 # The data includes raft name (random 8 bytes), os, arch and version
@@ -18,7 +18,7 @@ reporting-disabled = false
 
 [logging]
 # logging level can be one of "debug", "info", "warn" or "error"
-level  = "info"
+level  = "debug"
 file   = "/var/log/influxdb.log"         # stdout to log to standard out
 
 # Configure the admin server
@@ -28,7 +28,7 @@ assets = "/opt/influxdb/current/admin"
 
 # Configure the http api
 [api]
-port     = 8086    # binding is disabled if the port isn't set
+port = {{influxdb_port_api}}    # binding is disabled if the port isn't set
 # ssl-port = 8084    # Ssl support is enabled if you set a port and cert
 # ssl-cert = /path/to/cert.pem
 
@@ -184,8 +184,8 @@ write-batch-size = 5000000
 [wal]
 
 dir   = "/opt/influxdb/shared/data/wal"
-flush-after = 1000 # the number of writes after which wal will be flushed, 0 for flushing on every write
-bookmark-after = 1000 # the number of writes after which a bookmark will be created
+flush-after = 10000 # the number of writes after which wal will be flushed, 0 for flushing on every write
+bookmark-after = 10000 # the number of writes after which a bookmark will be created
 
 # the number of writes after which an index entry is created pointing
 # to the offset of the first request, default to 1k

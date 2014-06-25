@@ -1,7 +1,8 @@
 ---
 - name: Tasseo | Install bundler
   apt: pkg=bundler state=installed
-  tags: tasseo
+  tags: 
+    - tasseo
 
 - name: Tasseo | Checkout software
   git: repo=https://github.com/obfuscurity/tasseo.git
@@ -31,4 +32,10 @@
   tags: tasseo
   notify:
     - reload supervisor
+
+- name: Tasseo | Open port {{tasseo_port}} on lan
+  ufw: rule=allow src={{fw_subnet}} dest=any port={{tasseo_port}}
+  tags: 
+    - tasseo
+    - ufw
 

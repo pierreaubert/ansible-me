@@ -1,3 +1,9 @@
+2014-06-25  Pierre Aubert  <pierre@imac-pierre.home>
+
+	* roles/admin/vars/main.yml (carbon_host): upgrade es to 1.2
+
+	* roles/7pi/templates/7pi-sso.conf.j2: do not put date in log filename
+
 2014-06-22  Pierre Aubert  <pierre@imac-pierre.home>
 
 	* roles/admin/vars/main.yml (kibana_domain): small mistake

@@ -5,7 +5,6 @@
 # ----------------------------------------------------------------------
 
 import logging
-from datetime import date
 
 # version
 VERSION = "0.17"
@@ -26,7 +25,7 @@ DATABASE_URI='postgresql+psycopg2://{user}:{pwd}@{host}:{port}/rssfeeds'.format(
 USER_AGENT = "7pi.eu-v{0}".format(VERSION)
 # main log file
 LOG_APP= "rssfeeds"
-LOG_FILE="/var/log/7pi/rssfeeds_{0}.log".format(date.today().isoformat())
+LOG_FILE="/var/log/7pi/rssfeeds.log"
 LOG_LEVEL= logging.INFO
 # host/port for techradar
 RSSFEEDS_HOST='{{spi_rssfeeds_host}}'

@@ -30,3 +30,19 @@
   tags: 
     - 7pi
     - rssfeeds
+
+- name: rssfeeds | Copy config file for rsyslog
+  template: src=rsyslog.d/7pi-rssfeeds.conf.j2 dest=/etc/rsyslog.d/30-7pi-rssfeeds.conf
+  notify:
+    - restart rsyslog
+  tags: 
+    - 7pi
+    - rssfeeds
+    - rsyslog
+
+- name: rssfeeds | Restart via rsyslogd conf
+  service: name=rsyslog state=restarted
+  tags: 
+    - 7pi
+    - rssfeeds
+    - rsyslog

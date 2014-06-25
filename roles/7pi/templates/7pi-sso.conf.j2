@@ -5,7 +5,6 @@
 # ----------------------------------------------------------------------
 
 import logging
-from datetime import date
 
 # version
 VERSION = "0.17"
@@ -25,7 +24,7 @@ DATABASE_URI='postgresql+psycopg2://{user}:{pwd}@{host}:{port}/sso'.format(
 
 # main log file
 LOG_APP='sso'
-LOG_FILE='/var/log/7pi/sso_{0}.log'.format(date.today().isoformat())
+LOG_FILE='/var/log/7pi/sso.log'
 LOG_LEVEL=logging.INFO
 
 # host/port for sso, host is quoted but port is not

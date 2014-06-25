@@ -50,3 +50,9 @@
   notify:
     - restart supervisor
 
+- name: Visage | Open port {{visage_port}} on lan
+  ufw: rule=allow src={{fw_subnet}} dest=any port={{visage_port}}
+  tags: 
+    - visage
+    - ufw
+

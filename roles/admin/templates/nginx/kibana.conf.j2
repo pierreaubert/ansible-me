@@ -1,7 +1,7 @@
 # {{ansible_managed}}
 
 server {
-  listen 7080;
+  listen {{kibana_port}};
   server_name {{ kibana_domain }};
   root /var/www/kibana;
 
@@ -44,7 +44,7 @@ server {
     auth_basic "Restricted";
     auth_basic_user_file /var/www/htpasswd;
 
-    proxy_pass http://localhost:9200;
+    proxy_pass http://localhost:{{es_port}};
     
     proxy_redirect off;
  
@@ -68,10 +68,9 @@ server {
       deny all;
     }
 
-    proxy_pass http://localhost:9200;
+    proxy_pass http://localhost:{{es_port}};
 
     proxy_redirect off;
-
     proxy_set_header  X-Real-IP  $remote_addr;
     proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header  Host $http_host;
@@ -90,7 +89,51 @@ server {
 
   location /es/kibana-int/ {
     rewrite ^/es/(kibana-int/.*)$ /$1 break;
-    proxy_pass http://localhost:9200;
+    proxy_pass http://localhost:{{es_port}};
+
+    auth_basic "Restricted";
+    auth_basic_user_file /var/www/htpasswd;
+
+    proxy_redirect off;
+
+    proxy_set_header  X-Real-IP  $remote_addr;
+    proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header  Host $http_host;
+
+    # For CORS Ajax
+    proxy_pass_header Access-Control-Allow-Origin;
+    proxy_pass_header Access-Control-Allow-Methods;
+    proxy_hide_header Access-Control-Allow-Headers;
+    add_header Access-Control-Allow-Headers 'X-Requested-With, Content-Type';
+    add_header Access-Control-Allow-Credentials true;
+
+  }
+
+  location /es/logstash-int/ {
+    rewrite ^/es/(logstash-int/.*)$ /$1 break;
+    proxy_pass http://localhost:{{es_port}};
+
+    auth_basic "Restricted";
+    auth_basic_user_file /var/www/htpasswd;
+
+    proxy_redirect off;
+
+    proxy_set_header  X-Real-IP  $remote_addr;
+    proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header  Host $http_host;
+
+    # For CORS Ajax
+    proxy_pass_header Access-Control-Allow-Origin;
+    proxy_pass_header Access-Control-Allow-Methods;
+    proxy_hide_header Access-Control-Allow-Headers;
+    add_header Access-Control-Allow-Headers 'X-Requested-With, Content-Type';
+    add_header Access-Control-Allow-Credentials true;
+
+  }
+
+  location /es/spi-int/ {
+    rewrite ^/es/(spi-int/.*)$ /$1 break;
+    proxy_pass http://localhost:{{es_port}};
 
     auth_basic "Restricted";
     auth_basic_user_file /var/www/htpasswd;
