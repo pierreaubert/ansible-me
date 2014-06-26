@@ -16,3 +16,4 @@
 ### admin client
 - include: rsyslog.yml tags=common
 - include: collectd.yml tags=common
+- include: monit.yml tags=common

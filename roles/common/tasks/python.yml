@@ -19,7 +19,10 @@
   tags: python
 
 - name: Start supervisor
-  service: name=supervisor state=started
+  service: name=supervisor state=started enabled=true
+  tags: 
+    - python
+    - supervisor
 
 
 

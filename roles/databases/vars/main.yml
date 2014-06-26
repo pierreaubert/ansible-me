@@ -1,5 +1,8 @@
 ---
 pg_admin_username: postgres
 pg_admin_password: pantagruel
+pg_port: 5432
+pg_version: 9.3
+pg_cluster: main
 mariadb_admin_username: debian_sys_maint
 mariadb_admin_password: gargamelle

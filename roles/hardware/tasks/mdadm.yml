@@ -1,0 +1,9 @@
+---
+- name: Mdadm | Deploy monit config
+  template: src=monit.d/mdadm.conf.j2 dest=/etc/monit/conf.d/mdadm.conf
+  notify: 
+    - restart monit
+  tags:
+    - mdadm
+    - monit
+

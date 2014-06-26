@@ -1,0 +1,4 @@
+# {{ansible_managed}}
+check host {{es_host}} with address {{es_host}}
+  if failed url http://localhost:{{es_port}}/ with timeout 15 seconds then alert  
+  group elasticsearch

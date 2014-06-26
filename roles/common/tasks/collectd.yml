@@ -1,12 +1,12 @@
 ---
-- name: install collectd
+- name: Collectd | Install pkg
   apt: pkg={{item}} state=installed
   with_items:
     - collectd
   tags: 
     - collectd
 
-- name: Configure main collectd
+- name: Collectd | Copy main config file
   template: src=collectd/collectd.conf.j2 
             dest=/etc/collectd/collectd.conf
   tags: 
@@ -14,14 +14,14 @@
   notify: 
     - restart collectd
 
-- name: Configure collection for collectd
+- name: Collectd | Configure collection
   template: src=collectd/collection.conf.j2 dest=/etc/collectd/collection.conf
   tags: 
     - collectd
   notify: 
     - restart collectd
 
-- name: Configure individual collectd plugin
+- name: Collectd | Configure individual plugin
   template: src=collectd/collectd.conf.d/{{item}}.conf.j2 
             dest=/etc/collectd/collectd.conf.d/{{item}}.conf
   with_items:
@@ -47,9 +47,16 @@
   notify: 
     - restart collectd
 
-- name: Configure rsyslog for collectd
-  template: src=rsyslog.d/22-collectd.conf.j2 
-            dest=/etc/rsyslog.d/22-collectd.conf
+- name: Collectd | Deploy monit config
+  template: src=monit.d/collectd.conf.j2  dest=/etc/monit/conf.d/collectd.conf
+  notify:
+    - restart monit
+  tags:
+    - collectd
+    - monit
+
+- name: Collectd | Configure rsyslog 
+  template: src=rsyslog.d/22-collectd.conf.j2 dest=/etc/rsyslog.d/22-collectd.conf
   tags: 
     - collectd
     - rsyslog

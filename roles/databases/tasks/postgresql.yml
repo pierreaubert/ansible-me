@@ -83,5 +83,13 @@
     - collectd
   notify: restart collectd
 
+- name: Postgresql | Deploy monit config
+  template: src=monit.d/postgresql.conf.j2  dest=/etc/monit/conf.d/postgresql.conf
+  notify:
+    - restart monit
+  tags:
+    - postgresql
+    - monit
+
 
 

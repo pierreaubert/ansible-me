@@ -16,6 +16,14 @@
   tags: 
     - nginx
 
+- name: Nginx | Deploy monit config
+  template: src=monit.d/nginx.conf.j2  dest=/etc/monit/conf.d/nginx.conf
+  notify: 
+    - restart monit
+  tags:
+    - nginx
+    - monit
+
 - name: Expose nginx on internet on port 80
   ufw: rule=allow proto=tcp port=80  
   tags: 

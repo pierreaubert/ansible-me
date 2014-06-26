@@ -1,0 +1,8 @@
+# {{ansible_managed}}
+# do not try to be tooo smart with pg, alert only
+check process postgresql with pidfile /var/run/postgres/{{pg_version}}-{{pg_cluster}}.pid
+    group postgres
+    start program = "/etc/init.d/postgresql start"
+    stop  program = "/etc/init.d/postgresql stop"
+ if failed unixsocket /var/run/postgresql/.s.PGSQL.{{pg_port}} protocol pgsql then alert
+ if failed host localhost port {{pg_port}} protocol pgsql then alert

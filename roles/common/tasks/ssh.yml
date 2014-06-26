@@ -4,6 +4,14 @@
   tags: ssh
   notify: restart ssh
 
+- name: Ssh | Deploy monit config
+  template: src=monit.d/openssh-server.conf.j2 dest=/etc/monit/conf.d/openssh-server.conf
+  notify:
+    - restart monit
+  tags:
+    - ssh
+    - monit
+
 - name: Start the ssh service
   service: name=ssh state=started enabled=true
   tags: ssh

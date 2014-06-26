@@ -74,3 +74,13 @@
 #    - 192.168.0.19
 #  tags: influxdb
 
+- name: Influxdb | Deploy monit config
+  template: src=monit.d/influxdb.conf.j2  dest=/etc/monit/conf.d/influxdb.conf
+  notify:
+    - restart monit
+  tags:
+    - influxdb
+    - monit
+
+
+

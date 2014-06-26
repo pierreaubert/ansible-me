@@ -1,17 +1,27 @@
 ---
-- name: Install monit
+- name: Monit | Install pgk
   apt: name={{item}} state=installed
   with_items:
    - monit
   tags: monit
 
-- name: Configure monit file
+- name: Monit | Deploy main config file
   template: src=monit.conf.j2 dest=/etc/monit/monitrc
   tags: monit
   notify: 
     - restart monit
 
-- name: Start the monit service
+- name: Monit | Create group if not exist
+  group: name=monit state=present
+  tags: 
+    - monit
+
+- name: Monit | Add {{deploy_user}} in monit group
+  user: name={{deploy_user}} groups=monit state=present
+  tags: 
+    - monit
+
+- name: Monit | Start the service
   service: name=monit state=started enabled=true
   tags: monit
 
