@@ -9,37 +9,37 @@
 - name: Ensure /var/www/kibana is deleted
   file: path=/var/www/kibana state=absent
   when:
-    - do_update is defined
+    - update is defined
   tags: kibana
 
 - name: Ensure /var/www/kibana is an empty directory
   file: path=/var/www/kibana state=directory
   when:
-    - do_update is defined
+    - update is defined
   tags: kibana
 
 - name: Ensure we have the latest release
   get_url: url={{kibana_url}} dest=/tmp/kibana.zip
   when:
-    - do_update is defined
+    - update is defined
   tags: kibana
 
 - name: Unzip kibana to /var/www
   shell: unzip /tmp/kibana.zip kibana-master/src/* -d /var/www/
   when:
-    - do_update is defined
+    - update is defined
   tags: kibana
 
 - name: Rename the directory to /var/www/kibana
   shell: mv /var/www/kibana-master/src/* /var/www/kibana
   when:
-    - do_update is defined
+    - update is defined
   tags: kibana
 
 - name: Clean up old kibana directory
   shell: rm -rf /var/www/kibana-master
   when:
-    - do_update is defined
+    - update is defined
   tags: kibana
 
 - name: Ensure kibana's nginx site is in place

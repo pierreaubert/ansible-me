@@ -11,3 +11,45 @@
   tags:
     - rsyslog
 
+- name: Rsyslog | Change conf to open syslog reception
+  lineinfile: dest=/etc/rsyslog.conf
+              regexp='^#\$ModLoad imudp.*$'
+              state=present     
+              line='$ModLoad imudp'
+  tags:
+    - rsyslog
+    - debug
+
+- name: Rsyslog | Change conf to open syslog reception
+  lineinfile: dest=/etc/rsyslog.conf
+              regexp='^#\$UDPServerRun 514.*$'
+              state=present     
+              line='$UDPServerRun {{rsyslog_port}}'
+  tags:
+    - rsyslog
+    - debug
+
+- name: Rsyslog | Change conf to open syslog reception
+  lineinfile: dest=/etc/rsyslog.conf
+              regexp='^#\$ModLoad imtcp.*$'
+              state=present     
+              line='$ModLoad imtcp'
+  tags:
+    - rsyslog
+    - debug
+
+- name: Rsyslog | Change conf to open syslog reception
+  lineinfile: dest=/etc/rsyslog.conf
+              regexp='^#\$InputTCPServerRun 514.*$'
+              state=present     
+              line='$InputTCPServerRun {{rsyslog_port}}'
+  tags:
+    - rsyslog
+    - debug
+
+- name: Rsyslog | Open port {{rsyslog_port}} on lan
+  ufw: rule=allow src={{fw_subnet}} dest=any port={{rsyslog_port}}
+  tags: 
+    - rsyslog
+    - ufw
+

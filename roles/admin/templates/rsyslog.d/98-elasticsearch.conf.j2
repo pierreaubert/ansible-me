@@ -17,8 +17,8 @@ template(name="plain-syslog" type="list") {
       constant(value="\",\"host\":\"")        property(name="hostname")
       constant(value="\",\"severity\":\"")    property(name="syslogseverity-text")
       constant(value="\",\"facility\":\"")    property(name="syslogfacility-text")
-      constant(value="\",\"tag\":\"")   property(name="syslogtag" format="json")
-      constant(value="\",\"message\":\"")    property(name="msg" format="json")
+      constant(value="\",\"tag\":\"")         property(name="syslogtag" format="json")
+      constant(value="\",\"message\":\"")     property(name="msg" format="json")
     constant(value="\"}")
 }
 
