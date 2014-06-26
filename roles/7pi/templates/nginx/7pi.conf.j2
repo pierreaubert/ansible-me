@@ -7,7 +7,6 @@ server {
     server_name  7pi.eu;
 
     ssl                  on;
-    # ssl_certificate      /etc/pki/tls/certs/7pi.eu/cert.pem;
     ssl_certificate      /etc/pki/tls/certs/7pi.eu/cert-chain.pem;
     ssl_certificate_key  /etc/pki/tls/private/7pi.eu/cert.key;
 
@@ -25,8 +24,8 @@ server {
     # google resolver?
     # resolver {{dns}}
 
-    access_log syslog:server={{rsyslog_host}}:{rsyslog_port},facility=local7,tag=spi,severity=info combined;
-    error_log syslog:server={{rsyslog_host}}:{rsyslog_port},facility=local7,tag=spi,severity=info combined;
+    access_log syslog:server={{rsyslog_host}}:{{rsyslog_port}},facility=local7,tag=spi,severity=info;
+    error_log syslog:server={{rsyslog_host}}:{{rsyslog_port}},facility=local7,tag=spi,severity=info;
 
     # main static files
     location / {

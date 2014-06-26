@@ -36,9 +36,11 @@ server {
     rewrite ^/es/_nodes$ /_nodes break;
     rewrite ^/es/(.*/_mapping)$ /$1 break;
     rewrite ^/es/(.*/_search)$ /$1 break;
+    rewrite ^/es/(.*/_aliases)$ /$1 break;
     rewrite ^/es/(kibana-int/.*)$ /$1 break;
     rewrite ^/es/(logstash-int/.*)$ /$1 break;
     rewrite ^/es/(spi-int/.*)$ /$1 break;
+    rewrite ^/es/(_stats/.*)$ /$1 break;
     
     auth_basic "Restricted";
     auth_basic_user_file /var/www/htpasswd;
