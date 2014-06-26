@@ -18,7 +18,6 @@
               line='$ModLoad imudp'
   tags:
     - rsyslog
-    - debug
 
 - name: Rsyslog | Change conf to open syslog reception
   lineinfile: dest=/etc/rsyslog.conf
@@ -27,7 +26,6 @@
               line='$UDPServerRun {{rsyslog_port}}'
   tags:
     - rsyslog
-    - debug
 
 - name: Rsyslog | Change conf to open syslog reception
   lineinfile: dest=/etc/rsyslog.conf
@@ -36,7 +34,6 @@
               line='$ModLoad imtcp'
   tags:
     - rsyslog
-    - debug
 
 - name: Rsyslog | Change conf to open syslog reception
   lineinfile: dest=/etc/rsyslog.conf
@@ -45,7 +42,6 @@
               line='$InputTCPServerRun {{rsyslog_port}}'
   tags:
     - rsyslog
-    - debug
 
 - name: Rsyslog | Open port {{rsyslog_port}} on lan
   ufw: rule=allow src={{fw_subnet}} dest=any port={{rsyslog_port}}
