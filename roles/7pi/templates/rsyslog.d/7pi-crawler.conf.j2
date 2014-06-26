@@ -35,6 +35,6 @@ template(name="plain-syslog" type="list") {
            template="plain-syslog"
            searchIndex="spi-index"
            dynSearchIndex="on"
-           server="{{es_host}}"
+           server="127.0.0.1"
            serverport="{{es_port}}")
            module(load="omelasticsearch")

@@ -1,6 +1,6 @@
 ---
-- name: common | create log directory
-  file: path=/var/log/7pi owner={{deploy_user}} group={{deploy_user}} mode=0700 state=directory
+- name: common | create log directory (with 755 for rsyslog)
+  file: path=/var/log/7pi owner={{deploy_user}} group={{deploy_user}} mode=0755 state=directory
   tags: 7pi
 
 - name: common | create etc directory
