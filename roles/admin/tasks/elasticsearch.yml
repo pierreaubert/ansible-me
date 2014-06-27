@@ -71,7 +71,7 @@
 - name: Elasticsearch | Deploy monit config
   template: src=monit.d/elasticsearch.conf.j2  dest=/etc/monit/conf.d/elasticsearch.conf
   notify:
-    - restart monit
+    - reload monit
   tags:
     - elasticsearch
     - monit

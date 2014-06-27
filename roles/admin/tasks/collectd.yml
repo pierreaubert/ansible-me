@@ -13,4 +13,12 @@
     - collectd
     - ufw
 
+- name: Collectd | Deploy monit config
+  template: src=monit.d/collectd.conf.j2  dest=/etc/monit/conf.d/collectd.conf
+  notify:
+    - reload monit
+  tags:
+    - collectd
+    - monit
+
 

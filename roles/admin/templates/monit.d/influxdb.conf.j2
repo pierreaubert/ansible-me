@@ -1,1 +1,20 @@
 # {{ansible_managed}}
+check process influxdb 
+   group adm
+   start program = "/etc/init.d/influxdb start"
+   stop  program = "/etc/init.d/influxdb stop"
+   if 5 restarts with 5 cycles then timeout
+   depend on influxdb_bin
+   depend on influxdb_rc
+   depend on influxdb_conf
+
+ check file influxdb_bin with path /usr/sbin/influxdb
+   group adm
+   include /etc/monit/templates/rootbin
+
+ check file influxdb_rc with path "/etc/init.d/influxdb"
+   group adm
+   include /etc/monit/templates/rootbin
+
+ check file influxdb_conf with path "/opt/influxdb/share/config.toml"
+

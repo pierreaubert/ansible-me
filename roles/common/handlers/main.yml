@@ -19,6 +19,9 @@
 - name: restart monit
   service: name=monit state=restarted
 
+- name: reload monit
+  service: name=monit state=reloaded
+
 - name: restart collectd
   service: name=collectd state=restarted
 
