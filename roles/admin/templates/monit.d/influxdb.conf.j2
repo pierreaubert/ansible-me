@@ -1,5 +1,5 @@
 # {{ansible_managed}}
-check process influxdb 
+check process influxdb with pidfile "/opt/influxdb/shared/influxdb.pid"
    group adm
    start program = "/etc/init.d/influxdb start"
    stop  program = "/etc/init.d/influxdb stop"
@@ -8,13 +8,15 @@ check process influxdb
    depend on influxdb_rc
    depend on influxdb_conf
 
- check file influxdb_bin with path /usr/sbin/influxdb
+check file influxdb_bin with path "/opt/influxdb/current/influxdb"
    group adm
    include /etc/monit/templates/rootbin
 
- check file influxdb_rc with path "/etc/init.d/influxdb"
+check file influxdb_rc with path "/etc/init.d/influxdb"
    group adm
    include /etc/monit/templates/rootbin
 
- check file influxdb_conf with path "/opt/influxdb/share/config.toml"
+check file influxdb_conf with path "/opt/influxdb/share/config.toml"
+   group adm
+   if changed checksum then alert
 

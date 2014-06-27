@@ -22,7 +22,7 @@
     - monit
     - ufw
 
-- name: Monit | Add {{user_deploy}} in monit group
+- name: Monit | Add {{deploy_user}} in monit group
   user: name={{deploy_user}} groups=monit state=present
   tags: 
     - monit
