@@ -1,0 +1,13 @@
+/var/log/7pi/*.log {
+        weekly
+        minsize 1M
+        missingok
+        notifempty
+        compress
+        delaycompress
+        postrotate
+                supervisorctl restart sso > /dev/null
+                supervisorctl restart rssfeeds > /dev/null
+                supervisorctl restart crawler > /dev/null
+        endscript
+}

@@ -98,7 +98,7 @@ set mail-format { from: monit@7pi.eu }
 ## service defined in this file has errors. Alerts may be restricted on 
 ## events by using a filter as in the second example below. 
 #
-#set alert monit@7pi.eu                           # receive all alerts
+set alert monit@7pi.eu                           # receive all alerts
 # set alert manager@foo.bar only on { timeout }  # receive just service-
 #                                                # timeout alert
 #
@@ -108,8 +108,10 @@ set mail-format { from: monit@7pi.eu }
 ## Monit Wiki if you want to enable SSL for the web server. 
 #
 set httpd port {{monit_port}} and
-    use address {{monit_host}}  # only accept connection from localhost
+    use address localhost  # only accept connection from localhost
     allow 192.168.1.9      # allow localhost to connect to the server and
+    allow 192.168.1.9      # allow localhost to connect to the server and
+    allow localhost      # allow localhost to connect to the server and
     allow {{monit_username}}:{{monit_password}}
                            # require user 'admin' with password 'monit'
     allow @monit           # allow users of group 'monit' to connect (rw)

@@ -16,7 +16,13 @@
   tags: 
     - monit
 
-- name: Monit | Add {{deploy_user}} in monit group
+- name: Monit | Open {{monit_port}} on lan
+  ufw: rule=allow src={{fw_subnet}} dest=any port={{monit_port}}
+  tags: 
+    - monit
+    - ufw
+
+- name: Monit | Add {{user_deploy}} in monit group
   user: name={{deploy_user}} groups=monit state=present
   tags: 
     - monit

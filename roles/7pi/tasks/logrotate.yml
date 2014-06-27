@@ -1,0 +1,9 @@
+---
+- name: logrotate | Copy conf file
+  template: src=logrotate.d/7pi.conf.j2 dest=/etc/logrotate.d/7pi
+  notify:
+    - restart logrotate
+  tags:
+    - logrotate
+    - 7pi
+

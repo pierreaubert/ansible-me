@@ -2,3 +2,4 @@
 - include: hddtemp.yml tags=hardware
 - include: nvidia.yml tags=hardware
 - include: mdadm.yml tags=hardware
+- include: disks.yml tags=hardware

@@ -8,3 +8,4 @@
 - include: rssfeeds.yml tags=7pi
 - include: crawler.yml tags=7pi
 - include: nginx.yml tags=7pi
+- include: logrotate.yml tags=7pi

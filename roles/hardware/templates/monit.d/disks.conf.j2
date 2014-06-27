@@ -1,0 +1,8 @@
+check device sda with path /
+      if SPACE usage > 50% then alert
+check device sdb2 with path /media/data1
+      if SPACE usage > 20% then alert
+check device sdc2 with path /media/data2
+      if SPACE usage > 20% then alert
+check device md0 with path /media/mirror
+      if SPACE usage > 20% then alert
