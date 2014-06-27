@@ -18,7 +18,11 @@
   git: repo=https://github.com/auxesis/visage.git
        dest=/home/{{deploy_user}}/src/visage
        version=master
-  tags: visage
+  when: 
+    - maintenance is defined
+  tags: 
+    - do-upgrade
+    - visage
 
 - name: Visage | Create conf dir
   file: dest=/etc/visage 
@@ -46,7 +50,9 @@
             owner=root
             group=root
             mode=0600
-  tags: visage
+  tags: 
+    - visage
+    - supervisor
   notify:
     - restart supervisor
 
@@ -55,4 +61,12 @@
   tags: 
     - visage
     - ufw
+
+- name: Monit | Deploy monit config
+  template: src=monit.d/monit.conf.j2  dest=/etc/monit/conf.d/monit.conf
+  notify:
+    - reload monit
+  tags:
+    - visage
+    - monit
 

@@ -3,7 +3,8 @@
   apt: pkg={{item}} state=installed
   with_items:
     - storebackup
-  tags: storebackup
+  tags: 
+    - storebackup
 
 - name: StoreBackup | Copy config file
   template: src=storebackup.conf.j2 
@@ -11,22 +12,26 @@
             mode=0600 
             owner=root 
             group=root
-  tags: storebackup
+  tags: 
+    - storebackup
 
 - name: StoreBackup | Mount backup partition if needed
-  mount: src=/dev/sdd2 
+  mount: src='UUID=ed8465b5-4936-4b1c-8e46-2a84ef481330'
          name=/media/backup
          fstype=ext4
-         state=present
-         opts=rw
+         state=mounted
+         opts=noatime
+         passno=2
   when: 
     - maintenance is defined
-  tags: do-backup
+  tags:
+    - do-backup
 
 - name: StoreBackup | Do a backup
   sudo: True
   command: storeBackup -f /etc/storebackup.d/all.conf
   when: 
     - maintenance is defined
-  tags: do-backup
+  tags: 
+    - do-backup
 

@@ -1,5 +1,8 @@
 2014-06-27  Pierre Aubert  <pierre@imac-pierre.home>
 
+	* roles/admin/tasks/storebackup.yml: correct mounted partition via UUID
+
+
 	* roles/admin/templates/influxdb.toml.j2 (level): setlogleve to warn
 
 2014-06-25  Pierre Aubert  <pierre@imac-pierre.home>
