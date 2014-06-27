@@ -16,7 +16,7 @@ check file influxdb_rc with path "/etc/init.d/influxdb"
    group adm
    include /etc/monit/templates/rootbin
 
-check file influxdb_conf with path "/opt/influxdb/share/config.toml"
+check file influxdb_conf with path "/opt/influxdb/shared/config.toml"
    group adm
    if changed checksum then alert
 
