@@ -23,5 +23,8 @@ env = {
     'SSO_CRAWLER_PASSWORD': '{{spi_crawler_password}}',
     # do we use sentry?
     'SENTRY_DSN': '',
+    # do we use slack?
+    'SLACK_DSN': 'https://{domain}/services/hooks/incoming-webhook?token={token}'\
+    .format(domain='{{slack_domain}}',token='{{slack_token}}'),
 }
 

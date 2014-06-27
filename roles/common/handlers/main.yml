@@ -25,8 +25,9 @@
 - name: restart rsyslog
   service: name=rsyslog state=restarted
 
-- name: restart logrotate
-  service: name=logrotate state=restarted
+# lauch by a daily cron and not like a service
+#- name: restart logrotate
+#  service: name=logrotate state=restarted
 
 - name: restart sysctl
   command: sysctl -p
