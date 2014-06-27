@@ -62,8 +62,8 @@
     - visage
     - ufw
 
-- name: Monit | Deploy monit config
-  template: src=monit.d/monit.conf.j2  dest=/etc/monit/conf.d/monit.conf
+- name: Visage | Deploy monit config
+  template: src=monit.d/visage.conf.j2  dest=/etc/monit/conf.d/visage.conf
   notify:
     - reload monit
   tags:

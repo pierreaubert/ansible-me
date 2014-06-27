@@ -39,3 +39,11 @@
     - tasseo
     - ufw
 
+- name: Tasseo | Deploy monit config
+  template: src=monit.d/tasseo.conf.j2  dest=/etc/monit/conf.d/tasseo.conf
+  notify:
+    - reload monit
+  tags:
+    - tasseo
+    - monit
+
