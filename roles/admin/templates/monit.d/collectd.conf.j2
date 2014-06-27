@@ -1,0 +1,20 @@
+# {{ansible_managed}}
+check process collectd with pidfile "/var/run/collectd.pid"
+   group adm
+   start program = "/etc/init.d/collectd start"
+   stop  program = "/etc/init.d/collectd stop"
+   if 5 restarts with 5 cycles then timeout
+   depend on collectd_bin
+   depend on collectd_rc
+   depend on collectd_conf
+
+ check file collectd_bin with path /usr/sbin/collectd
+   group adm
+   include /etc/monit/templates/rootbin
+
+ check file collectd_rc with path "/etc/init.d/collectd"
+   group adm
+   include /etc/monit/templates/rootbin
+
+ check file collectd_conf with path "/etc/collectd/collectd.conf"
+
