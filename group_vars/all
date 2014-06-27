@@ -10,6 +10,7 @@ deploy_user: pierre
 deploy_password: none
 deploy_servers: 
   - 192.168.0.9
+  - 192.168.1.9
   - 10.0.2.2
 deploy_gateways: 
   - 192.168.0.1
@@ -19,6 +20,7 @@ deploy_public_key: /Users/pierre/.ssh/id_rsa.pub
 
 ntp_servers: 
   - 192.168.0.9
+  - 192.168.1.9
   - 0.pool.ntp.org
   - 1.pool.ntp.org
   - 2.pool.ntp.org
@@ -27,7 +29,12 @@ friendly_networks:
   - "192.168.0.0/24"
   - "192.168.1.0/24"
   - "192.168.2.0/24"
+  - "10.0.1.0/24"
   - "10.0.2.0/24"
   - "10.0.3.0/24"
+
+slack_domain: '7pi.slack.com'
+slack_token: '7QnKJAmD6so5dpZSBi1TAA4S'
+
 
 
