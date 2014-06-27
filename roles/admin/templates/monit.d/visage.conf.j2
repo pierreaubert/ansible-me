@@ -1,0 +1,4 @@
+# {{ansible_managed}}
+check host visage with address localhost
+  group admin
+  if failed url http://localhost:9292/profiles/60fb7c64dbd95596be4ed41f36f4bcd5 with timeout 15 seconds then alert  
