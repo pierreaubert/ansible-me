@@ -17,3 +17,12 @@
     - 7pi
     - X11
     - development
+
+  tasks:
+    local_action:
+      module: slack
+      domain: 7pi.slack.com
+      token: yMvi0mWvJXH1HAw7HsFZaIss
+      msg: "{{inventory_hostname}} completed"
+      channel: "#sysadmin"
+      username: "Ansible on {{inventory_hostname}}"
