@@ -76,5 +76,10 @@
     - elasticsearch
     - monit
 
+- name: Elasticsearch | Start the service
+  service: name=elasticsearch state=started enabled=true
+  tags: 
+    - elasticsearch
+
 
 
