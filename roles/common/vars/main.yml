@@ -21,3 +21,8 @@ monit_host: 192.168.1.18
 monit_port: 2812
 monit_username: '{{deploy_user}}'
 monit_password: 'monit.2014'
+monit_version: feature/slack
+# ----------------------------------------------------------------------
+# slack webhook
+# ----------------------------------------------------------------------
+slack_webhook: https://7pi.slack.com/services/hooks/incoming-webhook?token=7QnKJAmD6so5dpZSBi1TAA4S

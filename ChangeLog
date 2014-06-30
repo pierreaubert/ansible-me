@@ -1,3 +1,8 @@
+2014-06-30  Pierre Aubert  <pierre@imac-pierre.home>
+
+	* roles/databases/templates/postgresql.conf.j2
+	(wal_sender_timeout): activate replication by default
+
 2014-06-27  Pierre Aubert  <pierre@imac-pierre.home>
 
 	* roles/admin/tasks/storebackup.yml: correct mounted partition via UUID

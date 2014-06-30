@@ -1,13 +1,48 @@
 ---
 - name: Monit | Install pgk
-  apt: name={{item}} state=installed
+  apt: name={{item}} state=present
   with_items:
-   - monit
-  tags: monit
+    - libtool
+    - autoconf
+    - automake
+    - flex
+    - bison
+    - libpam-dev
+    - monit
+  tags: 
+    - monit
+
+- name: monit | Copy source
+  git: repo=https://bitbucket.org/pierreaubert/monit.git
+       dest=/home/{{deploy_user}}/src/monit
+       version={{monit_version}}
+  tags: 
+    - monit
+
+- name: monit | Build
+  shell: "cd /home/{{deploy_user}}/src/monit && sh ./bootstrap && sh ./configure && make"
+  tags: 
+    - monit
+
+- name: monit | Stop if running
+  service: name=monit state=stopped
+  tags: 
+    - monit
+
+- name: monit | Overwrite official binary
+  command: "cp /home/{{deploy_user}}/src/monit/monit /usr/bin"
+  tags: 
+    - monit
+
+- name: monit | Start again if not running
+  service: name=monit state=started
+  tags: 
+    - monit
 
 - name: Monit | Deploy main config file
   template: src=monit.conf.j2 dest=/etc/monit/monitrc
-  tags: monit
+  tags: 
+    - monit
   notify: 
     - restart monit
 
@@ -29,5 +64,6 @@
 
 - name: Monit | Start the service
   service: name=monit state=started enabled=true
-  tags: monit
+  tags: 
+    - monit
 
