@@ -1,5 +1,8 @@
 2014-06-30  Pierre Aubert  <pierre@imac-pierre.home>
 
+	* roles/databases/templates/monit.d/postgresql.conf.j2: correct
+	process name
+
 	* roles/databases/templates/postgresql.conf.j2
 	(wal_sender_timeout): activate replication by default
 

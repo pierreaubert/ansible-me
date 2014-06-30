@@ -1,0 +1,4 @@
+# {{ansible_managed}}
+check host tasseo with address {{tasseo_host}}
+  group admin
+  if failed url http://{{tasseo_host}}:{{tasseo_port}}/ with timeout 15 seconds then alert  
