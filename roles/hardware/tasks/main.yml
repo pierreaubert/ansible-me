@@ -3,3 +3,4 @@
 - include: nvidia.yml tags=hardware
 - include: mdadm.yml tags=hardware
 - include: disks.yml tags=hardware
+- include: eaton.yml tags=hardware

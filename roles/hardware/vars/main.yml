@@ -23,3 +23,6 @@ partitions:
   - /media/data3
   - /media/data4
   - /media/data5
+# eaton port
+ups_port: 3493
+ups_password: 'qs876kjdqsa76fh'

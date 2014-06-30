@@ -1,2 +1,59 @@
 ---
-- name: Eaton | install ipp
+- name: Eaton | install nut
+  apt: name={{item}} state=installed
+  with_items:
+   - nut
+  tags: 
+   - eaton
+
+- name: Eaton | Copy config files
+  template: src=nut/{{item}}.j2 
+            dest=/etc/nut/{{item}}
+            owner=root
+            group=nut
+            chmod=0640
+  with_items: 
+    - nut
+    - ups
+    - upsd
+    - upsmon
+    - upssched
+  tags: 
+   - eaton
+
+# lsusb | grep UPS | colrm 1 4 | colrm 15 | sed -r 's/([0-9]+) Device ([0-9]+)/\1\/\2/'
+- name: Eaton | Check device permission 
+  shell: "chown 0666 /dev/bus/usb/002/006"
+  tags: 
+   - eaton
+
+- name: Ensure SSL certificates have the correct directories
+  file: path=/etc/pki/tls/{{item}} owner=root group=root mode=0755 state=directory
+  with_items:
+    - certs
+    - private
+  tags: nut
+
+- name: Ensure nut has its SSL certificate
+  copy: src=nut.crt dest=/etc/pki/tls/certs/nut.crt owner=root group=root mode=0500
+  tags: nut
+
+- name: Ensure nut has its SSL private key
+  copy: src=nut.key dest=/etc/pki/tls/private/nut.key owner=root group=root mode=0700
+  tags: nut
+
+- name: Eaton | Client start
+  service: name=nut-client state=started enabled=true
+  tags: 
+   - eaton
+
+- name: Eaton | Server start
+  service: name=nut-server state=started enabled=true
+  tags: 
+   - eaton
+
+
+
+
+
+
