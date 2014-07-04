@@ -5,24 +5,25 @@
            mode=0644
   tags: influxdb
 
-- name: Influxdb | Create log file if needed
-  command: touch /var/log/influxdb.log
-  tags: influxdb
-
-- name: Influxdb | Check log file
-  file: path=/var/log/influxdb.log 
+- name: Influxdb | Check permission
+  file: path={{item}}
         state=file
         owner=influxdb
         group=influxdb
         mode=0644
+  with_items:
+     - /var/log/influxdb.log 
   tags: influxdb
 
 - name: Influxdb | Check permission
-  file: path=/opt/influxdb/current/scripts/init.sh
+  file: path={{item}}
         state=file
         owner=influxdb
         group=influxdb
         mode=0755
+  with_items:
+    - /opt/influxdb/current/scripts/init.sh
+    - /opt/influxdb/current/influxdb
   tags: influxdb
 
 - name: Influxdb | Configure collectd plugin
@@ -37,6 +38,7 @@
 - name: Influxdb | Copy configuration (to non standar place)
   template: src=influxdb.toml.j2 
             dest=/opt/influxdb/shared/config.toml
+            mode=0644
             owner=influxdb
             group=influxdb
   tags: 

@@ -1,4 +1,11 @@
 # {{ansible_managed}}
-check host 7pi-sso with address {{spi_sso_host}}
+check host 7pi-sso with address 7pi.eu
   group spi
-  if failed url http://{{spi_sso_host}}:{{spi_sso_port}}/apis/sso/login with timeout 15 seconds then alert  
+  if failed 
+     port 443
+     protocol http
+     request "/apis/sso/login"
+     status = 401
+     hostheader "7pi.eu"
+  then alert  
+
