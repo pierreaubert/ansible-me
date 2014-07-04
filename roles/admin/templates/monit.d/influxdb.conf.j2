@@ -7,6 +7,7 @@ check process influxdb with pidfile "/opt/influxdb/shared/influxdb.pid"
    depend on influxdb_bin
    depend on influxdb_rc
    depend on influxdb_conf
+   depend on influxdb_wal
 
 check file influxdb_bin with path "/opt/influxdb/current/influxdb"
    group adm
@@ -28,4 +29,8 @@ check file influxdb_conf with path "/opt/influxdb/shared/config.toml"
    if failed permission 644 then unmonitor
    if failed uid influxdb   then unmonitor
    if failed gid influxdb   then unmonitor
+
+check directory influxdb_wal with path "/opt/influxdb/shared/data/wal/" 
+   if timestamp > 5 minutes then restart
+   if timestamp > 11 minutes then alert
 
