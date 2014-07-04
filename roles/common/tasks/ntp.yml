@@ -1,18 +1,28 @@
 ---
-- name: Install ntp 
+- name: ntp | Install missing packages
   apt: name={{item}} state=installed
   with_items:
-   - ntpdate
-   - ntp
-  tags: ntp
+    - ntpdate
+    - ntp
+  tags:
+    - ntp
 
-- name: Configure ntp file
+- name: ntp | deploy configuration file
   template: src=ntp.conf.j2 dest=/etc/ntp.conf
   tags: ntp
+    - ntp
   notify: 
     - restart ntp
 
-- name: Start the ntp service
+- name: ntp | Copy monit conf
+  template: src=monit.d/ntp.conf.j2 
+            dest=/etc/monit/conf.d/ntp.conf
+  tags: 
+    - ntp
+    - monit
+
+- name: ntp | Start the service
   service: name=ntp state=started enabled=true
-  tags: ntp
+  tags: 
+    - ntp
 

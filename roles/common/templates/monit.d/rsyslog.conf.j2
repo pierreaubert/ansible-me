@@ -1,5 +1,6 @@
 # {{ansible_managed}}
- check process rsyslog with pidfile /var/run/rsyslogd.pid
+# i do not understand why the pid file end here and not in /var/run                       
+ check process rsyslogd with pidfile /etc/rsyslogd.pid
    group adm
    start program = "/etc/init.d/rsyslog start"
    stop  program = "/etc/init.d/rsyslog stop"

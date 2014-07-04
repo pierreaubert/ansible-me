@@ -1,5 +1,5 @@
 ---
-- name: install fail2ban
+- name: fail2ban | install 
   apt: name={{ item }} state=present
   with_items:
     - fail2ban
@@ -7,10 +7,19 @@
     - lynis
   tags: fail2ban
 
-- name: Configure fail2ban file
+- name: fail2ban | Config file
   template: src=fail2ban.conf.j2 dest=/etc/fail2ban/fail2ban.conf
   template: src=jail.conf.j2 dest=/etc/fail2ban/jail.conf
   tags: fail2ban
-  notify: restart fail2ban
+  notify: 
+    - restart fail2ban
+
+- name: Fail2ban | Deploy monit config
+  template: src=monit.d/fail2ban.conf.j2  dest=/etc/monit/conf.d/fail2ban.conf
+  notify:
+    - reload monit
+  tags:
+    - fail2ban
+    - monit
 
 

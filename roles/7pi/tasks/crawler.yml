@@ -8,21 +8,25 @@
     - crawler
 
 - name: crawler | Copy config file
-  template: src=7pi-crawler.conf.j2 dest=/etc/7pi/7pi-crawler.conf backup=yes owner={{deploy_user}} mode=0600
+  template: src=7pi-crawler.conf.j2 
+            dest=/etc/7pi/7pi-crawler.conf 
+            backup=yes 
+            owner={{deploy_user}} 
+            mode=0600
   tags: 
     - 7pi
     - crawler
 
-
 - name: crawler | Copy config file for supervisord
-  template: src=supervisor/7pi-crawler.conf.j2 dest=/etc/supervisor/conf.d/7pi-crawler.conf
+  template: src=supervisor/7pi-crawler.conf.j2 
+            dest=/etc/supervisor/conf.d/7pi-crawler.conf
   tags: 
     - 7pi
     - crawler
 
-
 - name: crawler | Copy config file for supervisord
-  template: src=supervisor/7pi-crawler.conf.j2 dest=/etc/supervisor/conf.d/7pi-crawler.conf
+  template: src=supervisor/7pi-crawler.conf.j2 
+            dest=/etc/supervisor/conf.d/7pi-crawler.conf
   tags: 
     - 7pi
     - crawler
@@ -34,7 +38,8 @@
     - crawler
 
 - name: crawler | Copy config file for rsyslog
-  template: src=rsyslog.d/7pi-crawler.conf.j2 dest=/etc/rsyslog.d/30-7pi-crawler.conf
+  template: src=rsyslog.d/7pi-crawler.conf.j2 
+            dest=/etc/rsyslog.d/30-7pi-crawler.conf
   notify:
     - restart rsyslog
   tags: 

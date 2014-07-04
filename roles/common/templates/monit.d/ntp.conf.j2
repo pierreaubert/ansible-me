@@ -1,0 +1,17 @@
+# {{ansible_managed}}
+ check process ntp with pidfile /var/run/ntpd.pid
+   group adm
+   start program = "/etc/init.d/ntp start"
+   stop  program = "/etc/init.d/ntp stop"
+   if 5 restarts with 5 cycles then timeout
+   depend on ntpd_bin
+   depend on ntpd_rc
+
+ check file ntpd_bin with path /usr/sbin/ntpd
+   group adm
+   include /etc/monit/templates/rootbin
+
+ check file ntpd_rc with path "/etc/init.d/ntp"
+   group adm
+   include /etc/monit/templates/rootbin
+

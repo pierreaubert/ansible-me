@@ -20,3 +20,8 @@
    group sshd
    include /etc/monit/templates/rootrc
 
+ check process collectdmon with pidfile /var/run/collectdmon.pid
+   group root
+   start program = "/etc/init.d/collectd start"
+   stop  program = "/etc/init.d/collectd stop"
+   if 5 restarts with 5 cycles then timeout

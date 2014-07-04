@@ -1,3 +1,12 @@
+2014-07-04  Pierre Aubert  <pierre@imac-pierre.home>
+
+	* roles/hardware/templates/collectd/collectd.conf.d/nut.conf.j2:
+	to many quotes; now working hard work just for this :(
+
+	* roles/common/tasks/ntp.yml: add a conf for monit
+
+	* roles/hardware/tasks/eaton.yml: desactivate ups for now
+
 2014-06-30  Pierre Aubert  <pierre@imac-pierre.home>
 
 	* roles/databases/templates/monit.d/postgresql.conf.j2: correct

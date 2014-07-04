@@ -1,0 +1,17 @@
+# {{ansible_managed}}
+ check process fail2ban with pidfile /var/run/fail2band.pid
+   group adm
+   start program = "/etc/init.d/fail2ban start"
+   stop  program = "/etc/init.d/fail2ban stop"
+   if 5 restarts with 5 cycles then timeout
+   depend on fail2band_bin
+   depend on fail2band_rc
+
+ check file fail2band_bin with path /usr/sbin/fail2band
+   group adm
+   include /etc/monit/templates/rootbin
+
+ check file fail2band_rc with path "/etc/init.d/fail2ban"
+   group adm
+   include /etc/monit/templates/rootbin
+

@@ -69,7 +69,7 @@
 
 - name: Nut | activate hddtemp
   lineinfile: dest=/etc/collectd/collectd.conf
-              state=present
+              state=absent
               regexp="^#LoadPlugin nut"
               line="LoadPlugin nut"
   tags: 
