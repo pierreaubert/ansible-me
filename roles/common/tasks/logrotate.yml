@@ -13,4 +13,11 @@
 #    - logrotate
 
 - name: Logrotate | Add a cron
-  cron: 
+  cron: name="logrotate"
+        hours=2
+        state=present
+        user=root
+        special_time=daily
+        jons="logrotate /etc/logrotate.conf"
+  tags: 
+    - logrotate

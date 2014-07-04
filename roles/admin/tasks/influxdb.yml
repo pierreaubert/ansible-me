@@ -17,6 +17,14 @@
         mode=0644
   tags: influxdb
 
+- name: Influxdb | Check permission
+  file: path=/opt/influxdb/current/scripts/init.sh
+        state=file
+        owner=influxdb
+        group=influxdb
+        mode=0755
+  tags: influxdb
+
 - name: Influxdb | Configure collectd plugin
   template: src=collectd/collectd.conf.d/influxdb.conf.j2 
             dest=/etc/collectd/collectd.conf.d/influxdb.conf

@@ -1,0 +1,6 @@
+# {{ansible_managed}}
+check program ufw with path "/etc/monit/check-ufw.sh"
+  start program = "/etc/init.d/ufw start"
+  stop program  = "/etc/init.d/ufw stop"
+  if status != 0 then restart
+  if 5 restarts within 5 cycles then timeout

@@ -2,7 +2,7 @@
 - name: Disks | Deploy monit config
   template: src=monit.d/disks.conf.j2 dest=/etc/monit/conf.d/disks.conf
   notify: 
-    - restart monit
+    - reload monit
   tags:
     - disks
     - monit

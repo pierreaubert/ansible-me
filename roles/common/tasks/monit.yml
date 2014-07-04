@@ -1,5 +1,5 @@
 ---
-- name: Monit | Install pgk
+- name: Monit | Install pgk
   apt: name={{item}} state=present
   with_items:
     - libtool

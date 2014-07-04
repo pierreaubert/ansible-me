@@ -21,7 +21,7 @@
 - name: Rsyslog | Deploy monit config
   template: src=monit.d/rsyslog.conf.j2  dest=/etc/monit/conf.d/rsyslog.conf
   notify:
-    - restart monit
+    - reload monit
   tags:
     - rsyslog
     - monit

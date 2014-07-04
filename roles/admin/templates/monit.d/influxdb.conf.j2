@@ -10,13 +10,22 @@ check process influxdb with pidfile "/opt/influxdb/shared/influxdb.pid"
 
 check file influxdb_bin with path "/opt/influxdb/current/influxdb"
    group adm
-   include /etc/monit/templates/rootbin
+   if failed checksum       then unmonitor
+   if failed permission 755 then unmonitor
+   if failed uid influxdb   then unmonitor
+   if failed gid influxdb   then unmonitor
 
 check file influxdb_rc with path "/etc/init.d/influxdb"
    group adm
-   include /etc/monit/templates/rootbin
+   if failed checksum       then unmonitor
+   if failed permission 755 then unmonitor
+   if failed uid influxdb   then unmonitor
+   if failed gid influxdb   then unmonitor
 
 check file influxdb_conf with path "/opt/influxdb/shared/config.toml"
    group adm
    if changed checksum then alert
+   if failed permission 644 then unmonitor
+   if failed uid influxdb   then unmonitor
+   if failed gid influxdb   then unmonitor
 

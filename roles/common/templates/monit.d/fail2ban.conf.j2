@@ -1,17 +1,23 @@
 # {{ansible_managed}}
- check process fail2ban with pidfile /var/run/fail2band.pid
+ check process fail2ban with pidfile /var/run/fail2ban/fail2ban.pid
    group adm
    start program = "/etc/init.d/fail2ban start"
    stop  program = "/etc/init.d/fail2ban stop"
+   # if failed unixsocket /var/run/fail2ban/fail2ban.sock then alert
    if 5 restarts with 5 cycles then timeout
-   depend on fail2band_bin
-   depend on fail2band_rc
+   depend on fail2bans_bin
+   depend on fail2banc_bin
+   depend on fail2ban_rc
 
- check file fail2band_bin with path /usr/sbin/fail2band
+ check file fail2banc_bin with path /usr/bin/fail2ban-client
    group adm
    include /etc/monit/templates/rootbin
 
- check file fail2band_rc with path "/etc/init.d/fail2ban"
+ check file fail2bans_bin with path /usr/bin/fail2ban-server
+   group adm
+   include /etc/monit/templates/rootbin
+
+ check file fail2ban_rc with path "/etc/init.d/fail2ban"
    group adm
    include /etc/monit/templates/rootbin
 

@@ -19,7 +19,7 @@
 - name: Nginx | Deploy monit config
   template: src=monit.d/nginx.conf.j2  dest=/etc/monit/conf.d/nginx.conf
   notify: 
-    - restart monit
+    - reload monit
   tags:
     - nginx
     - monit
