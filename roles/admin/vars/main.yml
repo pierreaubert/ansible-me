@@ -54,7 +54,7 @@ influxdb_port_api: 8086
 # influxdb for tasseo
 influxdb_tasseo_username: collectd
 influxdb_tasseo_password: browse
-influxdb_tasseo_url: htp://{{influxdb_host}}:{{influxdb_port_api}}/db/collectd
+influxdb_tasseo_url: http://{{influxdb_host}}:{{influxdb_port_api}}/db/collectd
 # --------------------------------------------------------------------
 # tasseo dashboard
 # --------------------------------------------------------------------
@@ -71,4 +71,14 @@ visage_port: 5050
 # grafana
 # --------------------------------------------------------------------
 grafana_previous: 1.5.4
-grafana_version: 1.6.0
+grafana_version: 1.6.1
+grafana_url: http://grafanarel.s3.amazonaws.com/grafana-{{grafana_version}}.tar.gz
+grafana_user: kibana
+grafana_pwd: banana2013
+grafana_domain: 192.168.1.18
+grafana_port: 7070
+# port is grafana / nginx make proxy to real elasticsearch port
+grafana_es: http://{{grafana_domain}}:{{grafana_port}}/es
+# port is grafana / nginx make proxy to real influxdb port
+grafana_influxdb: http://{{influxdb_host}}:{{grafana_port}}/es
+

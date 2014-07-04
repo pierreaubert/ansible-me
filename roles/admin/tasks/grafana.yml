@@ -1,24 +1,82 @@
 ---
-- name: Grafana | download package
-  get_url: url=http://grafanarel.s3.amazonaws.com/grafana-{{grafana_version}}.tar.gz
-           dest=/home/{{deploy_user}}/src
-           owner={{deploy_user}}
-           group={{deploy_user}}
-           mode=0644
-  tags: 
+- name: Ensure app apt dependencies are installed
+  apt: pkg={{item}} state=installed
+  with_items:
+    - unzip
+  tags:
     - grafana
 
-- name: Grafana | unpack
-  shell: "cd /var/www && test ! -d grafana-{{grafana_version}} && tar zxvf /home/{{deploy_user}}/src/grafana-{{grafana_version}}.tar.gz || true"
-  tags: 
+- name: Ensure /var/www/grafana exist
+  file: path=/var/www/grafana-{{grafana_version}} 
+        state=directory
+        owner=www-data
+        group=www-data
+  tags:
     - grafana
 
-
-- name: Grafana | install config is in place
-  template: src=grafana.conf.j2 
-            dest=/var/www/grafana-{{grafana_version}}/config.js
-            mode=0644
-  tags: 
+- name: Ensure we have the latest release
+  get_url: url={{kibana_url}} dest=/tmp/grafana-{{grafana_version}}.tar.gz
+  tags:
     - grafana
 
+- name: Untar grafana
+  shell: "cd /var/www && tar zxf /tmp/grafana-{{grafana_version}}.tar.gz"
+  tags:
+    - grafana
+
+- name: Set owner:group for /var/www/grafana-{{grafana_version}} 
+  file: path=/var/www/grafana-{{grafana_version}} 
+        state=directory
+        owner=www-data
+        group=www-data
+        recurse=yes
+  tags:
+    - grafana
+
+- name: Ensure grafana's nginx site is in place
+  template: src=nginx/grafana.conf.j2 
+            dest=/etc/nginx/sites-available/grafana 
+            mode=0755
+  tags:
+    - grafana
+
+- name: Ensure grafana's htpasswd file is in place
+  copy: src=htpassword dest=/var/www/htpasswd mode=0644 owner=root group=root
+  tags:
+    - grafana
+
+- name: Ensure default nginx site is not enabled
+  file: state=absent path=/etc/nginx/sites-enabled/default
+  tags:
+    - grafana
+
+- name: Ensure grafana nginx site is enabled
+  file: state=link src=/etc/nginx/sites-available/grafana path=/etc/nginx/sites-enabled/grafana
+  tags:
+    - grafana
+
+- name: Ensure grafana config is in place
+  template: src=grafana.js.j2 dest=/var/www/grafana-{{grafana_version}}/config.js mode=0644 owner=root group=root
+  notify:
+    - restart nginx  
+  tags:
+    - grafana
+
+- name: Grafana | Open port {{grafana_port}} on firewall for grafana
+  ufw: rule=allow src={{fw_subnet}} dest=any port={{grafana_port}}
+  tags:
+    - grafana
+
+- name: Grafana | Deploy monit config
+  template: src=monit.d/grafana.conf.j2  dest=/etc/monit/conf.d/grafana.conf
+  notify:
+    - reload monit
+  tags:
+    - grafana
+    - monit
+
+- name: grafana | Create index exist in elasticseach
+  shell: "curl -XPOST http://localhost:{{es_port}}/grafana-dash"
+  tags:
+    - grafana
 

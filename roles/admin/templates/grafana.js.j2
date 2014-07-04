@@ -14,8 +14,7 @@ function (Settings) {
        * elasticsearch url:
        * For Basic authentication use: http://username:password@domain.com:9200
        */
-      elasticsearch: "http://{{es_address}}",
-      graphiteUrl: ""
+      elasticsearch: "{{grafana_es}}",
       
       /**
        * Multiple graphite servers? Comment out graphiteUrl and replace with something like this:
@@ -23,7 +22,7 @@ function (Settings) {
       datasources: {
           data_center_fr: {
               type: 'influxdb',
-              url: 'http://{{influxdb_tasseo_url}}',
+              url: '{{influxdb_tasseo_url}}',
               username: '{{influxdb_tasseo_username}}',
               password: '{{influxdb_tasseo_password}}',
           default: true
@@ -38,18 +37,18 @@ function (Settings) {
        * translate absolute time ranges to the graphite-web timezone.
        * Example:
        *   If TIME_ZONE in graphite-web config file local_settings.py is set to America/New_York, then set
-       *   timezoneOffset to "-0500" (for UTC - 5 hours)
+       *   timezoneOffset to '-0500' (for UTC - 5 hours)
        * Example:
-       *   If TIME_ZONE is set to UTC, set this to "0000"
+       *   If TIME_ZONE is set to UTC, set this to '0000'
        */
       
-      timezoneOffset: "+0100",
+      timezoneOffset: '+0100',
       
       /**
        * Elasticsearch index for storing dashboards
        *
        */
-      grafana_index: "grafana-dash",
+      grafana_index: 'grafana-dash',
       
       /**
        * set to false to disable unsaved changes warning

@@ -70,3 +70,13 @@
   ufw: rule=allow src={{fw_subnet}} dest=any port={{kibana_port}}
   tags: kibana
 
+- name: Kibana | Deploy monit config
+  template: src=monit.d/kibana.conf.j2  dest=/etc/monit/conf.d/kibana.conf
+  notify:
+    - reload monit
+  tags:
+    - kibana
+    - monit
+
+
+
