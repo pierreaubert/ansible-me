@@ -1,5 +1,13 @@
 2014-07-04  Pierre Aubert  <pierre@imac-pierre.home>
 
+	* version 1.0
+
+	* grafana working
+
+	* monit complete
+
+	* time to go to next level
+
 	* roles/hardware/templates/collectd/collectd.conf.d/nut.conf.j2:
 	to many quotes; now working hard work just for this :(
 
