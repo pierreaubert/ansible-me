@@ -1,0 +1,16 @@
+---
+- name: install logrotate
+  apt: name=logrotate state=present
+  tags: logrotate
+
+- name: Configure logrotate file
+  template: src=logrotate.conf.j2 dest=/etc/logrotate.conf
+  tags: logrotate
+
+#- name: Logrotate | Start the service
+#  service: name=logrotate state=started enabled=true
+#  tags: 
+#    - logrotate
+
+- name: Logrotate | Add a cron
+  cron: 
