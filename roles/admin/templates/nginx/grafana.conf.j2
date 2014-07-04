@@ -1,0 +1,80 @@
+# {{ansible_managed}}
+
+server {
+  listen {{grafana_port}};
+  server_name {{ grafana_domain }};
+  root /var/www/grafana-{{grafana_version}};
+
+  # Set image format types to expire in a very long time
+  location ~* ^.+\.(jpg|jpeg|gif|png|ico)$ {
+      access_log off;
+      expires max;
+  }
+
+  # Set css and js to expire in a very long time
+  location ~* ^.+\.(css|js)$ {
+      access_log off;
+      expires max;
+  }
+
+  # Catchall for everything else
+  location / {
+    auth_basic "Restricted";
+    auth_basic_user_file /var/www/htpasswd;
+    root /var/www/grafana-{{grafana_version}};
+    index index.html;
+    expires 1d;
+    try_files $uri/ $uri;
+    if (-f $request_filename) {
+      break;
+    }
+  }
+
+  # Keep elasticsearch behind a proxy with http auth
+  location /es/ {
+    rewrite ^/es/_aliases$ /_aliases break;
+    rewrite ^/es/_nodes$ /_nodes break;
+    rewrite ^/es/(.*/_mapping)$ /$1 break;
+    rewrite ^/es/(.*/_search)$ /$1 break;
+    rewrite ^/es/(.*/_aliases)$ /$1 break;
+    rewrite ^/es/(grafana-dash/.*)$ /$1 break;
+    rewrite ^/es/(kibana-int/.*)$ /$1 break;
+    rewrite ^/es/(logstash-int/.*)$ /$1 break;
+    rewrite ^/es/(spi-int/.*)$ /$1 break;
+    rewrite ^/es/(_stats/.*)$ /$1 break;
+    
+    auth_basic "Restricted";
+    auth_basic_user_file /var/www/htpasswd;
+    proxy_pass http://localhost:{{es_port}};
+    proxy_redirect off;
+    proxy_set_header  X-Real-IP  $remote_addr;
+    proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header  Host $http_host;
+    proxy_pass_header Access-Control-Allow-Origin;
+    proxy_pass_header Access-Control-Allow-Methods;
+    proxy_hide_header Access-Control-Allow-Headers;
+    add_header Access-Control-Allow-Headers 'X-Requested-With, Content-Type';
+    add_header Access-Control-Allow-Credentials true;
+  }
+
+
+  # Keep elasticsearch behind a proxy with http auth
+  location /db/ {
+    # restrict to collectd
+    rewrite ^/db/collectd$ /db/collectd break;
+
+    proxy_pass http://{{influxdb_host}}:{{influxdb_port_api}};
+
+    proxy_redirect off;
+    proxy_set_header  X-Real-IP  $remote_addr;
+    proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header  Host $http_host;
+    proxy_pass_header Access-Control-Allow-Origin;
+    proxy_pass_header Access-Control-Allow-Methods;
+    proxy_hide_header Access-Control-Allow-Headers;
+    add_header Access-Control-Allow-Headers 'X-Requested-With, Content-Type';
+    add_header Access-Control-Allow-Credentials true;
+  }
+
+
+}

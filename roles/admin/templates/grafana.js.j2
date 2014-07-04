@@ -20,13 +20,13 @@ function (Settings) {
        * Multiple graphite servers? Comment out graphiteUrl and replace with something like this:
        */   
       datasources: {
-          data_center_fr: {
+          influx: {
               type: 'influxdb',
               url: '{{influxdb_tasseo_url}}',
               username: '{{influxdb_tasseo_username}}',
               password: '{{influxdb_tasseo_password}}',
-          default: true
-          },
+              default: true
+          }
       },
 
       default_route: '/dashboard/file/default.json',

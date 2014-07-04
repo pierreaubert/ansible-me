@@ -1,0 +1,4 @@
+# {{ansible_managed}}
+check host grafana with address {{grafana_domain}}
+  group admin
+  if failed url http://{{grafana_user}}:{{grafana_pwd}}@{{grafana_domain}}:{{grafana_port}}/ with timeout 15 seconds then alert  

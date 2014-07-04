@@ -1,0 +1,4 @@
+# {{ansible_managed}}
+check host kibana with address {{kibana_domain}}
+  group admin
+  if failed url http://{{kibana_user}}:{{kibana_pwd}}@{{kibana_domain}}:{{kibana_port}}/ with timeout 15 seconds then alert  
