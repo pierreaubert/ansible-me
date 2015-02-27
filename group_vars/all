@@ -16,7 +16,7 @@ deploy_gateways:
   - 192.168.0.1
   - 192.168.1.1
   - 10.0.2.1
-deploy_public_key: /Users/pierre/.ssh/id_rsa.pub
+deploy_public_key: /Users/pierreaubert/.ssh/id_rsa.pub
 
 ntp_servers: 
   - 192.168.0.9

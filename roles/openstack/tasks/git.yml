@@ -1,0 +1,14 @@
+---
+- name: download devstack
+  git: dest=/home/stack/devstack
+       clone=yes
+       depth=1
+       recursive=yes
+       repo=https://git.openstack.org/openstack-dev/devstack
+  tags:
+    - devstack
+
+- name: chown directory to stack
+  file: path=/home/stack/devstack owner=stack group=stack recurse=yes
+  tags:
+    - devstack
