@@ -1,6 +1,6 @@
 ---
 # ======================================================================
-# apply to the only host
+# install mesos on a set of hosts
 # ======================================================================
 - hosts: all
   remote_user: pierre
@@ -9,12 +9,13 @@
 
   roles:
     - common
+    - mesos
     
   post_tasks:
   - name: Notify slask
     slack:
        domain: "{{slack_domain}}"
        token: "{{slack_token}}"
-       msg: "{{inventory_hostname}}/{{ansible_default_ipv4.address}} completed"
+       msg: "mesos installed on {{inventory_hostname}}/{{ansible_default_ipv4.address}}"
 
               

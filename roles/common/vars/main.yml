@@ -23,6 +23,10 @@ monit_username: '{{deploy_user}}'
 monit_password: 'monit.2014'
 monit_version: feature/slack
 # ----------------------------------------------------------------------
+# network
+# ----------------------------------------------------------------------
+fw_subnet: 192.168.1.0/24
+# ----------------------------------------------------------------------
 # slack webhook
 # ----------------------------------------------------------------------
 slack_webhook: https://7pi.slack.com/services/hooks/incoming-webhook?token=7QnKJAmD6so5dpZSBi1TAA4S

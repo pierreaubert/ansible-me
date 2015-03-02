@@ -8,8 +8,20 @@
     - flex
     - bison
     - libpam-dev
+    - make
+    - gcc
     - monit
   tags: 
+    - monit
+
+- name: Monit | Create group if not exist
+  group: name=monit state=present
+  tags: 
+    - monit
+
+- name: Monit | check monit conf dir
+  file: path=/etc/monit/conf.d group=monit state=directory
+  tags:
     - monit
 
 - name: monit | Copy source
@@ -45,17 +57,6 @@
     - monit
   notify: 
     - restart monit
-
-- name: Monit | Create group if not exist
-  group: name=monit state=present
-  tags: 
-    - monit
-
-- name: Monit | Open {{monit_port}} on lan
-  ufw: rule=allow src={{fw_subnet}} dest=any port={{monit_port}}
-  tags: 
-    - monit
-    - ufw
 
 - name: Monit | Add {{deploy_user}} in monit group
   user: name={{deploy_user}} groups=monit state=present

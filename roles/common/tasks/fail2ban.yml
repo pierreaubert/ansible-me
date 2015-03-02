@@ -14,12 +14,3 @@
   notify: 
     - restart fail2ban
 
-- name: Fail2ban | Deploy monit config
-  template: src=monit.d/fail2ban.conf.j2  dest=/etc/monit/conf.d/fail2ban.conf
-  notify:
-    - reload monit
-  tags:
-    - fail2ban
-    - monit
-
-

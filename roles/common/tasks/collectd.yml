@@ -47,14 +47,6 @@
   notify: 
     - restart collectd
 
-- name: Collectd | Deploy monit config
-  template: src=monit.d/collectd.conf.j2  dest=/etc/monit/conf.d/collectd.conf
-  notify:
-    - reload monit
-  tags:
-    - collectd
-    - monit
-
 - name: Collectd | Configure rsyslog 
   template: src=rsyslog.d/22-collectd.conf.j2 dest=/etc/rsyslog.d/22-collectd.conf
   tags: 

@@ -14,13 +14,6 @@
   notify: 
     - restart ntp
 
-- name: ntp | Copy monit conf
-  template: src=monit.d/ntp.conf.j2 
-            dest=/etc/monit/conf.d/ntp.conf
-  tags: 
-    - ntp
-    - monit
-
 - name: ntp | Start the service
   service: name=ntp state=started enabled=true
   tags: 

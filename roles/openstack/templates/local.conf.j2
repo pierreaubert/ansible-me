@@ -64,15 +64,15 @@ LOGDAYS=21
 # ---------------------------------
 
 # Uncomment these to grab the milestone-proposed branches from the repos:
-#CINDER_BRANCH=milestone-proposed
-#GLANCE_BRANCH=milestone-proposed
-#HORIZON_BRANCH=milestone-proposed
-#KEYSTONE_BRANCH=milestone-proposed
-#KEYSTONECLIENT_BRANCH=milestone-proposed
-#NOVA_BRANCH=milestone-proposed
-#NOVACLIENT_BRANCH=milestone-proposed
-#NEUTRON_BRANCH=milestone-proposed
-#SWIFT_BRANCH=milestone-proposed
+CINDER_BRANCH=stable/juno
+GLANCE_BRANCH=stable/juno
+HORIZON_BRANCH=stable/juno
+KEYSTONE_BRANCH=stable/juno
+KEYSTONECLIENT_BRANCH=stable/juno
+NOVA_BRANCH=stable/juno
+NOVACLIENT_BRANCH=stable/juno
+NEUTRON_BRANCH=stable/juno
+SWIFT_BRANCH=2.2.1
 
 # Swift
 # -----
@@ -97,4 +97,16 @@ SWIFT_DATA_DIR=$DEST/data
 # -------
 
 # Install the tempest test suite
-enable_service tempest
+
+# my config
+disable_service mysql
+enable_service postgresql
+
+#disable_service n-net
+#enable_service q-svc
+#enable_service q-agt
+#enable_service q-dhcp
+#enable_service q-l3
+#enable_service q-meta
+#enable_service q-metering
+#enable_service tempest
