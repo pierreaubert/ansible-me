@@ -14,10 +14,10 @@
 
 - name: Logrotate | Add a cron
   cron: name="logrotate"
-        hours=2
+        hour=2
+        minute=0
         state=present
         user=root
-        special_time=daily
-        jons="logrotate /etc/logrotate.conf"
+        job="logrotate /etc/logrotate.conf > /dev/null"
   tags: 
     - logrotate

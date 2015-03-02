@@ -17,4 +17,7 @@
 - include: logrotate.yml tags=common
 - include: rsyslog.yml tags=common
 - include: collectd.yml tags=common
+### monit install
 - include: monit.yml tags=common
+### all hooks for monit
+- include: monit-post.yml tags=common

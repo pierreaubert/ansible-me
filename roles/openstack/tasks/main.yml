@@ -1,0 +1,5 @@
+---
+- include: user.yml tags=openstack
+- include: apt.yml tags=openstack
+- include: git.yml tags=openstack
+- include: devstack.yml tags=openstack

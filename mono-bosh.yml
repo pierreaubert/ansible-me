@@ -9,14 +9,6 @@
 
   roles:
     - common
-    - hardware
-    - databases
-    - webservers
-    - admin
-#    - tsuru
-    - 7pi
-    - X11
-    - development
     
   post_tasks:
   - name: Notify slask

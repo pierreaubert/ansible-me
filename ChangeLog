@@ -1,3 +1,13 @@
+2015-02-27  Pierre Aubert  <pierreaubert@iMac-de-Pierre.local>
+
+	* roles/common/tasks/python.yml: change pip config, new pip do not
+	need cache
+
+2015-02-26  Pierre Aubert  <pierreaubert@iMac-de-Pierre.local>
+
+	* roles/common/tasks/logrotate.yml: jons->jobs (typo), hours->hour
+	upgrade for ansible 1.8.4
+
 2014-07-04  Pierre Aubert  <pierre@imac-pierre.home>
 
 	* version 1.0

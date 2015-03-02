@@ -1,0 +1,7 @@
+---
+- name: copy a local template
+  template: src=local.conf.j2 dest=/home/stack/devstack/local.conf backup=yes group=stack owner=stack
+  tags: debug
+  
+#- name: run stack (very long)
+#  tags: stack

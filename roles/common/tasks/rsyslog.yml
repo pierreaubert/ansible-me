@@ -18,14 +18,6 @@
   notify: 
     - restart rsyslog
 
-- name: Rsyslog | Deploy monit config
-  template: src=monit.d/rsyslog.conf.j2  dest=/etc/monit/conf.d/rsyslog.conf
-  notify:
-    - reload monit
-  tags:
-    - rsyslog
-    - monit
-
 - name: Configure rsyslog per channel
   template: src=rsyslog.d/{{item}}.j2 dest=/etc/rsyslog.d/{{item}}
   with_items:

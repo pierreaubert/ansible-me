@@ -1,0 +1,34 @@
+---
+# ======================================================================
+# install devstack on a host
+# ======================================================================
+- hosts: all
+  remote_user: pierre
+  sudo_user: root
+  sudo: True
+
+  tasks:
+    - include: roles/common/tasks/tz.yml
+    - include: roles/common/tasks/locale.yml
+    - { include: roles/common/tasks/deploy.yml,
+        user='pierre',
+        deploy_user='pierre',
+        ssh_keys: [
+          "{{lookup('file','/home/pierreaubert/.ssh/id_rsa.pub'}}"
+          ]
+      }
+    - include: roles/common/tasks/apt.yml
+    - include: roles/common/tasks/ntp.yml
+    - include: roles/common/tasks/mosh.yml
+
+  roles:
+    - openstack
+    
+  post_tasks:
+  - name: Notify slask
+    slack:
+       domain: "{{slack_domain}}"
+       token: "{{slack_token}}"
+       msg: "devstack installed on {{inventory_hostname}}/{{ansible_default_ipv4.address}}"
+
+              

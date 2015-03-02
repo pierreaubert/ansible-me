@@ -1,0 +1,11 @@
+---
+- name: add user stack
+  user: name=stack password=stackme
+  tags:
+    - user
+
+- name: Add stack user to sudoers
+  lineinfile: "dest=/etc/sudoers regexp=stack line='stack ALL=(ALL) NOPASSWD: ALL' state=present"
+  tags:
+    - sudoers
+

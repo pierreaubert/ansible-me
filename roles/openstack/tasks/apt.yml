@@ -1,0 +1,6 @@
+---
+- name: install git
+  apt: name=git state=installed
+  tags:
+    - apt
+    - git

@@ -1,4 +1,11 @@
 ---
+- name: At | install client
+  apt: name={{item}} state=installed
+  with_items:
+   - at
+  tags: at
+  
 - name: Check ownership of /usr/bin/at
-  command: chown root:root /usr/bin/at
-  tags: security
+  file: path=/usr/bin/at owner=root
+  tags:
+    - security
