@@ -1,0 +1,55 @@
+---
+- name: Ntp | Copy monit conf
+  template: src=monit.d/ntp.conf.j2 
+            dest=/etc/monit/conf.d/ntp.conf
+  tags: 
+    - ntp
+    - monit
+
+- name: Collectd | Deploy monit config
+  template: src=monit.d/collectd.conf.j2  dest=/etc/monit/conf.d/collectd.conf
+  notify:
+    - reload monit
+  tags:
+    - collectd
+    - monit
+
+- name: Fail2ban | Deploy monit config
+  template: src=monit.d/fail2ban.conf.j2  dest=/etc/monit/conf.d/fail2ban.conf
+  notify:
+    - reload monit
+  tags:
+    - fail2ban
+    - monit
+
+- name: Rsyslog | Deploy monit config
+  template: src=monit.d/rsyslog.conf.j2  dest=/etc/monit/conf.d/rsyslog.conf
+  notify:
+    - reload monit
+  tags:
+    - rsyslog
+    - monit
+
+- name: Ssh | Deploy monit config
+  template: src=monit.d/openssh-server.conf.j2 dest=/etc/monit/conf.d/openssh-server.conf
+  notify:
+    - reload monit
+  tags:
+    - ssh
+    - monit
+
+- name: Copy ufw conf for monit
+  template: src=monit.d/ufw.conf.j2 dest=/etc/monit/conf.d/ufw.conf
+  tags:
+    - ufw
+    - monit 
+  notify:
+    - reload monit
+
+- name: Copy checker script for monit
+  template: src=monit.d/check-ufw.sh.j2 dest=/etc/monit/check-ufw.sh mode=0755
+  tags:
+    - ufw
+    - monit 
+  notify:
+    - reload monit

@@ -1,0 +1,21 @@
+---
+- name: add apt key for mesosphere
+  apt_key: keyserver=keyserver.ubuntu.com id=E56151BF
+  tags:
+    - apt
+
+- name: add repo for apt
+  apt_repository: repo='deb http://repos.mesosphere.io/ubuntu trusty main' state=present
+  tags:
+    - apt
+
+- name: install mesos, marathon, chronos
+  apt: name={{item}} state=installed
+  with_items:
+    - zookeeper
+    - mesos
+    - marathon
+    - chronos
+  tags:
+    - apt
+    - git

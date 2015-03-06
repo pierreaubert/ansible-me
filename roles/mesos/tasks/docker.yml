@@ -1,0 +1,15 @@
+---
+- name: add docker support in mesos-slave configuration
+  command: "echo 'docker,mesos' > /etc/mesos-slave/containers"
+  tags:
+    - docker
+    - mesos-slave
+
+- name: increase executor time
+  command: "echo '5mins' > /etc/mesos-slave/executor_registration_timeout"
+  notify:
+    - restart mesos-slave
+  tags:
+    - docker
+    - mesos-slave
+    

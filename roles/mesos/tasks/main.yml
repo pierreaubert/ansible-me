@@ -1,0 +1,3 @@
+---
+- include: apt.yml tags=mesos
+- include: docker.yml tags=mesos
