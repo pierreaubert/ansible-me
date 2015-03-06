@@ -9,13 +9,3 @@
   tags:
     - apt
 
-- name: install mesos, marathon, chronos
-  apt: name={{item}} state=installed
-  with_items:
-    - zookeeper
-    - mesos
-    - marathon
-    - chronos
-  tags:
-    - apt
-    - git

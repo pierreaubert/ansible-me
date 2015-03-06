@@ -1,3 +1,7 @@
+2015-03-06  Pierre Aubert  <pierreaubert@iMac-de-Pierre.local>
+
+	* mono-mesos.yml: typo
+
 2015-02-27  Pierre Aubert  <pierreaubert@iMac-de-Pierre.local>
 
 	* roles/common/tasks/python.yml: change pip config, new pip do not
