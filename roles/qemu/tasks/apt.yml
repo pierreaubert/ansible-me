@@ -1,0 +1,12 @@
+- name: Postgresql | install server and related packages if on Ubuntu 14.04
+  apt: pkg={{ item }} state=installed
+  with_items:
+    - apt-cache-ng
+    - libvirt-bin
+    - ubuntu-vm-builder
+    - bridge-utils
+    - qemu-kvm
+    - qemu-system
+    - virt-manager
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == "trusty"
+  tags: qemu

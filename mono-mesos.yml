@@ -10,9 +10,11 @@
   roles:
     - common
     - mesos
+    - mesos-master
+    - mesos-slave
     
   post_tasks:
-  - name: Notify slask
+  - name: Notify slack
     slack:
        domain: "{{slack_domain}}"
        token: "{{slack_token}}"

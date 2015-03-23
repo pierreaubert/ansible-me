@@ -1,0 +1,43 @@
+---
+# ======================================================================
+# apply to all vps
+# ======================================================================
+- hosts: all
+  remote_user: vps
+  sudo_user: root
+  sudo: True
+
+  handlers:
+    - include: roles/common/handlers/main.yml
+      
+  tasks:
+    - { timezone: 'America/Montreal',
+        include: roles/common/tasks/tz.yml
+    }
+    - { locale: 'fr_FR.UTF-8',
+        include: roles/common/tasks/locale.yml
+    }
+    - include: roles/common/tasks/apt.yml
+    - include: roles/common/tasks/ntp.yml
+    - include: roles/common/tasks/ufw.yml
+    - include: roles/common/tasks/mosh.yml
+    - {
+      deploy_user: 'vps',
+      include: roles/common/tasks/python.yml
+    }
+    - include: roles/common/tasks/fail2ban.yml
+    - include: roles/common/tasks/logwatch.yml
+    - include: roles/common/tasks/security.yml
+    - include: roles/common/tasks/sysctl.yml
+
+  roles:
+    - torrent
+    
+  post_tasks:
+  - name: Notify slask
+    slack:
+       domain: "{{slack_domain}}"
+       token: "{{slack_token}}"
+       msg: "{{inventory_hostname}}/{{ansible_default_ipv4.address}} completed"
+
+              

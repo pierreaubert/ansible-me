@@ -1,0 +1,37 @@
+---
+- name: Torrent | install ultimate blocklist source
+  git: repo=https://github.com/walshie4/Ultimate-Blocklist.git
+       dest=/home/vps/src/Ultimate-Blocklist
+       depth=1
+  tags:
+    - blocklist
+    - torrent
+
+- name: Torrent | use pip to install packages
+  pip: requirements=/home/vps/src/Ultimate-Blocklist/requirements.pip
+       virtualenv=/home/vps/src/Ultimate-Blocklist/venv
+  tags:
+    - blocklist
+    - pip
+    - torrent
+
+- name: Torrent | check ownership of files
+  file: path=/home/vps/src/Ultimate-Blocklist owner=vps group=vps recurse=true
+  tags:
+    - blocklist
+    - torrent
+
+- name: Torrent | Download blocklists
+  command: "cd /home/vps/Ultimate-Blocklist && source venv/bin/activate && python UltimateBlockList.py"
+  when:
+    - download is defined
+  tags:
+    - do-download
+    - blocklist
+    - torrent
+
+#- name: Torrent | Copy blocklists to transmission
+#  tags:
+#    - blocklist
+#    - torrent
+    

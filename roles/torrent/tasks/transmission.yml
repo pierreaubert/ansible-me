@@ -1,0 +1,32 @@
+---
+- name: Torrent | add usefull packages
+  apt: pkg={{ item }} state=installed
+  with_items:
+    - transmission-cli
+    - transmission-remote-cli
+  tags:
+    - apt
+    - torrent
+
+- name: Torrent | check local directory
+  file: path={{item}} group=vps owner=vps mode=0700 state=directory
+  with_items:
+    - /home/vps/download
+    - /home/vps/download/torrent
+    - /home/vps/download/finished
+    - /home/vps/download/running
+    - /home/vps/.config
+    - /home/vps/.config/transmission
+  tags:
+    - torrent
+
+- name: Torrent | deploy configuration file
+  template: src=transmission.conf.j2 dest=/home/vps/.config/transmission/settings.json group=vps mode=0600 owner=vps
+  tags:
+    - torrent
+
+- name: Torrent | open rpc port
+  ufw: rule=limit port={{transmission_rpc_port}} proto=tcp 
+  tags:
+    - ufw
+    - torrent

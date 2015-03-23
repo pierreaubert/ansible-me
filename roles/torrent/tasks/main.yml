@@ -1,0 +1,5 @@
+---
+- include: transmission.yml tags=torrent
+- include: blocklist.yml tags=torrent
+- include: sysctl.yml tags=torrent
+  

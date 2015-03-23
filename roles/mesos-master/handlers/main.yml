@@ -1,0 +1,44 @@
+---
+- name: restart zookeeper
+  service: name=zookeeper state=restarted
+  tags:
+    - service
+    - zookeeper
+
+- name: start mesos-master
+  service: name=mesos-master state=started
+  tags:
+    - service
+    - mesos-master
+
+- name: start mesos-slave
+  service: name=mesos-slave state=started
+  tags:
+    - service
+    - mesos-slave
+
+
+- name: start marathon
+  service: name=marathon state=started
+  tags:
+    - service
+    - marathon
+
+- name: restart mesos-master
+  service: name=mesos-master state=restarted
+  tags:
+    - service
+    - mesos-master
+
+- name: restart mesos-slave
+  service: name=mesos-slave state=restarted
+  tags:
+    - service
+    - mesos-slave
+
+
+- name: restart marathon
+  service: name=marathon state=restarted
+  tags:
+    - service
+    - marathon

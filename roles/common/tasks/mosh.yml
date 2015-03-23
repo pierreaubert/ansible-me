@@ -1,5 +1,19 @@
 ---
 - name: Install mosh
   apt: name=mosh state=present
-  tags: ssh
+  tags:
+    - ssh
+    - mosh
+
+- name: Open mosh udp port 60000
+  ufw: rule=allow port={{item}} proto=udp dest=any
+  with_items:
+    - 60000
+    - 60001
+    - 60002
+    - 60003
+  tags:
+    - ssh
+    - ufw
+    - mosh
 
