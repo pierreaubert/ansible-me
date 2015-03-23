@@ -51,3 +51,9 @@
     - ufw
     - rsyslog
 
+- name: Open ssh port 22
+  ufw: rule=allow port=22 proto=tcp dest=any
+  tags:
+    - ufw
+    
+

@@ -13,4 +13,13 @@ iface p5p1 inet static
       gateway 192.168.1.1
       dns-search home
       dns-nameservers 8.8.8.8 8.8.4.4
+
+ a bridge
+ auto br0
+ iface br0 inet dhcp
+      bridge_ports p5p1
+      bridge_stp off
+      bridge_fd 0
+      bridge_maxwait 0
+      post-up ip link set br0 address e0:3f:49:7a:a8:00
              

@@ -1,0 +1,3 @@
+---
+- name: qemu | get ubuntu cloud image
+  file: blah blah

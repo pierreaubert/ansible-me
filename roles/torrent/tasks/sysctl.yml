@@ -1,0 +1,8 @@
+---
+- name: Torrent | set adapted sysctl values
+  sysctl: name={{item.n}} value={{item.v}} sysctl_set=yes state=present reload=yes
+  with_items:
+    - {n: "net.core.rmem_max", v: "4194304"}
+    - {n: "net.core.wmem_max", v: "1048576"}
+  tags:
+    - sysctl
