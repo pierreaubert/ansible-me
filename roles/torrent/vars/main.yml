@@ -1,5 +1,6 @@
 ---
 transmission_rpc_user: vps
+transmission_rpc_server: "0.0.0.0"
 transmission_rpc_pwd: "{d88b39c47021a4d6de7f3356c5b190c30af42a84/DhTa4Ct"
 transmission_rpc_port: 9091
 

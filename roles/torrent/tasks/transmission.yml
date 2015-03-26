@@ -4,9 +4,11 @@
   with_items:
     - transmission-cli
     - transmission-remote-cli
+    - transmission-daemon
   tags:
     - apt
     - torrent
+    - transmission
 
 - name: Torrent | check local directory
   file: path={{item}} group=vps owner=vps mode=0700 state=directory
@@ -19,14 +21,26 @@
     - /home/vps/.config/transmission
   tags:
     - torrent
+    - transmission
 
-- name: Torrent | deploy configuration file
+- name: Torrent | deploy vps configuration file
   template: src=transmission.conf.j2 dest=/home/vps/.config/transmission/settings.json group=vps mode=0600 owner=vps
   tags:
     - torrent
+    - transmission
+
+- name: Torrent | deploy global configuration file
+  template: src=transmission.conf.j2 dest=/etc/transmission-daemon/settings.json group=vps mode=0600 owner=vps
+  tags:
+    - torrent
+    - transmission
+    - debug
+  notify:
+    - reload transmission
 
 - name: Torrent | open rpc port
   ufw: rule=limit port={{transmission_rpc_port}} proto=tcp 
   tags:
     - ufw
     - torrent
+    - transmission
