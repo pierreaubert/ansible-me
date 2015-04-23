@@ -1,13 +1,29 @@
 ---
+- name: Influxdb | create user influxdb if needed
+  user: name=influxdb generate_ssh_key=yes ssh_key_bits=2048 ssh_key_file=.ssh/id_rsa
+  tags: influxdb
+  
+- name: Influxdb | check ~/tmp exist
+  file: path=/home/{{deploy_user}}/tmp
+        state=directory
+        owner={{deploy_user}}
+        group={{deploy_user}}
+        mode=0755
+  tags: influxdb
+  
 - name: Influxdb | download package
   get_url: url=http://s3.amazonaws.com/influxdb/influxdb_latest_amd64.deb
            dest=/home/{{deploy_user}}/tmp/influxdb_latest_amd64.deb
            mode=0644
   tags: influxdb
 
+- name: Influxdb | install package
+  apt: deb=/home/{{deploy_user}}/tmp/influxdb_latest_amd64.deb
+  tags: influxdb
+
 - name: Influxdb | Check permission
   file: path={{item}}
-        state=file
+        state=touch
         owner=influxdb
         group=influxdb
         mode=0644
