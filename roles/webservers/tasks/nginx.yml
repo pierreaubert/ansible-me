@@ -6,24 +6,6 @@
   tags: 
     - nginx
 
-- name: copy nginx config files
-  template: src=nginx/{{item}}.j2 
-            dest=/etc/nginx/{{item}}
-  with_items:
-    - nginx.conf
-    - naxsi.rules
-    - naxsi_core.rules
-  tags: 
-    - nginx
-
-- name: Nginx | Deploy monit config
-  template: src=monit.d/nginx.conf.j2  dest=/etc/monit/conf.d/nginx.conf
-  notify: 
-    - reload monit
-  tags:
-    - nginx
-    - monit
-
 - name: Expose nginx on internet on port 80
   ufw: rule=allow proto=tcp port=80  
   tags: 
@@ -36,7 +18,23 @@
     - nginx
     - ufw
 
-- name: Reload nginw
-  command: nginx -s reload
+- name: copy nginx config files
+  template: src=nginx/{{item}}.j2 
+            dest=/etc/nginx/{{item}}
+  with_items:
+    - nginx.conf
+    - naxsi.rules
+    - naxsi_core.rules
+  notify: 
+    - restart monit
   tags: 
     - nginx
+
+- name: Nginx | Deploy monit config
+  template: src=monit.d/nginx.conf.j2  dest=/etc/monit/conf.d/nginx.conf
+  notify: 
+    - reload monit
+  tags:
+    - nginx
+    - monit
+

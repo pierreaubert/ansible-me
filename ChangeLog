@@ -1,3 +1,7 @@
+2015-04-23  Pierre Aubert  <pierreaubert@iMac-de-Pierre.local>
+
+	* roles/webservers/handlers/main.yml: add a reload handler for nginx
+
 2015-03-06  Pierre Aubert  <pierreaubert@iMac-de-Pierre.local>
 
 	* mono-mesos.yml: typo
