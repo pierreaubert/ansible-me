@@ -14,6 +14,14 @@
     - phantomjs
   tags: visage
 
+- name: Visage | check ~/src exist
+  file: path=/home/{{deploy_user}}/src/visage
+        state=directory
+        owner={{deploy_user}}
+        group={{deploy_user}}
+        mode=0755
+  tags: visage
+  
 - name: Visage | Checkout software
   git: repo=https://github.com/auxesis/visage.git
        dest=/home/{{deploy_user}}/src/visage

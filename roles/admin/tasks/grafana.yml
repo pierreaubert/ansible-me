@@ -15,12 +15,12 @@
     - grafana
 
 - name: Ensure we have the latest release
-  get_url: url={{kibana_url}} dest=/tmp/grafana-{{grafana_version}}.tar.gz
+  get_url: url={{kibana_url}} dest=/tmp/grafana-{{grafana_version}}_amd64.deb
   tags:
     - grafana
 
-- name: Untar grafana
-  shell: "cd /var/www && tar zxf /tmp/grafana-{{grafana_version}}.tar.gz"
+- name: Install grafana
+  apt: deb=/tmp/grafana-{{grafana_version}}_amd64.deb
   tags:
     - grafana
 
@@ -33,14 +33,14 @@
   tags:
     - grafana
 
-- name: Ensure grafana's nginx site is in place
+- name: Ensure grafana''s nginx site is in place
   template: src=nginx/grafana.conf.j2 
             dest=/etc/nginx/sites-available/grafana 
             mode=0755
   tags:
     - grafana
 
-- name: Ensure grafana's htpasswd file is in place
+- name: Ensure grafana''s htpasswd file is in place
   copy: src=htpassword dest=/var/www/htpasswd mode=0644 owner=root group=root
   tags:
     - grafana

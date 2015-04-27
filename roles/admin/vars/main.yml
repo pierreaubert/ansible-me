@@ -66,13 +66,13 @@ tasseo_port: 5000
 # --------------------------------------------------------------------
 visage_dir: /home/{{deploy_user}}/src/visage
 visage_host: 192.168.1.18
-visage_port: 5050
+visage_port: 5001
 # --------------------------------------------------------------------
 # grafana
 # --------------------------------------------------------------------
-grafana_previous: 1.5.4
-grafana_version: 1.6.1
-grafana_url: http://grafanarel.s3.amazonaws.com/grafana-{{grafana_version}}.tar.gz
+grafana_previous: 1.6.1
+grafana_version: 2.0.2
+grafana_url: http://grafanarel.s3.amazonaws.com/builds/grafana-{{grafana_version}}_amd64.deb
 grafana_user: kibana
 grafana_pwd: banana2013
 grafana_domain: 192.168.1.18

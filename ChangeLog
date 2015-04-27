@@ -1,3 +1,7 @@
+2015-04-27  Pierre Aubert  <pierreaubert@iMac-de-Pierre.local>
+
+	* roles/admin/vars/main.yml (visage_port): conflit avec mesos
+
 2015-04-23  Pierre Aubert  <pierreaubert@iMac-de-Pierre.local>
 
 	* roles/admin/tasks/kibana.yml: not perfect define -e update=yes
