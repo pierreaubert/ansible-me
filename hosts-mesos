@@ -1,0 +1,14 @@
+[masters]
+mesos-master1 ansible_ssh_host=10.0.3.184 ansible_ssh_port=22
+mesos-master2 ansible_ssh_host=10.0.3.162 ansible_ssh_port=22
+mesos-master3 ansible_ssh_host=10.0.3.24  ansible_ssh_port=22
+[slaves]
+mesos-slave1 ansible_ssh_host=10.0.3.45  ansible_ssh_port=22
+mesos-slave2 ansible_ssh_host=10.0.3.152 ansible_ssh_port=22
+mesos-slave3 ansible_ssh_host=10.0.3.35 ansible_ssh_port=22
+mesos-slave4 ansible_ssh_host=10.0.3.110 ansible_ssh_port=22
+mesos-slave5 ansible_ssh_host=10.0.3.204 ansible_ssh_port=22
+mesos-slave6 ansible_ssh_host=10.0.3.236 ansible_ssh_port=22
+mesos-slave7 ansible_ssh_host=10.0.3.90 ansible_ssh_port=22
+mesos-slave8 ansible_ssh_host=10.0.3.61 ansible_ssh_port=22
+mesos-slave9 ansible_ssh_host=10.0.3.16 ansible_ssh_port=22

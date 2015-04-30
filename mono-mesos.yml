@@ -10,14 +10,28 @@
   roles:
     - common
     - mesos
+    
+- hosts: masters
+  remote_user: pierre
+  sudo_user: root
+  sudo: True
+
+  roles:
     - mesos-master
+    
+- hosts: slaves
+  remote_user: pierre
+  sudo_user: root
+  sudo: True
+
+  roles:
     - mesos-slave
     
-  post_tasks:
-  - name: Notify slack
-    slack:
-       domain: "{{slack_domain}}"
-       token: "{{slack_token}}"
-       msg: "mesos installed on {{inventory_hostname}}/{{ansible_default_ipv4.address}}"
+#  post_tasks:
+#  - name: Notify slack
+#    slack:
+#       domain: "{{slack_domain}}"
+#       token: "{{slack_token}}"
+#       msg: "mesos installed on {{inventory_hostname}}/{{ansible_default_ipv4.address}}"
 
               
