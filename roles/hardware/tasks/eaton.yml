@@ -6,6 +6,16 @@
   tags: 
     - nut
 
+- name: Eaton | install nut
+  apt: name={{item}} state=installed
+  with_items:
+    - policycoreutils
+    - nut-client
+    - nut-server
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == "vivid"
+  tags: 
+    - nut
+
 - name: Eaton | Copy config files
   template: src=nut/{{item}}.conf.j2 
             dest=/etc/nut/{{item}}.conf
@@ -24,7 +34,7 @@
 
 # lsusb | grep UPS | colrm 1 4 | colrm 15 | sed -r 's/([0-9]+) Device ([0-9]+)/\1\/\2/'
 - name: Eaton | Check device permission 
-  shell: "chown 0666 /dev/bus/usb/002/006"
+  shell: "chown 0666 /dev/bus/usb/006/003"
   tags: 
     - nut
 
@@ -46,10 +56,12 @@
   tags: 
     - nut
 
+# doesn't work on vivid
 - name: Eaton | Client start
   service: name=nut-client state=started enabled=true
   tags: 
     - nut
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release != "vivid"
 
 - name: Eaton | Server start
   service: name=nut-server state=started enabled=true

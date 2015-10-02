@@ -8,7 +8,7 @@
     - torrent
 
 - name: Torrent | use pip to install packages
-  pip: requirements=/home/vps/src/Ultimate-Blocklist/requirements.pip
+  pip: requirements=/home/vps/src/Ultimate-Blocklist/requirements.txt
        virtualenv=/home/vps/src/Ultimate-Blocklist/venv
   tags:
     - blocklist
@@ -22,7 +22,7 @@
     - torrent
 
 - name: Torrent | Download blocklists
-  command: "cd /home/vps/Ultimate-Blocklist && source venv/bin/activate && python UltimateBlockList.py"
+  command: "cd /home/vps/src/Ultimate-Blocklist && source venv/bin/activate && python UltimateBlockList.py"
   when:
     - download is defined
   tags:

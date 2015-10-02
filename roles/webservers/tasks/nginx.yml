@@ -5,6 +5,20 @@
     - nginx-naxsi
   tags: 
     - nginx
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == "trusty"
+
+- name: Install nginx and related packages
+  apt: pkg={{ item }} state=installed
+  with_items:
+    - nginx-full
+  tags: 
+    - nginx
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == "vivid"
+
+- name: Remove APache2
+  apt: pkg={{ item }} state=removed
+  with_items:
+    - apache2
 
 - name: Expose nginx on internet on port 80
   ufw: rule=allow proto=tcp port=80  

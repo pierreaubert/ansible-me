@@ -1,3 +1,6 @@
 # all hosts in multi conf
+[masters]
+vps153343 ansible_ssh_host=167.114.66.195 ansible_ssh_port=22
+[slaves]
 vps153343 ansible_ssh_host=167.114.66.195 ansible_ssh_port=22
 

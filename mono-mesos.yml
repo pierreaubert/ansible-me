@@ -3,7 +3,7 @@
 # install mesos on a set of hosts
 # ======================================================================
 - hosts: all
-  remote_user: pierre
+  remote_user: vps
   sudo_user: root
   sudo: True
 
@@ -12,7 +12,7 @@
     - mesos
     
 - hosts: masters
-  remote_user: pierre
+  remote_user: vps
   sudo_user: root
   sudo: True
 
@@ -20,18 +20,18 @@
     - mesos-master
     
 - hosts: slaves
-  remote_user: pierre
+  remote_user: vps
   sudo_user: root
   sudo: True
 
   roles:
     - mesos-slave
     
-#  post_tasks:
-#  - name: Notify slack
-#    slack:
-#       domain: "{{slack_domain}}"
-#       token: "{{slack_token}}"
-#       msg: "mesos installed on {{inventory_hostname}}/{{ansible_default_ipv4.address}}"
+  post_tasks:
+  - name: Notify slack
+    slack:
+       domain: "{{slack_domain}}"
+       token: "{{slack_token}}"
+       msg: "mesos installed on {{inventory_hostname}}/{{ansible_default_ipv4.address}}"
 
               

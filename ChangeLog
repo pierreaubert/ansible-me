@@ -1,3 +1,27 @@
+2015-10-02  Pierre Aubert  <pierreaubert@imac-de-pierre.local>
+
+	* roles/webservers/tasks/nginx.yml: looks like naxsi moved to
+	nginx-full on ubuntu15.04
+
+	* roles/databases/tasks/postgresql.yml: add a block for ubuntu 15.04
+
+	* roles/hardware/handlers/main.yml: creation
+
+	* roles/hardware/tasks/eaton.yml: fighting with nut, add new
+	packages but i can't get the client to run; server still fine but
+	ssl not working, i let the server run only on the loopback
+
+2015-06-15  Pierre Aubert  <pierreaubert@iMac-de-Pierre.local>
+
+	* roles/common/tasks/python.yml: add certifi for ssl connection
+	see: https://urllib3.readthedocs.org/en/latest/security.html#certifi-with-urllib3
+
+2015-06-12  Pierre Aubert  <pierreaubert@iMac-de-Pierre.local>
+
+	* roles/common/tasks/python.yml: some rules are only for precise
+
+	* roles/common/tasks/monit.yml: add libssl-dev
+
 2015-04-27  Pierre Aubert  <pierreaubert@iMac-de-Pierre.local>
 
 	* roles/admin/vars/main.yml (visage_port): conflit avec mesos

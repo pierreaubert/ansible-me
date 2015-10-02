@@ -36,7 +36,6 @@
     - service
     - mesos-slave
 
-
 - name: restart marathon
   service: name=marathon state=restarted
   tags:

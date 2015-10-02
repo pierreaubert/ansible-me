@@ -3,6 +3,7 @@
   apt_repository: repo='ppa:adiscon/v8-stable'
   tags: 
     - rsyslog
+  when: "ansible_lsb['codename'] == 'precise'"
 
 - name: Rsyslog | Install basic packages
   apt: name={{item}} state=installed

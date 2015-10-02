@@ -3,7 +3,9 @@
   apt: name={{item}} state=installed
   with_items:
    - rsyslog-elasticsearch
-  tags: 
+  when: 
+    - "ansible_lsb['codename'] == 'trusty'"
+  tags:
     - rsyslog
 
 - name: Rsyslog | Create index exist in elasticseach

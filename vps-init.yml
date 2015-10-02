@@ -1,0 +1,22 @@
+---
+# ======================================================================
+# apply to all vps
+# ======================================================================
+- hosts: all
+  remote_user: root
+  sudo_user: root
+
+  tasks:
+    - user: name=vps state=present
+    - authorized_key: user=vps key="{{ lookup('file', '/Users/pierreaubert/.ssh/id_rsa_vps.pub')  }}" exclusive=yes state=present
+    - lineinfile: dest=/etc/sudoers regexp="^%sudo" state=absent
+    - lineinfile: "dest=/etc/sudoers regexp=vps line='vps ALL=(ALL) NOPASSWD: ALL' state=present"
+
+  post_tasks:
+  - name: Notify slask
+    slack:
+       domain: "{{slack_domain}}"
+       token: "{{slack_token}}"
+       msg: "{{inventory_hostname}}/{{ansible_default_ipv4.address}} completed"
+
+              

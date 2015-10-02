@@ -11,9 +11,6 @@
     - include: roles/common/handlers/main.yml
       
   tasks:
-    - { timezone: 'America/Montreal',
-        include: roles/common/tasks/tz.yml
-    }
     - { locale: 'fr_FR.UTF-8',
         include: roles/common/tasks/locale.yml
     }
@@ -29,6 +26,7 @@
     - include: roles/common/tasks/logwatch.yml
     - include: roles/common/tasks/security.yml
     - include: roles/common/tasks/sysctl.yml
+    - include: roles/development/tasks/git.yml
 
   roles:
     - torrent

@@ -27,6 +27,20 @@
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == "trusty"
   tags: postgresql
 
+- name: Postgresql | install server and related packages if on Ubuntu 15.04
+  apt: pkg={{ item }} state=installed
+  with_items:
+    - postgresql-9.4
+    - postgresql-common
+    - postgresql-client
+    - postgresql-contrib
+    - postgresql-plpython-9.4
+    - python-psycopg2
+    - libpq-dev
+    # - postgrey
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == "vivid"
+  tags: postgresql
+
 - name: Postgresql | check directory /var/run/postgresql
   file: path=/var/run/postgresql 
         state=directory

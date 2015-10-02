@@ -1,3 +1,4 @@
 ---
 - include: apt.yml tags=mesos
+- include: zookeeper.yml tags=mesos
 
