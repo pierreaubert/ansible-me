@@ -2,58 +2,96 @@
 # Installs and configures ufw
 
 # ufw includes sensible icmp defaults
-- name: Install ufw
+- name: firewall | Install ufw
   apt: pkg=ufw state=present
   tags:
     - ufw
 
-- name: Set firewall rules
-  command: ufw allow {{ item }}
-  register: ufw_result
-  changed_when: "ufw_result.stdout.startswith('Rule')"
-  with_items:
-    - domain
-    - ssh/tcp
-    - 60000:61000/udp  # mosh udp packets
+- name: firewall | Ratelimit ssh
+  ufw:
+    rule: limit
+    port: ssh
+    proto: tcp
   tags:
     - ufw
+  become: true
 
-- name: Check status of ufw
+- name: firewall | Allow openssh
+  ufw:
+    rule: allow
+  tags:
+    - ufw
+  become: true
+
+- name: firewall | Delete OpenSSH rule
+  ufw:
+    rule: allow
+    delete: yes
+  tags:
+    - ufw
+  become: true
+
+- name: firewall | Allow mosh
+  ufw: 
+    rule: allow
+    port: 60000:61000
+    proto: udp
+  tags:
+    - ufw
+  become: true
+
+- name: firewall | Allow roon (tcp)
+  ufw: 
+    rule: allow
+    port: 9100:9200
+    proto: tcp
+  tags:
+    - ufw
+  become: true
+
+- name: firewall | Allow roon (udp)
+  ufw: 
+    rule: allow
+    port: 9003
+    proto: udp
+  tags:
+    - ufw
+  become: true
+
+- name: firewall | Check status of ufw
   command: ufw status
   register: ufw_status
   changed_when: False  # never report as "changed"
   tags:
     - ufw
+  become: true
 
-- name: Check config of ufw
+- name: firewall | Check config of ufw
   command: cat /etc/ufw/ufw.conf
   register: ufw_config
   changed_when: False  # never report as "changed"
   tags:
     - ufw
+  become: true
 
-- name: Disable logging (workaround for known bug in Debian 7)
+- name: firewall | Disable logging (workaround for known bug in Debian 7)
   command: ufw logging off
   when: "ansible_lsb['codename'] == 'wheezy' and 'LOGLEVEL=off' not in ufw_config.stdout"
   tags:
     - ufw
+  become: true
 
-- name: Enable ufw
-  command: ufw --force enable
-  when: "ufw_status.stdout.startswith('Status: inactive') or 'ENABLED=yes' not in ufw_config.stdout"
+- name: firewall | Enable ufw
+  ufw: 
+    state: enabled
   tags:
     - ufw
+  become: true
 
-- name: Copy ufw conf for rsyslog
+- name: firewall | Copy ufw conf for rsyslog
   template: src=rsyslog.d/20-ufw.conf.j2 
             dest=/etc/rsyslog.d/20-ufw.conf
   tags:
     - ufw
     - rsyslog
-
-- name: Open ssh port 22
-  ufw: rule=allow port=22 proto=tcp dest=any
-  tags:
-    - ufw
-    
 

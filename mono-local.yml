@@ -5,9 +5,11 @@
 - hosts: all
   remote_user: pierre
   become_user: root
+  become: true
 
   roles:
     - common
+    - hardware
     
   post_tasks:
   - name: Notify slask

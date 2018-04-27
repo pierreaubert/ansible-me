@@ -10,12 +10,13 @@ iface lo inet loopback
 # ----------------------------------------------------------------------
 # The primary network interface
 # ----------------------------------------------------------------------
-auto p5p1
-iface p5p1 inet static
+# TODO(pierre): how to automate interface name? it was p5p1
+auto enp9s0
+iface enp9s0 inet static
       address 192.168.1.18
       netmask 255.255.255.0
       gateway 192.168.1.1
-      dns-search home mesos
+      dns-search home
       dns-nameservers 192.168.1.18 8.8.8.8 8.8.4.4
 
 # ----------------------------------------------------------------------

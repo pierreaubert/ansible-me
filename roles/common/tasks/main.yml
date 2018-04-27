@@ -1,23 +1,41 @@
 ---
 ### for all servers
 - import_tasks: tz.yml
+  tags: common
 - import_tasks: locale.yml
+  tags: common
 - import_tasks: deploy.yml
+  tags: common
 - import_tasks: apt.yml
+  tags: common
 - import_tasks: ntp.yml
+  tags: common
 - import_tasks: mosh.yml
+  tags: common
 - import_tasks: python.yml
+  tags: common
+### admin client (need to be before ufw)
+- import_tasks: rsyslog.yml
+  tags: common
 ### security
 - import_tasks: ssh.yml
+  tags: common
 - import_tasks: ufw.yml
+  tags: common
 - import_tasks: fail2ban.yml
+  tags: common
 - import_tasks: logwatch.yml
+  tags: common
 - import_tasks: security.yml
+  tags: common
 ### admin client
 - import_tasks: logrotate.yml
-- import_tasks: rsyslog.yml
+  tags: common
 - import_tasks: collectd.yml
+  tags: common
 ### monit install
 - import_tasks: monit.yml
+  tags: common
 ### all hooks for monit
 - import_tasks: monit-post.yml
+  tags: common
