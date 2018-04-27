@@ -1,0 +1,19 @@
+---
+# ======================================================================
+# apply to the only host
+# ======================================================================
+- hosts: all
+  remote_user: pierre
+  become_user: root
+
+  roles:
+    - common
+    
+  post_tasks:
+  - name: Notify slask
+    slack:
+       domain: "{{slack_domain}}"
+       token: "{{slack_token}}"
+       msg: "{{inventory_hostname}}/{{ansible_default_ipv4.address}} completed"
+
+              

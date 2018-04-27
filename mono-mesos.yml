@@ -3,7 +3,7 @@
 # install mesos on a set of hosts
 # ======================================================================
 - hosts: all
-  remote_user: vps
+  remote_user: pierre
   sudo_user: root
   sudo: True
 
@@ -12,18 +12,16 @@
     - mesos
     
 - hosts: masters
-  remote_user: vps
+  remote_user: pierre
   sudo_user: root
   sudo: True
-
   roles:
     - mesos-master
     
 - hosts: slaves
-  remote_user: vps
+  remote_user: pierre
   sudo_user: root
   sudo: True
-
   roles:
     - mesos-slave
     

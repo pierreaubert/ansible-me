@@ -1,21 +1,27 @@
 ---
-- name: Update APT package cache once per day
+- name: apt | Install python-apt
+  apt: pkg={{item}}
+  with_items:
+    - python-apt
+  tags: apt
+
+- name: apt | Update APT package cache once per day
   apt: update_cache=yes cache_valid_time=86400
   tags: apt
  
-- name: Upgrade APT to the lastest packages
+- name: apt | Upgrade APT to the lastest packages
   apt: upgrade=safe
   tags: apt
 
-- name: Install unattended-upgrades
+- name: apt | Install unattended-upgrades
   apt: pkg=unattended-upgrades state=present
   tags: apt
  
-- name: Adjust APT update intervals
+- name: apt | Adjust APT update intervals
   template: src=apt_periodic.conf.j2 dest=/etc/apt/apt.conf.d/10periodic
   tags: apt
  
-- name: Make sure unattended-upgrades only installs from $ubuntu_release_security
+- name: apt | Make sure unattended-upgrades only installs from $ubuntu_release_security
   template: src=apt_unattended.conf.j2 dest=/etc/apt/apt.conf.d/50unattended-upgrades
   tags: apt
  

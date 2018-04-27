@@ -1,23 +1,23 @@
 ---
 ### for all servers
-- include: tz.yml tags=common
-- include: locale.yml tags=common
-- include: deploy.yml tags=common
-- include: apt.yml tags=common
-- include: ntp.yml tags=common
-- include: mosh.yml tags=common
-- include: python.yml tags=common
+- import_tasks: tz.yml
+- import_tasks: locale.yml
+- import_tasks: deploy.yml
+- import_tasks: apt.yml
+- import_tasks: ntp.yml
+- import_tasks: mosh.yml
+- import_tasks: python.yml
 ### security
-- include: ssh.yml tags=common
-- include: ufw.yml tags=common
-- include: fail2ban.yml tags=common
-- include: logwatch.yml tags=common
-- include: security.yml tags=common
+- import_tasks: ssh.yml
+- import_tasks: ufw.yml
+- import_tasks: fail2ban.yml
+- import_tasks: logwatch.yml
+- import_tasks: security.yml
 ### admin client
-- include: logrotate.yml tags=common
-- include: rsyslog.yml tags=common
-- include: collectd.yml tags=common
+- import_tasks: logrotate.yml
+- import_tasks: rsyslog.yml
+- import_tasks: collectd.yml
 ### monit install
-- include: monit.yml tags=common
+- import_tasks: monit.yml
 ### all hooks for monit
-- include: monit-post.yml tags=common
+- import_tasks: monit-post.yml

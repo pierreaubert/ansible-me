@@ -1,3 +1,7 @@
+2015-10-07  Pierre Aubert  <pierreaubert@imac-de-pierre.local>
+
+	* roles/hardware/templates/interfaces: add mesos in search domain
+
 2015-10-02  Pierre Aubert  <pierreaubert@imac-de-pierre.local>
 
 	* roles/webservers/tasks/nginx.yml: looks like naxsi moved to

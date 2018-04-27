@@ -1,8 +1,8 @@
 ---
-- name: Set /etc/localtime to {{timezone}}
+- name: Set /etc/localtime to "{{timezone}}"
   shell: "[ -f /usr/share/zoneinfo/{{timezone}} ] && sudo /bin/cp /usr/share/zoneinfo/{{timezone}} /etc/localtime"
   tags: tz
 
-- name: Set /etc/timezone to {{timezone}}
+- name: Set /etc/timezone to "{{timezone}}"
   template: src=timezone.j2 dest=/etc/timezone
   tags: tz

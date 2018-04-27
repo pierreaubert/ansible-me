@@ -1,6 +1,6 @@
 ---
-- name: ntp | Install missing packages
-  apt: name={{item}} state=installed
+- name: "ntp | Install missing packages"
+  apt: name="{{item}}" state=present
   with_items:
     - ntpdate
     - ntp

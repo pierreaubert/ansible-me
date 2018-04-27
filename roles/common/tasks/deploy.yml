@@ -7,14 +7,14 @@
   authorized_key: user={{ deploy_user }} key="{{ lookup('file', deploy_public_key) }}"
   tags: deploy
  
-- name: Remove sudo group rights
-  lineinfile: dest=/etc/sudoers regexp="^%sudo" state=absent
-  tags: deploy
+#- name: Remove sudo group rights
+#  lineinfile: dest=/etc/sudoers regexp="^%sudo" state=absent
+#  tags: deploy
  
-- name: Add deploy user to sudoers
-  # ALL = NOPASSWD: ALL
-  lineinfile: "dest=/etc/sudoers regexp={{deploy_user}} line='{{deploy_user}} ALL=(ALL) NOPASSWD: ALL' state=present"
-  tags:
-    - deploy
-    - sudoers
+#- name: Add deploy user to sudoers
+#  # ALL = NOPASSWD: ALL
+#  lineinfile: "dest=/etc/sudoers regexp={{deploy_user}} line='{{deploy_user}} ALL=(ALL) NOPASSWD: ALL' state=present"
+#  tags:
+#    - deploy
+#    - sudoers
 

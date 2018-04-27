@@ -1,25 +1,35 @@
 # This file describes the network interfaces available on your system
 # and how to activate them. For more information, see interfaces(5).
 
+# ----------------------------------------------------------------------
 # The loopback network interface
+# ----------------------------------------------------------------------
 auto lo
 iface lo inet loopback
 
+# ----------------------------------------------------------------------
 # The primary network interface
+# ----------------------------------------------------------------------
 auto p5p1
 iface p5p1 inet static
       address 192.168.1.18
       netmask 255.255.255.0
       gateway 192.168.1.1
-      dns-search home
-      dns-nameservers 8.8.8.8 8.8.4.4
+      dns-search home mesos
+      dns-nameservers 192.168.1.18 8.8.8.8 8.8.4.4
 
- a bridge
- auto br0
- iface br0 inet dhcp
-      bridge_ports p5p1
-      bridge_stp off
-      bridge_fd 0
-      bridge_maxwait 0
-      post-up ip link set br0 address e0:3f:49:7a:a8:00
-             
+# ----------------------------------------------------------------------
+# if we want to create a bridge 
+# ----------------------------------------------------------------------
+# auto br0
+# iface br0 inet dhcp
+#      bridge_ports p5p1
+#      bridge_stp off
+#      bridge_fd 0
+#      bridge_maxwait 0
+#      post-up ip link set br0 address e0:3f:49:7a:a8:00
+
+# ----------------------------------------------------------------------
+# wait a bit to please dhcp client
+# ----------------------------------------------------------------------
+pre-up sleep 2

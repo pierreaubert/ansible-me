@@ -3,5 +3,5 @@
   template: src=zk.j2 dest=/etc/mesos/zk
   tags: zookeeper
 
-- name: deploy zookeeper id
-  template: src=zkid.j2 dest=/etc/zookeeper/conf/myid
+#- name: deploy zookeeper id
+#  template: src=zkid.j2 dest=/etc/zookeeper/conf/myid

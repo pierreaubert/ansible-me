@@ -8,16 +8,24 @@
   apt_repository: repo='deb http://repos.mesosphere.io/ubuntu trusty main' state=present
   tags:
     - apt
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == "trusty"
 
-- name: Mesos | Install packages
+- name: Mesos | Install packages for Ubuntu/Trusty
   apt: pkg={{item}}
   with_items:
     - certifi
     - mesos.cli
-    - kazoo
-    - zookeeper
-    - zk.tools
   tags:
     - python
     - mesos
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == "trusty"
 
+- name: Mesos | Install packages
+  apt: pkg={{item}}
+  with_items:
+    - python-kazoo
+    - zookeeper
+  tags:
+    - python
+    - mesos
+    
