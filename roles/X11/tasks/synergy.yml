@@ -1,6 +1,6 @@
 ---
 - name: Synergy | install
-  apt: pkg={{item}} state=installed
+  apt: pkg={{item}} state=present
   with_items:
   - synergy
   tags: synergy

@@ -1,12 +1,12 @@
 ---
 - name: Install shinken
-  apt: name={{item}} state=installed
+  apt: name={{item}} state=present
   with_items:
    - shinken
   tags: shinken
 
 - name: Install shinken modules
-  apt: name={{item}} state=installed
+  apt: name={{item}} state=present
   with_items:
    - shinken-common
    - shinken

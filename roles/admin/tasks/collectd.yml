@@ -1,7 +1,7 @@
 ---
-# normally collectd is already installed
+# normally collectd is already present
 - name: Collectd | install packages
-  apt: pkg={{item}} state=installed
+  apt: pkg={{item}} state=present
   with_items:
     - collectd
   tags: 

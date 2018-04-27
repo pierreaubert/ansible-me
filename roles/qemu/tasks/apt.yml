@@ -1,5 +1,5 @@
 - name: Postgresql | install server and related packages if on Ubuntu 14.04
-  apt: pkg={{ item }} state=installed
+  apt: pkg={{ item }} state=present
   with_items:
     - apt-cache-ng
     - libvirt-bin

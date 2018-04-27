@@ -1,6 +1,6 @@
 ---
 - name: Tsuru | install docker container
-  apt: name={{item}} state=installed
+  apt: name={{item}} state=present
   with_items:
    - docker.io
   tags: tsuru

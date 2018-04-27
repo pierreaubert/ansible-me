@@ -1,6 +1,6 @@
 ---
 - name: Postgresql | install server and related packages if on Ubuntu 12.04
-  apt: pkg={{ item }} state=installed
+  apt: pkg={{ item }} state=present
   with_items:
     - postgrey
     - postgresql-9.1
@@ -14,7 +14,7 @@
   tags: postgresql
 
 - name: Postgresql | install server and related packages if on Ubuntu 14.04
-  apt: pkg={{ item }} state=installed
+  apt: pkg={{ item }} state=present
   with_items:
     - postgresql-9.3
     - postgresql-common
@@ -28,7 +28,7 @@
   tags: postgresql
 
 - name: Postgresql | install server and related packages if on Ubuntu 15.04
-  apt: pkg={{ item }} state=installed
+  apt: pkg={{ item }} state=present
   with_items:
     - postgresql-9.4
     - postgresql-common

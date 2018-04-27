@@ -1,6 +1,6 @@
 ---
 - name: install git
-  apt: name=git state=installed
+  apt: name=git state=present
   tags:
     - apt
     - git

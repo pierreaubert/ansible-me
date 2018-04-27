@@ -1,6 +1,6 @@
 ---
 - name: Unity | install
-  apt: pkg={{item}} state=installed
+  apt: pkg={{item}} state=present
   with_items:
   - unity
   tags: unity

@@ -1,6 +1,6 @@
 ---
 - name: Tasseo | Install bundler
-  apt: pkg=bundler state=installed
+  apt: pkg=bundler state=present
   tags: 
     - tasseo
 

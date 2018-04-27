@@ -29,6 +29,6 @@
     slack:
        domain: "{{slack_domain}}"
        token: "{{slack_token}}"
-       msg: "devstack installed on {{inventory_hostname}}/{{ansible_default_ipv4.address}}"
+       msg: "devstack present on {{inventory_hostname}}/{{ansible_default_ipv4.address}}"
 
               

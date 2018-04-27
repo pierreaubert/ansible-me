@@ -1,6 +1,6 @@
 ---
-- name: Ensure app apt dependencies are installed
-  apt: pkg={{item}} state=installed
+- name: Ensure app apt dependencies are present
+  apt: pkg={{item}} state=present
   with_items:
     - unzip
   tags:

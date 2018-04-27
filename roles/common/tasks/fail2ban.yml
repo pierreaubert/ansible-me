@@ -8,8 +8,10 @@
   tags: fail2ban
 
 - name: fail2ban | Config file
-  template: src=fail2ban.conf.j2 dest=/etc/fail2ban/fail2ban.conf
-  template: src=jail.conf.j2 dest=/etc/fail2ban/jail.conf
+  template: src="{{ item.a }}" dest="{{ item.b }}"
+  with_items:
+    - { a: 'fail2ban.conf.j2', b: '/etc/fail2ban.conf'}
+    - { a: 'jail.conf.j2',     b: '/etc/fail2ban/jail.conf'}
   tags: fail2ban
   notify: 
     - restart fail2ban

@@ -8,7 +8,7 @@
   tags: visage-app
 
 - name: Visage | Install bundler
-  apt: pkg=bundler state=installed
+  apt: pkg=bundler state=present
   with_items:
     - bundler
     - phantomjs
