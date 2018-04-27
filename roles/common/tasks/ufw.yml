@@ -34,7 +34,7 @@
 - name: firewall | Allow mosh
   ufw: 
     rule: allow
-    port: 60000:61000
+    port: '60000:61000'
     proto: udp
   tags:
     - ufw
@@ -43,10 +43,12 @@
 - name: firewall | Allow roon (tcp)
   ufw: 
     rule: allow
-    port: 9100:9200
+    port: '9100:9200'
     proto: tcp
+    src: 192.168.1.0/24
   tags:
     - ufw
+    - roon
   become: true
 
 - name: firewall | Allow roon (udp)
@@ -54,8 +56,10 @@
     rule: allow
     port: 9003
     proto: udp
+    src: 192.168.1.0/24
   tags:
     - ufw
+    - roon
   become: true
 
 - name: firewall | Check status of ufw
